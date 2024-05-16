@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use server"
 import Image from "next/image";
 
@@ -55,6 +56,12 @@ export default async function Home() {
 
 
 
+=======
+export default function Home() {
+  return (
+    <main className="flex min-h-screen flex-col bg-black text-white items-center justify-between p-24">
+      Hello
+>>>>>>> d329daa3c9bc489299ed82c1c29389a05b5ebaa9
     </main>
   );
 }
