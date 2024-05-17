@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
-
+import NavBar from "./(pages)/navbar/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,19 +15,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-
-
   return (
     <html lang="en">
       <head>
-      <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className={inter.className}>
-     
+      <body className={`${inter.className} bg-black text-white`}>
+        <NavBar />
         {children}
-       
-        </body>
+      </body>
     </html>
   );
 }
