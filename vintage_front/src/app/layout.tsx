@@ -20,9 +20,10 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className={`${inter.className} bg-black text-white`}>
+      <body className={`${inter.className} flex-col-reverse sm:flex bg-black text-white`}>
         <NavBar />
-        {children}
+        <main>
+        {children}</main>
       </body>
     </html>
   );

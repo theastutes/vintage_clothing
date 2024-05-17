@@ -1,9 +1,10 @@
-import { Suspense } from "react";
-import { auth, signIn, signOut } from "../../auth";
-import Loading from "./Loading";
-import UserView from "./UserView";
-import Loggedinuser from "./Loggedinuser";
-import { AuthError } from "@/lib/exceptions";
+"use server"
+import Image from "next/image";
+import { intro_banner } from "../../assets";
+import EmblaCarousel from "@/components/Carousel/EmblaCarousel";
+import { EmblaOptionsType } from "embla-carousel";
+
+
 
 interface IUser {
   name: string;
@@ -16,41 +17,45 @@ interface reponseprops {
 }
 
 export default async function Home() {
-  const session = await auth();
-  const user = session?.user;
-  if (!user) {
-    throw new AuthError();
-  }
+
+  // if (!user) {
+  //   throw new AuthError();
+  // }
+
+  const OPTIONS: EmblaOptionsType = { loop: true }
+  const SLIDE_COUNT = 5
+  const SLIDES = [
+    "/one.jpeg",
+    "/two.jpeg",
+    "/three.png",
+  ]
 
   return (
-    <main className="flex min-h-screen w-screen h-screen max-w-screen flex-col bg-black text-white items-center justify-between p-24 overflow-hidden">
-      Home
-      <form
-        className="w-full h-full text-center flex items-center justify-center"
-        action={async () => {
-          "use server";
-          try {
-            await signIn("google");
-          } catch (error) {
-            throw new Error("signin error");
-          }
-        }}
-      >
-        <button
-          className="p-4 px-12 font-mono font-bold text-white bg-white/30 hover:bg-white hover:text-black active:bg-white/30 active:text-white transition-colors duration-300 rounded-lg"
-          type="submit"
-        >
-          S I G N I N{session?.user?.name}
-        </button>
-      </form>
-      <Suspense fallback={<Loading />}>
-        <Loggedinuser user={user} />
-      </Suspense>
-      <Suspense fallback={<Loading />}>
+    <main className="relative flex min-h-screen w-screen h-screen max-w-screen flex-col bg-black text-white items-center justify-between  pt-14 overflow-scroll overflow-x-hidden gap-2">
+
+<div className="relative w-full h-[40%]   sm:rounded-2xl  overflow-hidden">
+          <Image src="/intro_banner.png" fill={true} alt={"Intro Banner"} className="sm:rounded-xl " style={{ objectFit: "cover" }} />
+
+        </div>
+
+      <div className="w-full h-full sm:aspect-square  sm:rounded-2xl overflow-hidden">
+          <EmblaCarousel slides={SLIDES} options={OPTIONS} />
+
+        </div>
+
+        
+
+
+
+      {/* <div className="  w-full p-2 rounded-3xl border-2 sm:overflow-hidden overflow-scroll">
+        Footer Categories
+      </div> */}
+
+      {/* <Suspense fallback={<Loading />}>
         <div className="w-screen h-full">
           <UserView />
         </div>
-      </Suspense>
+      </Suspense> */}
     </main>
   );
 }

@@ -24,7 +24,7 @@ app.use(cors(corsOptions));
 
 
 //MoongoDB connection
-mongoose.connect("mongodb+srv://Yash:password_nextecommerce20@cluster0.wcuhnni.mongodb.net/try").then(
+mongoose.connect("mongodb+srv://projectyjka:53yjka21@asciicluster0.pgohfwc.mongodb.net/test").then(
     console.log("Connection successful to DB")
 ).catch(
     (error) => {
