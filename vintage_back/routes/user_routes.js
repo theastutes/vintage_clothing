@@ -5,8 +5,10 @@ const router = express.Router();
 
 //get users
 router.get('/', userController.getUsers);
-router.post('/', userController.postUser);
-
-
+router.post('/', userController.createUser);
+router.get('/id',userController.getUserById);
+router.post('/updateuser',userController.updateUser)
+router.post('/adadres',userController.addAddr);
+router.post('/deladres',userController.delAddr);
 
 export default router;

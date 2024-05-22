@@ -1,8 +1,10 @@
 import bodyParser from "body-parser";
 import userRoutes from "./routes/user_routes.js";
+import prodRoutes from "./routes/prod_routes.js"
 import cors from "cors";
 import express from 'express';
 import mongoose from "mongoose";
+import cartRoutes from "./routes/cart_routes.js"
 
 
 const app = express();
@@ -36,6 +38,9 @@ mongoose.connect("mongodb+srv://projectyjka:53yjka21@asciicluster0.pgohfwc.mongo
 //Mount routes
 app.use("/api/users", userRoutes);
 
+app.use("/api/products", prodRoutes);
+
+app.use("/api/cart",cartRoutes);
 //Start server
 app.listen(PORT, () => {
     console.log(`Server is running on post ${PORT}`);
