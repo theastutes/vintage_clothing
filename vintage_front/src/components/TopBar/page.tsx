@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { FaEllipsisVertical } from "react-icons/fa6";
+import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { auth, signIn, signOut } from "../../../auth";
 import Link from "next/link";
 import { CiReceipt } from "react-icons/ci";
@@ -26,7 +26,7 @@ const TopBar = () => {
           <div className="font-bold mx-auto text-lg">VINTAGE</div>
         )}
       </div>
-      <FaEllipsisVertical color="white" size={20} />
+      <PiShoppingCartSimpleBold color="white" size={20} />
       {/* <div className="h-12 flex items-center justify-between w-15 text-white">
         <GiHamburgerMenu size={25} />
       </div> */}
