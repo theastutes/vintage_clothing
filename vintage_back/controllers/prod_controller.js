@@ -7,7 +7,7 @@ export const addProd = async (req, res) => {
         if (!title || !details || !images || !mrp || !sp || !category || !sizes) {
             res.status(500).json("field should not be empty!");
         }
-        else{
+        else {
             const newProduct = new Product({
                 title, details, images, mrp, sp, category, sizes
             });
@@ -19,7 +19,7 @@ export const addProd = async (req, res) => {
         console.error("Error creating product:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
-   
+
 }
 
 
@@ -31,18 +31,18 @@ export const updateprod = async (req, res) => {
     if (!prod.title || !prod.details || !prod.images || !prod.mrp || !prod.sp || !prod.category || !prod.sizes) {
         res.status(500).json("field should not be empty!");
     }
-    const product = await Product.findOneAndUpdate({_id:prod._id},prod)
+    const product = await Product.findOneAndUpdate({ _id: prod._id }, prod)
     //const productUpdated = await Product.updateOne(prod);
-   res.status(201).json("Update Successfull!!");
+    res.status(201).json("Update Successfull!!");
 }
 
 export const delProd = async (req, res) => {
-    const {id} = req.body;
-    try{
-    const delpro = await Product.findByIdAndDelete(id);
-    res.status(201).json(delpro);
+    const { id } = req.body;
+    try {
+        const delpro = await Product.findByIdAndDelete(id);
+        res.status(201).json(delpro);
     }
-    catch(error){
+    catch (error) {
         res.status(500).json({ error: "Internal Server Error" });
     }
 }
@@ -50,7 +50,7 @@ export const delProd = async (req, res) => {
 export const getProdById = async (req, res) => {
     try {
         console.log("REached here!")
-        const {id} = req.body;
+        const { id } = req.body;
         console.log(`Fetching product with ID: ${id}`);
         const product = await Product.findById(id);
         if (!product) {
@@ -66,8 +66,8 @@ export const getProdById = async (req, res) => {
 
 export const getProd = async (req, res) => {
     try {
-        const products =  await Product.find();
-        res.status(201).json("This is Get Products!!!");
+        const products = await Product.find();
+        res.status(201).json(products);
     } catch (error) {
         res.status(500).json({ error: "Internal Server Error" });
     }

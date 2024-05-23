@@ -2,15 +2,7 @@
 
 import axios from "axios";
 import { auth, signIn } from "../auth";
-interface IUser {
-  name: string;
-  email: string;
-  image: string;
-  id: string;
-}
-interface returnprops {
-  data: [IUser];
-}
+import { IUser, IProduct, returnprops } from "../types/types";
 
 export const getUsers = async <returnprops>() => {
   try {
@@ -62,5 +54,18 @@ export const login = async <IUser>({
     return data.data;
   } catch (error) {
     console.log("\nerror while adding user", error);
+  }
+};
+
+export const getProducts = async (): Promise<IProduct[] | undefined> => {
+  try {
+    const response = await axios.get(
+      "http://localhost:4000/api/products/getprods"
+    );
+    console.log("status code :", response.status, "Data:- :", response.data);
+    return response.data;
+  } catch (error) {
+    console.log("error getting product!");
+    return;
   }
 };

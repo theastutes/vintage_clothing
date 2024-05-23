@@ -16,6 +16,7 @@ const TopBar = () => {
       <div className="h-12 w-full flex items-center justify-between w-15 text-white">
         {usePathname() !== "/" ? (
           <IoIosArrowBack
+            className="cursor-pointer"
             onClick={() => {
               router.back();
             }}
