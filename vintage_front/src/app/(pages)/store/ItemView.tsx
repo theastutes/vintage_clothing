@@ -14,18 +14,16 @@ const ItemView = async () => {
         data.map((item: IProduct, index: number) => (
           <div
             key={index}
-            className="h-full overflow-hidden p-1 aspect-square rounded-[2px] bg-white/30 backdrop-blur-2xl"
+            className="h-full overflow-hidden aspect-square rounded-lg bg-white/30 backdrop-blur-2xl"
           >
             <Image
               className="bg-white h-[70%] w-full rounded-lg"
-              src={
-                "https://th.bing.com/th/id/OIP.HCUPqyz4ebTr7Z8MHlheqgHaI7?rs=1&pid=ImgDetMain"
-              }
+              src={item.images[0]}
               alt="Image"
               height={200}
               width={200}
             />
-            <div className=" max-h-full text-wrap truncate text-sm">
+            <div className=" max-h-full text-wrap truncate text-[4px]">
               {item.title}
             </div>
           </div>
