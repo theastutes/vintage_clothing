@@ -85,6 +85,9 @@ const orderSchema = new mongoose.Schema({
 });
 
 const userSchema = new mongoose.Schema({
+    googleId:{
+        type:String,
+    },
     name: {
         type: String,
         required: [true, "Please provide username"],

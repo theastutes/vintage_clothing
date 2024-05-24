@@ -1,10 +1,20 @@
+
 import bodyParser from "body-parser";
 import userRoutes from "./routes/user_routes.js";
 import prodRoutes from "./routes/prod_routes.js"
 import cors from "cors";
 import express from 'express';
 import mongoose from "mongoose";
+import session from "express-session";
 import cartRoutes from "./routes/cart_routes.js"
+import passport from "passport";
+import './auth/passport-config.js';
+
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+
 
 
 const app = express();
@@ -24,6 +34,10 @@ app.use((req, res, next) => {
 });
 app.use(cors(corsOptions));
 
+app.use(session({secret:'MySecret', resave:false, saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 //MoongoDB connection
 mongoose.connect("mongodb+srv://projectyjka:53yjka21@asciicluster0.pgohfwc.mongodb.net/test").then(
@@ -34,6 +48,18 @@ mongoose.connect("mongodb+srv://projectyjka:53yjka21@asciicluster0.pgohfwc.mongo
     }
 );
 
+
+
+//Authentication
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile','email'] }));
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('http://localhost:3000/');
+  });
 
 //Mount routes
 app.use("/api/users", userRoutes);
