@@ -7,6 +7,14 @@ const page = async () => {
   const session = await auth();
   if (!session?.user) redirect("/");
   return (
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    <div className="text-2xl h-screen flex items-center justify-center">
+      Cart
+=======
+<<<<<<< HEAD
+>>>>>>> 4850929 (ned)
     <div className="grid grid-rows-3 sm:grid-cols-3 gap-2 text-2xl h-screen overflow-y-scroll overflow-hidden p-2 sm:pb-2 pb-48">
       <div className="overflow-y-scroll overflow-hidden p-2 text-xs w-full row-span-3 sm:col-span-2 rounded-md bg-white/10">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus
@@ -77,6 +85,21 @@ const page = async () => {
           Checkout
         </Link>
       </div>
+<<<<<<< HEAD
+=======
+=======
+    <div className="text-xl  overflow-hidden h-screen grid grid-rows-2 sm:grid-cols-2 items-start ">
+      <div className="   h-screen text-orange-200 bg-white/20 overflow-y-scroll scroll overflow-hidden p-2">
+        <div className="w-full bg-yellow-200/20 h-28">
+        </div>
+      </div>
+      <div className="   bg-white/25 p-2 text-purple-200">
+        
+      </div>
+
+>>>>>>> f4ec3c5 (added authentication v1)
+>>>>>>> a02a66d (ned)
+>>>>>>> 4850929 (ned)
     </div>
   );
 };

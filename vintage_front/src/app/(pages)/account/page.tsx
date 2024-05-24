@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import LoginButton from "@/comp/LoginButton";
 import React from "react";
 import { auth } from "../../../../auth";
@@ -7,6 +8,34 @@ import { HiUser } from "react-icons/hi";
 
 const page = async () => {
   const session = await auth();
+=======
+<<<<<<< HEAD
+"use client";
+import React, { useEffect } from "react";
+
+const page = () => {
+=======
+<<<<<<< HEAD
+import LoginButton from "@/comp/LoginButton";
+import React from "react";
+import { auth } from "../../../../auth";
+import Image from "next/image";
+import { PiPerson } from "react-icons/pi";
+import { HiUser } from "react-icons/hi";
+
+const page = async () => {
+  const session = await auth();
+=======
+"use client";
+import React, { useEffect } from "react";
+import { auth } from "../../../../auth";
+
+const page = async () => {
+
+
+>>>>>>> f4ec3c5 (added authentication v1)
+>>>>>>> a02a66d (ned)
+>>>>>>> 4850929 (ned)
   return (
     <>
       <div className="h-screen overflow-hidden overflow-y-scroll w-full flex flex-col sm:flex-row items-center text-2xl">
