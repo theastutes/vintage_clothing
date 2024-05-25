@@ -4,6 +4,15 @@ export interface IUser {
   image: string;
   id: string;
 }
+
+export interface IItem {
+  productId: string;
+  quantity: number;
+  size: string;
+  color: string;
+  colorName?: string;
+}
+
 export interface returnprops {
   data: [IUser];
 }
@@ -21,6 +30,7 @@ export interface ISize {
 
 // Define the interface for Product
 export interface IProduct {
+  _id: string;
   title: string;
   details: string;
   images: string[];

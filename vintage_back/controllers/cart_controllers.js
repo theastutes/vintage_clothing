@@ -33,7 +33,7 @@ export const addToCart = async (req, res) => {
         user.cart = cart;
         await user.save();
         console.log(user.cart);
-        res.status(201).json(user.cart);
+        res.status(201).json("done!");
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: 'Internal server error' });
@@ -77,20 +77,20 @@ export const removeFromCart = async (req, res) => {
 
 export const updateCart = async (req, res) => {
     try {
-        const {productId,quantity,email} = req.body
-        const user = await User.findOne({email}).select('cart');
+        const { productId, quantity, email } = req.body
+        const user = await User.findOne({ email }).select('cart');
         console.log(user.cart);
         const existingItem = user.cart.find(item => item.productId.toString() === productId.toString());
 
         console.log("user cart : ", user.cart)
         if (existingItem) {
-            if(quantity===0) {
-                user.cart.$pop({ productId});
+            if (quantity === 0) {
+                user.cart.$pop({ productId });
             }
             existingItem.quantity = quantity;
         }
-        else{
-            user.cart.push({productId,quantity})
+        else {
+            user.cart.push({ productId, quantity })
         }
 
         const newCart = await user.save();

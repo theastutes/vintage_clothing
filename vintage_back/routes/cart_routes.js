@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/', cartController.addToCart);
 
 // View items in cart
-router.get('/getCart', cartController.getCart);
+router.post('/getCart', cartController.getCart);
 
 // Remove Item
 router.post('/removefromcart', cartController.removeFromCart);

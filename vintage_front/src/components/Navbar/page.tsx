@@ -9,7 +9,11 @@ import { usePathname } from "next/navigation";
 function NavBar() {
   return (
     <>
-      <div className="fixed sm:-z-50 sm:opacity-0 bottom-4 left-[10%] right-[10%] mx-auto p-[1px] h-[12%] min-w-fit sm:h-[25%] bg-white/15 backdrop-blur-3xl z-40 flex flex-row justify-between items-center rounded-full overflow-hidden ">
+      <div
+        className={`${
+          usePathname() === "/cart" && "-z-50 opacity-0"
+        } fixed sm:-z-50 sm:opacity-0 bottom-4 left-[10%] right-[10%] mx-auto p-[1px] h-[12%] min-w-fit sm:h-[25%] bg-white/15 backdrop-blur-3xl z-40 flex flex-row justify-between items-center rounded-full overflow-hidden`}
+      >
         {/* <div className="fixed transition-all duration-1000 flex flex-col justify-center items-start bottom-0 w-full h-full p-[2px] z-50 rounded-full">
           <div
             className={`${

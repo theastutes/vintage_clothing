@@ -49,14 +49,15 @@ export const delProd = async (req, res) => {
 
 export const getProdById = async (req, res) => {
     try {
-        console.log("REached here!")
+
         const { id } = req.body;
-        console.log(`Fetching product with ID: ${id}`);
+        console.log(`ID      : ${id}`);
         const product = await Product.findById(id);
+        console.log("product : ", product);
         if (!product) {
             return res.status(404).json({ error: "Product don't exist" })
         }
-        res.json(product);
+        res.status(200).json(product);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal Server Error" })
