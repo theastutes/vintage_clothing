@@ -5,7 +5,13 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  const newUser = {
+    id:user._id,
+    name:user.name,
+    email:user.email
+
+  }
+  done(null, newUser);
 });
 
 passport.deserializeUser(async (id, done) => {

@@ -9,7 +9,7 @@ import session from "express-session";
 import cartRoutes from "./routes/cart_routes.js"
 import passport from "passport";
 import './auth/passport-config.js';
-
+import MongoStore from "connect-mongo";
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -34,9 +34,6 @@ app.use((req, res, next) => {
 });
 app.use(cors(corsOptions));
 
-app.use(session({ secret: 'MySecret', resave: false, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
 
 
 //MoongoDB connection
@@ -48,7 +45,20 @@ mongoose.connect("mongodb+srv://projectyjka:53yjka21@asciicluster0.pgohfwc.mongo
   }
 );
 
+app.use(session({
+  secret: 'MySecret', resave: false, saveUninitialized: true,
+  cookie: {
+    maxAge: 36000 * 24,
+  },
+  store: MongoStore.create({
+    mongoUrl: 'mongodb+srv://projectyjka:53yjka21@asciicluster0.pgohfwc.mongodb.net/test',
 
+  }),
+  touchAfter: 24 * 3600
+
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Authentication
 app.get('/auth/google',
@@ -58,8 +68,26 @@ app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   function (req, res) {
     // Successful authentication, redirect home.
+    console.log(req.session);
+    console.log(req.sessionID)
+
+    res.cookie({ maxAge: 36000 * 24, })
     res.redirect('http://localhost:3000/');
   });
+app.get('/logout', function (req, res) {
+  req.session.destroy((err) => {
+    if (err) {
+      // Handle the error case
+      console.error('Session destruction error:', err);
+    } else {
+      // clear the cookie on the client side
+      res.clearCookie('connect.sid'); // Replace 'connect.sid' with your session cookie's name
+      res.send('Session destroyed and user logged out');
+    }
+    res.redirect('/');
+  });
+});
+
 
 //Mount routes
 app.use("/api/users", userRoutes);
@@ -67,6 +95,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/products", prodRoutes);
 
 app.use("/api/cart", cartRoutes);
+
 //Start server
 app.listen(PORT, () => {
   console.log(`Server is running on post ${PORT}`);
