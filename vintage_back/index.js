@@ -12,10 +12,8 @@ import './auth/passport-config.js';
 import MongoStore from "connect-mongo";
 import dotenv from 'dotenv';
 
+
 dotenv.config();
-
-
-
 
 const app = express();
 const PORT = 4000;
@@ -54,7 +52,7 @@ app.use(session({
     mongoUrl: 'mongodb+srv://projectyjka:53yjka21@asciicluster0.pgohfwc.mongodb.net/test',
 
   }),
-  touchAfter: 24 * 3600
+  touchAfter: 24 * 36000
 
 }));
 app.use(passport.initialize());
@@ -70,10 +68,12 @@ app.get('/auth/google/callback',
     // Successful authentication, redirect home.
     console.log(req.session);
     console.log(req.sessionID)
-
-    res.cookie({ maxAge: 36000 * 24, })
-    res.redirect('http://localhost:3000/');
+    const userSession = req.session?JSON.stringify(req.session):"No Session Data";
+    //res.redirect('http://localhost:3000/')
+    res.send(userSession);
+    console.log(res.cookie);
   });
+  
 app.get('/logout', function (req, res) {
   req.session.destroy((err) => {
     if (err) {
@@ -88,7 +88,12 @@ app.get('/logout', function (req, res) {
   });
 });
 
+app.get("/login/user",function (req,res){
+  const sesion = req.user;
+  
+  res.status(200).json(sesion);
 
+})
 
 //Mount routes
 app.use("/api/users", userRoutes);
@@ -101,3 +106,7 @@ app.use("/api/cart", cartRoutes);
 app.listen(PORT, () => {
   console.log(`Server is running on post ${PORT}`);
 })
+
+
+
+
