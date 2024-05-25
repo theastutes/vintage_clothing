@@ -61,12 +61,14 @@ app.get('/auth/google/callback',
     res.redirect('http://localhost:3000/');
   });
 
+
 //Mount routes
 app.use("/api/users", userRoutes);
 
 app.use("/api/products", prodRoutes);
 
 app.use("/api/cart", cartRoutes);
+
 //Start server
 app.listen(PORT, () => {
   console.log(`Server is running on post ${PORT}`);
