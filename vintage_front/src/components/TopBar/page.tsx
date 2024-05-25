@@ -27,27 +27,9 @@ const TopBar = () => {
           <div className="font-bold mx-auto text-lg">VINTAGE</div>
         )}
       </div>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-      <PiShoppingCartSimpleBold color="white" size={20} />
-=======
-<<<<<<< HEAD
->>>>>>> 4850929 (ned)
-
       <Link href={"/cart"}>
         <PiShoppingCartSimpleBold color="white" size={20} />
       </Link>
-
-<<<<<<< HEAD
-=======
-=======
-      <Link href="/cart">
-      <PiShoppingCartSimpleBold color="white" size={20} /></Link>
-      
->>>>>>> f4ec3c5 (added authentication v1)
->>>>>>> a02a66d (ned)
->>>>>>> 4850929 (ned)
       {/* <div className="h-12 flex items-center justify-between w-15 text-white">
         <GiHamburgerMenu size={25} />
       </div> */}
@@ -56,9 +38,6 @@ const TopBar = () => {
 };
 
 export default TopBar;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 
 // const LoginButton = async () => {
 //   const session = await auth();
@@ -110,10 +89,3 @@ export default TopBar;
 //     </>
 //   );
 // };
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> f4ec3c5 (added authentication v1)
->>>>>>> a02a66d (ned)
->>>>>>> 4850929 (ned)

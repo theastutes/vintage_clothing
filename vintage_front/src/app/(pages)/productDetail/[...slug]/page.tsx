@@ -8,14 +8,16 @@ const Page = async ({ params }: { params: { slug: string } }) => {
     productId,
   });
   return (
-    <div className="w-full h-screen">
-      <Image
-        className="w-full aspect-square bg-white/20 rounded-md"
-        src={item?.images[0]!}
-        alt=""
-        height={500}
-        width={500}
-      />
+    <div className="w-full h-screen ">
+      <div className="w-full h-1/2 sm:w-1/3 sm:h-[80%] bg-white/20 rounded-md">
+        <Image
+          className="w-full h-full bg-white/20 rounded-md"
+          src={item?.images[0]!}
+          alt=""
+          height={500}
+          width={500}
+        />
+      </div>
       <div className="w-full flex items-center justify-center">
         <form
           action={async () => {

@@ -3,6 +3,7 @@
 import axios from "axios";
 import { auth, signIn } from "../auth";
 import { IUser, IProduct, returnprops, IItem } from "../types/types";
+import { redirect } from "next/dist/server/api-utils";
 
 export const getUsers = async <returnprops>() => {
   try {
@@ -101,7 +102,7 @@ export const addToCart = async ({
       size: "xl",
       color: "white",
       colorName: "white",
-      email: "yash@mail.com",
+      email: "yashbishnoidelu@gmail.com",
     });
     console.log("Data:- :", response.data);
     return response.data;
@@ -128,5 +129,15 @@ export const getCart = async ({
   } catch (error) {
     console.log("error getting product!");
     return;
+  }
+};
+export const loginUser = async () => {
+  try {
+    console.log("135");
+    await axios.get("http://localhost:4000/auth/google");
+
+    console.log("137");
+  } catch (error) {
+    console.log("error while loggin in");
   }
 };
