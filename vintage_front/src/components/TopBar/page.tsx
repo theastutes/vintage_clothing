@@ -27,11 +27,27 @@ const TopBar = () => {
           <div className="font-bold mx-auto text-lg">VINTAGE</div>
         )}
       </div>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      <PiShoppingCartSimpleBold color="white" size={20} />
+=======
+<<<<<<< HEAD
+>>>>>>> 4850929 (ned)
 
       <Link href={"/cart"}>
         <PiShoppingCartSimpleBold color="white" size={20} />
       </Link>
 
+<<<<<<< HEAD
+=======
+=======
+      <Link href="/cart">
+      <PiShoppingCartSimpleBold color="white" size={20} /></Link>
+      
+>>>>>>> f4ec3c5 (added authentication v1)
+>>>>>>> a02a66d (ned)
+>>>>>>> 4850929 (ned)
       {/* <div className="h-12 flex items-center justify-between w-15 text-white">
         <GiHamburgerMenu size={25} />
       </div> */}
@@ -40,3 +56,64 @@ const TopBar = () => {
 };
 
 export default TopBar;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+// const LoginButton = async () => {
+//   const session = await auth();
+//   const user = session?.user;
+
+//   return (
+//     <>
+//       {user ? (
+//         <div className="|--topbar--| flex flex-row ">
+//           <Link
+//             className={`hover:underline transition-all duration-700`}
+//             href={"/account"}
+//           >
+//             {session?.user?.name}
+//           </Link>
+//           <form
+//             className="text-center flex items-center justify-center"
+//             action={async () => {
+//               "use server";
+//               await signOut();
+//             }}
+//           >
+//             <button
+//               className="text-xs bg-white/20 backdrop-blur-3xl py-1 px-4 rounded-lg"
+//               type="submit"
+//             >
+//               LogOut
+//             </button>
+//           </form>
+//         </div>
+//       ) : (
+//         <form
+//           className="w-full h-full text-center flex items-center justify-center"
+//           action={async () => {
+//             "use server";
+
+//             await signIn("google");
+//           }}
+//         >
+//           <button
+//             className="text-xs h-8 aspect-square bg-white/20 backdrop-blur-3xl py-1 px-4 rounded-full"
+//             type="submit"
+//           >
+//             {/* LogIn */}
+//             {/* <CiReceipt /> */}
+//           </button>
+//         </form>
+//       )}
+//     </>
+//   );
+// };
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> f4ec3c5 (added authentication v1)
+>>>>>>> a02a66d (ned)
+>>>>>>> 4850929 (ned)
