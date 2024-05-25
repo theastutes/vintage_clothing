@@ -22,7 +22,7 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className={`${inter.className} bg-black text-white`}>
+      <body className={`${inter.className} bg-white/90 text-white`}>
         <header>
           <TopBar />
         </header>

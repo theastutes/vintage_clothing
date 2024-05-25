@@ -89,6 +89,7 @@ app.get('/logout', function (req, res) {
 });
 
 
+
 //Mount routes
 app.use("/api/users", userRoutes);
 

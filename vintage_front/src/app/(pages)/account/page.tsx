@@ -57,7 +57,7 @@ const page = async () => {
           </div>
         </div>
         <Link
-          className="mb-28"
+          className="absolute bottom-32"
           href={"http://localhost:4000/auth/google"}
           type="submit"
         >
