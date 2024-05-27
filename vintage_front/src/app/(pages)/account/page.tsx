@@ -1,3 +1,4 @@
+"use client";
 import LoginButton from "@/comp/LoginButton";
 import React, { Suspense } from "react";
 import { auth } from "../../../../auth";
@@ -9,8 +10,13 @@ import { loginUser } from "../../../../action/action";
 import Link from "next/link";
 import Loading from "@/app/Loading";
 
-const page = async () => {
-  let user;
+const page = () => {
+  // let user = document.cookie;
+
+  const handleLogin = () => {
+    window.open("http://localhost:4000/auth/google", "_self");
+  };
+
   return (
     <>
       <div className="px-3 pt-10 w-full flex items-center text-3xl text-black font-serif justify-start">
@@ -125,13 +131,14 @@ const page = async () => {
             </div>
           </div>
         </div>
-        <Link
+        <form
           className="absolute bottom-32"
-          href={"http://localhost:4000/auth/google"}
-          type="submit"
+          action={() => {
+            handleLogin();
+          }}
         >
-          Login{user}
-        </Link>
+          <button type="submit"> Login</button>
+        </form>
       </div>
     </>
   );
