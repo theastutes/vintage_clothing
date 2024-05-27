@@ -8,24 +8,15 @@ import session from 'express-session';
 dotenv.config();
 
 
- passport.serializeUser((user, done) => {
-  const newUser = {
-    googleId:user.googleId,
-    name:user.name,
-    email:user.email
-
-  }
-  done(null, newUser);
+passport.serializeUser((user, done) => {
+  done(null, user.id); // Serialize only the user ID
 });
 
+// Corrected deserialization
 passport.deserializeUser(async (id, done) => {
   try {
-    // const user = await User.findById(id);
-    const user = await User.findOne({googleId:id});
-    if(user){
-      done(null, user);
-    }
-    
+    const user = await User.findById(id); // Use findById to fetch the user
+    done(null, user);
   } catch (err) {
     done(err, null);
   }

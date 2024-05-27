@@ -1,4 +1,4 @@
-"use client";
+
 import LoginButton from "@/comp/LoginButton";
 import React, { Suspense } from "react";
 import { auth } from "../../../../auth";
@@ -9,13 +9,16 @@ import axios from "axios";
 import { loginUser } from "../../../../action/action";
 import Link from "next/link";
 import Loading from "@/app/Loading";
+import { access } from "fs";
 
-const page = () => {
-  // let user = document.cookie;
+const page = async () => {
 
-  const handleLogin = () => {
-    window.open("http://localhost:4000/auth/google", "_self");
-  };
+  try{
+    const user = await axios.get("http://localhost:4000/account",{withCredentials:true});
+    console.log(user.data)}
+    catch(err){
+      console.log("Caught an error : ", err)
+    }
 
   return (
     <>
@@ -131,7 +134,9 @@ const page = () => {
             </div>
           </div>
         </div>
-        <form
+        <Link href={"http://localhost:4000/auth/google"} className="absolute bottom-32">Login</Link>
+        <Link href = {"http://localhost:4000/logout"} className="absolute bottom-26">Logout</Link>
+        {/* <form
           className="absolute bottom-32"
           action={() => {
             handleLogin();
@@ -139,6 +144,14 @@ const page = () => {
         >
           <button type="submit"> Login</button>
         </form>
+        <form
+          className="absolute bottom-26"
+          action={() => {
+            handleLogout();
+          }}
+        >
+          <button type="submit"> Logout</button>
+        </form> */}
       </div>
     </>
   );

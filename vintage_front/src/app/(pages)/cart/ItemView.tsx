@@ -57,15 +57,15 @@ const Item = async ({ item }: { item: IItem }) => {
               </div>
             </div>
             <div className=" flex items-center justify-around text-xs w-full h-full px-4">
-              <button className="bg-black aspect-square size-4 shadow-sm shadow-gray-700 active:shadow-gray-200 transition-all duration-200 overflow-hidden flex items-center justify-center rounded-sm">
+              <div className="bg-black aspect-square size-4 shadow-sm shadow-gray-700 active:shadow-gray-200 transition-all duration-200 overflow-hidden flex items-center justify-center rounded-sm cursor-pointer">
                 <IoMdRemove />
-              </button>
+              </div>
               <span className="bg-black aspect-square size-4 shadow-sm shadow-gray-700 overflow-hidden flex items-center justify-center rounded-sm">
                 {item.quantity}
               </span>
-              <button className="bg-black aspect-square size-4 shadow-sm shadow-gray-700 active:shadow-gray-200 transition-all duration-200 overflow-hidden flex items-center justify-center rounded-sm">
+              <div className="bg-black aspect-square size-4 shadow-sm shadow-gray-700 active:shadow-gray-200 transition-all duration-200 overflow-hidden flex items-center justify-center rounded-sm cursor-pointer">
                 <RiAddFill />
-              </button>
+              </div>
             </div>
           </div>
           <div className=" flex flex-col items-center justify-between gap-2 max-h-full h-full rounded-md">

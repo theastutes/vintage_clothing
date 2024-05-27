@@ -45,18 +45,19 @@ mongoose.connect("mongodb+srv://projectyjka:53yjka21@asciicluster0.pgohfwc.mongo
 
 app.use(session({
   secret: 'MySecret', resave: false, saveUninitialized: true,
+  
   cookie: {
-    maxAge: 36000 * 24,
+    maxAge: 600000,
   },
   store: MongoStore.create({
     mongoUrl: 'mongodb+srv://projectyjka:53yjka21@asciicluster0.pgohfwc.mongodb.net/test',
-
   }),
-  touchAfter: 24 * 36000
-
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+
 
 //Authentication
 app.get('/auth/google',
@@ -67,26 +68,28 @@ app.get('/auth/google/callback',
   function (req, res) {
     // Successful authentication, redirect home.
     console.log(req.session);
-    console.log(req.sessionID)
-    const userSession = req.session?JSON.stringify(req.session):"No Session Data";
-    //res.redirect('http://localhost:3000/')
-    res.send(userSession);
-    console.log(res.cookie);
+    res.redirect('http://localhost:3000/')
+    //res.send(userSession);
+    //console.log(res.cookie);
   });
   
-app.get('/logout', function (req, res) {
-  req.session.destroy((err) => {
-    if (err) {
-      // Handle the error case
-      console.error('Session destruction error:', err);
-    } else {
-      // clear the cookie on the client side
-      res.clearCookie('connect.sid'); // Replace 'connect.sid' with your session cookie's name
-      res.send('Session destroyed and user logged out');
-    }
-    res.redirect('/');
+  app.get('/logout', function (req, res) {
+    req.session.destroy((err) => {
+      if (err) {
+        // Handle the error case
+        console.error('Session destruction error:', err);
+        res.status(500).send('Error logging out');
+      } else {
+        // clear the cookie on the client side
+        res.clearCookie('connect.sid'); // Replace 'connect.sid' with your session cookie's name
+        // Redirect to the home page or login page
+        res.redirect("http://localhost:3000/");
+      }
+    });
   });
-});
+
+
+  
 
 app.get("/login/user",function (req,res){
   const sesion = req.user;
