@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "../components/Navbar/page";
 import TopBar from "@/components/TopBar/page";
 import Footer from "@/components/Footer/page";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,19 @@ export default async function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={`${inter.className} bg-white/90 text-white`}>
+        <div className="fixed left-0 right-0 top-0 bottom-0 -z-10">
+          <Image
+            src={
+              "https://images.pexels.com/photos/1234853/pexels-photo-1234853.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            }
+            quality={1}
+            alt=""
+            fill={true}
+            style={{ objectFit: "cover" }}
+            className="h-screen"
+          />
+        </div>
+        <div className="fixed left-0 right-0 top-0 bottom-0 -z-10 bg-white/50 backdrop-blur-3xl"></div>
         <header>
           <TopBar />
         </header>

@@ -12,7 +12,7 @@ import LoginButton from "@/comp/LoginButton";
 const TopBar = () => {
   const router = useRouter();
   return (
-    <div className="shadow-sm fixed bg-white  top-0 z-50 h-8 w-full flex flex-row items-center justify-between px-2 p-1 backdrop-blur-3xl bg-transparent mb-2">
+    <div className="shadow-sm fixed bg-white/30 backdrop-blur-3xl  top-0 z-50 h-8 w-full flex flex-row items-center justify-between px-2 p-1 mb-2">
       <div className="h-8 w-full flex items-center justify-between w-15">
         {usePathname() !== "/" ? (
           <IoIosArrowBack
