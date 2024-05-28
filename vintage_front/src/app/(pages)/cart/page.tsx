@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import Image from "next/image";
 import ItemView from "./ItemView";
-import Loading from "@/app/Loading";
+import Loading from "@/components/Loading";
 import axios from "axios";
 
 

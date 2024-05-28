@@ -43,60 +43,60 @@ mongoose.connect("mongodb+srv://projectyjka:53yjka21@asciicluster0.pgohfwc.mongo
   }
 );
 
-app.use(session({
-  secret: 'MySecret', resave: false, saveUninitialized: true,
+// app.use(session({
+//   secret: 'MySecret', resave: false, saveUninitialized: true,
   
-  cookie: {
-    maxAge: 600000,
-  },
-  store: MongoStore.create({
-    mongoUrl: 'mongodb+srv://projectyjka:53yjka21@asciicluster0.pgohfwc.mongodb.net/test',
-  }),
-}));
+//   cookie: {
+//     maxAge: 600000,
+//   },
+//   store: MongoStore.create({
+//     mongoUrl: 'mongodb+srv://projectyjka:53yjka21@asciicluster0.pgohfwc.mongodb.net/test',
+//   }),
+// }));
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 
 
-//Authentication
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] }));
+// //Authentication
+// app.get('/auth/google',
+//   passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-app.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function (req, res) {
-    // Successful authentication, redirect home.
-    console.log(req.session);
-    res.redirect('http://localhost:3000/')
-    //res.send(userSession);
-    //console.log(res.cookie);
-  });
+// app.get('/auth/google/callback',
+//   passport.authenticate('google', { failureRedirect: '/login' }),
+//   function (req, res) {
+//     // Successful authentication, redirect home.
+//     console.log(req.session);
+//     res.redirect('http://localhost:3000/')
+//     //res.send(userSession);
+//     //console.log(res.cookie);
+//   });
   
-  app.get('/logout', function (req, res) {
-    req.session.destroy((err) => {
-      if (err) {
-        // Handle the error case
-        console.error('Session destruction error:', err);
-        res.status(500).send('Error logging out');
-      } else {
-        // clear the cookie on the client side
-        res.clearCookie('connect.sid'); // Replace 'connect.sid' with your session cookie's name
-        // Redirect to the home page or login page
-        res.redirect("http://localhost:3000/");
-      }
-    });
-  });
+//   app.get('/logout', function (req, res) {
+//     req.session.destroy((err) => {
+//       if (err) {
+//         // Handle the error case
+//         console.error('Session destruction error:', err);
+//         res.status(500).send('Error logging out');
+//       } else {
+//         // clear the cookie on the client side
+//         res.clearCookie('connect.sid'); // Replace 'connect.sid' with your session cookie's name
+//         // Redirect to the home page or login page
+//         res.redirect("http://localhost:3000/");
+//       }
+//     });
+//   });
 
 
   
 
-app.get("/login/user",function (req,res){
-  const sesion = req.user;
+// app.get("/login/user",function (req,res){
+//   const sesion = req.user;
   
-  res.status(200).json(sesion);
+//   res.status(200).json(sesion);
 
-})
+// })
 
 //Mount routes
 app.use("/api/users", userRoutes);

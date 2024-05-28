@@ -8,8 +8,9 @@ import { HiUser } from "react-icons/hi";
 import axios from "axios";
 import { loginUser } from "../../../../action/action";
 import Link from "next/link";
-import Loading from "@/app/Loading";
+import Loading from "@/components/Loading";
 import { access } from "fs";
+import { signIn, signOut  } from "../../../../auth";
 
 const page = async () => {
 
@@ -134,24 +135,26 @@ const page = async () => {
             </div>
           </div>
         </div>
-        <Link href={"http://localhost:4000/auth/google"} className="absolute bottom-32">Login</Link>
-        <Link href = {"http://localhost:4000/logout"} className="absolute bottom-26">Logout</Link>
-        {/* <form
+        {/* <Link href={"http://localhost:4000/auth/google"} className="absolute bottom-32">Login</Link>
+        <Link href = {"http://localhost:4000/logout"} className="absolute bottom-26">Logout</Link> */}
+        <form
           className="absolute bottom-32"
-          action={() => {
-            handleLogin();
+          action={async () => {
+            "use server";
+            await signIn();
           }}
         >
           <button type="submit"> Login</button>
         </form>
         <form
           className="absolute bottom-26"
-          action={() => {
-            handleLogout();
+          action={async () => {
+            "use server";
+            await signOut();
           }}
         >
           <button type="submit"> Logout</button>
-        </form> */}
+        </form>
       </div>
     </>
   );

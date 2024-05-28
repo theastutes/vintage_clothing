@@ -2,14 +2,18 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import clientPromise from "./lib/db";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import User from "./models/User";
+import {User} from "./models/User";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
+
+const client = await clientPromise;
+const dB = client.db(); // Get the database instance from the client
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [Google],
   secret: "secret",
+  
   // pages: {
   //   error: "/",
   //   signIn: "/store",

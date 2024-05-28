@@ -5,6 +5,8 @@ import NavBar from "../components/Navbar/page";
 import TopBar from "@/components/TopBar/page";
 import Footer from "@/components/Footer/page";
 import Image from "next/image";
+import { auth } from "../../auth";
+import {SessionProvider} from "next-auth/react" 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,12 +20,25 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const session = await auth()
+  if (session?.user) {
+    // TODO: Look into https://react.dev/reference/react/experimental_taintObjectReference
+    // filter out sensitive data before passing to client.
+    session.user = {
+      name: session.user.name,
+      email: session.user.email,
+      image: session.user.image,
+    }
+  }
+
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={`${inter.className} bg-white/90 text-white`}>
+      <SessionProvider basePath={"/auth"} session={session}>
         <div className="fixed left-0 right-0 top-0 bottom-0 -z-10">
           <Image
             src={
@@ -45,6 +60,7 @@ export default async function RootLayout({
           <div>{children}</div>
           {/* <Footer /> */}
         </main>
+        </SessionProvider>
       </body>
     </html>
   );
