@@ -26,7 +26,7 @@ export default async function Home() {
   const SLIDES = ["/one.jpeg", "/two.jpeg", "/three.png"];
 
   return (
-    <main className="w-full h-fit min-h-screen max-w-screen bg-black text-white overflow-x-hidden gap-2">
+    <main className="w-full pt-14 h-fit min-h-screen max-w-screen bg-black text-white overflow-x-hidden gap-2">
       {/* <div className="relative bg-yellow-300/90 w-full sm:h-[50%] sm:mx-2 h-[25%]  sm:rounded-2xl  overflow-hidden">
         <Image
           src="/intro_banner.png"

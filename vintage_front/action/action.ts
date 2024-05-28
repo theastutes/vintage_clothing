@@ -8,7 +8,7 @@ import { redirect } from "next/dist/server/api-utils";
 export const getUsers = async <returnprops>() => {
   try {
     const data = await axios.get("http://localhost:4000/api/users");
-    console.log(data.data);
+    // console.log(data.data);
     return data;
   } catch (error) {
     console.log("error while getting users :", error);
@@ -63,7 +63,7 @@ export const getProducts = async (): Promise<IProduct[] | undefined> => {
     const response = await axios.get(
       "http://localhost:4000/api/products/getProducts"
     );
-    console.log("status code :", response.status, "Data:- :", response.data);
+    // console.log("status code :", response.status, "Data:- :", response.data);
     return response.data;
   } catch (error) {
     console.log("error getting product!");

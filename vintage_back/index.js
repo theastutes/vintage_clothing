@@ -68,12 +68,12 @@ app.get('/auth/google/callback',
     // Successful authentication, redirect home.
     console.log(req.session);
     console.log(req.sessionID)
-    const userSession = req.session?JSON.stringify(req.session):"No Session Data";
+    const userSession = req.session ? JSON.stringify(req.session) : "No Session Data";
     //res.redirect('http://localhost:3000/')
     res.send(userSession);
     console.log(res.cookie);
   });
-  
+
 app.get('/logout', function (req, res) {
   req.session.destroy((err) => {
     if (err) {
@@ -88,9 +88,9 @@ app.get('/logout', function (req, res) {
   });
 });
 
-app.get("/login/user",function (req,res){
+app.get("/login/user", function (req, res) {
   const sesion = req.user;
-  
+
   res.status(200).json(sesion);
 
 })

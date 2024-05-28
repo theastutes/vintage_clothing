@@ -61,7 +61,7 @@ const page = () => {
         <div className="sm:h-full sm:w-1/2  w-full h-full min-h-fit flex items-start justify-center">
           <div className="grid grid-flow-col grid-cols-2 grid-rows-2 gap-2 p-2  sm:h-[80%] h-[59%] w-full text-xs">
             <div className="relative shadow-md shadow-gray-500 bg-black/80 rounded-2xl  overflow-hidden">
-              <div className="opacity-0 hover:opacity-100 transition-all duration-700 absolute flex items-center justify-center text-2xl font-extralight bg-white/5 backdrop-blur-sm left-0 right-0 top-0 bottom-0">
+              <div className="opacity-0 hover:opacity-100 rounded-2xl transition-all duration-700 absolute flex items-center justify-center text-2xl font-extralight bg-white/5 backdrop-blur-sm left-0 right-0 top-0 bottom-0">
                 Address
               </div>
               <Suspense fallback={<Loading />}>
@@ -78,7 +78,7 @@ const page = () => {
               </Suspense>
             </div>
             <div className="relative shadow-md shadow-gray-500 bg-black/80 rounded-2xl  overflow-hidden">
-              <div className="opacity-0 hover:opacity-100 transition-all duration-700 absolute flex items-center justify-center text-2xl font-extralight bg-white/5 backdrop-blur-sm left-0 right-0 top-0 bottom-0">
+              <div className="opacity-0 hover:opacity-100 rounded-2xl transition-all duration-700 absolute flex items-center justify-center text-2xl font-extralight bg-white/5 backdrop-blur-sm left-0 right-0 top-0 bottom-0">
                 Address
               </div>
               <Suspense fallback={<Loading />}>
@@ -96,7 +96,7 @@ const page = () => {
             </div>
 
             <div className="relative shadow-md shadow-gray-500 bg-black/80 rounded-2xl  overflow-hidden">
-              <div className="opacity-0 text-white hover:opacity-100 transition-all duration-700 absolute flex items-center justify-center text-2xl font-extralight bg-white/5 backdrop-blur-sm left-0 right-0 top-0 bottom-0">
+              <div className="opacity-0 text-white hover:opacity-100 rounded-2xl transition-all duration-700 absolute flex items-center justify-center text-2xl font-extralight bg-white/5 backdrop-blur-sm left-0 right-0 top-0 bottom-0">
                 Orders
               </div>
               <Suspense fallback={<Loading />}>
@@ -113,7 +113,7 @@ const page = () => {
               </Suspense>
             </div>
             <div className="relative shadow-md shadow-gray-500 bg-black/80 rounded-2xl  overflow-hidden">
-              <div className="opacity-0 hover:opacity-100 transition-all duration-700 absolute flex items-center justify-center text-2xl font-extralight bg-white/5 backdrop-blur-sm left-0 right-0 top-0 bottom-0">
+              <div className="opacity-0 hover:opacity-100 rounded-2xl transition-all duration-700 absolute flex items-center justify-center text-2xl font-extralight bg-white/5 backdrop-blur-sm left-0 right-0 top-0 bottom-0">
                 Address
               </div>
               <Suspense fallback={<Loading />}>

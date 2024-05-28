@@ -13,15 +13,6 @@ const page = async () => {
         <Suspense fallback={<Loading />}>
           <ItemView />
         </Suspense>
-        <Suspense fallback={<Loading />}>
-          <ItemView />
-        </Suspense>
-        <Suspense fallback={<Loading />}>
-          <ItemView />
-        </Suspense>
-        <Suspense fallback={<Loading />}>
-          <ItemView />
-        </Suspense>
         <div className="fixed px-4 bottom-0 w-screen h-36 sm:h-32 sm:right-2 sm:top-16 sm:w-56 sm:rounded-md flex flex-col items-center justify-center gap-4  bg-white/30 backdrop-blur-lg">
           <div className="flex justify-between items-center w-full px-4 font-semibold text-black text-lg sm:text-xs">
             <span>Total :</span>

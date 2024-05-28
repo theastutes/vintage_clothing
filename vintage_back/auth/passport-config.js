@@ -8,11 +8,11 @@ import session from 'express-session';
 dotenv.config();
 
 
- passport.serializeUser((user, done) => {
+passport.serializeUser((user, done) => {
   const newUser = {
-    googleId:user.googleId,
-    name:user.name,
-    email:user.email
+    googleId: user.googleId,
+    name: user.name,
+    email: user.email
 
   }
   done(null, newUser);
@@ -21,11 +21,11 @@ dotenv.config();
 passport.deserializeUser(async (id, done) => {
   try {
     // const user = await User.findById(id);
-    const user = await User.findOne({googleId:id});
-    if(user){
+    const user = await User.findOne({ googleId: id });
+    if (user) {
       done(null, user);
     }
-    
+
   } catch (err) {
     done(err, null);
   }

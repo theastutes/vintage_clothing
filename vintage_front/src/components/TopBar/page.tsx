@@ -1,18 +1,15 @@
 "use client";
 import React from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import Link from "next/link";
-import { CiReceipt } from "react-icons/ci";
 import { usePathname } from "next/navigation";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
-import LoginButton from "@/comp/LoginButton";
 
 const TopBar = () => {
   const router = useRouter();
   return (
-    <div className="shadow-sm fixed bg-white/30 backdrop-blur-3xl  top-0 z-50 h-8 w-full flex flex-row items-center justify-between px-2 p-1 mb-2">
+    <div className="shadow-sm fixed bg-white backdrop-blur-3xl  top-0 z-50 h-10 sm:h-8 w-full flex flex-row items-center justify-between px-2 p-1 mb-2">
       <div className="h-8 w-full flex items-center justify-between w-15">
         {usePathname() !== "/" ? (
           <IoIosArrowBack
@@ -28,7 +25,7 @@ const TopBar = () => {
         )}
       </div>
       <Link href={"/cart"}>
-        <PiShoppingCartSimpleBold color="black" size={18} />
+        <PiShoppingCartSimpleBold color="black" size={20} />
       </Link>
       {/* <div className="h-12 flex items-center justify-between w-15 text-white">
         <GiHamburgerMenu size={25} />
