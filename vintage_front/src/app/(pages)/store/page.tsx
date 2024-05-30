@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import ItemView from "./ItemView";
-import Loading from "@/app/Loading";
+import Loading from "@/components/Loading";
 
 const page = async () => {
   return (

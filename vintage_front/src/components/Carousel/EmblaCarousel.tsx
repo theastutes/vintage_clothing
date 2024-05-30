@@ -10,7 +10,7 @@ import {
   PrevButton,
   usePrevNextButtons,
 } from "./EmblaCarouselArrowButtons";
-import Loading from "@/app/Loading";
+import Loading from "@/components/Loading";
 
 type PropType = {
   slides: string[];

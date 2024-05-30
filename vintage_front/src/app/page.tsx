@@ -6,6 +6,7 @@ import { EmblaOptionsType } from "embla-carousel";
 import { BsChevronExpand } from "react-icons/bs";
 import { IoIosArrowForward } from "react-icons/io";
 
+
 interface IUser {
   name: string;
   email: string;
@@ -20,6 +21,8 @@ export default async function Home() {
   // if (!user) {
   //   throw new AuthError();
   // }
+
+
 
   const OPTIONS: EmblaOptionsType = { loop: true };
   const SLIDE_COUNT = 5;

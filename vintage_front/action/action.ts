@@ -8,7 +8,11 @@ import { redirect } from "next/dist/server/api-utils";
 export const getUsers = async <returnprops>() => {
   try {
     const data = await axios.get("http://localhost:4000/api/users");
+<<<<<<< HEAD
     // console.log(data.data);
+=======
+   // console.log(data.data);
+>>>>>>> 76289ef3433a9ace20b531341be1cd4a71a5f4d1
     return data;
   } catch (error) {
     console.log("error while getting users :", error);
@@ -63,7 +67,7 @@ export const getProducts = async (): Promise<IProduct[] | undefined> => {
     const response = await axios.get(
       "http://localhost:4000/api/products/getProducts"
     );
-    // console.log("status code :", response.status, "Data:- :", response.data);
+   // console.log("status code :", response.status, "Data:- :", response.data);
     return response.data;
   } catch (error) {
     console.log("error getting product!");
@@ -104,7 +108,7 @@ export const addToCart = async ({
       colorName: "white",
       email: "yashbishnoidelu@gmail.com",
     });
-    console.log("Data:- :", response.data);
+    //console.log("Data:- :", response.data);
     return response.data;
   } catch (error) {
     console.log("error getting product!");
@@ -124,7 +128,7 @@ export const getCart = async ({
         email,
       }
     );
-    console.log("Data:- :", response.data);
+   // console.log("Data:- :", response.data);
     return response.data ?? "";
   } catch (error) {
     console.log("error getting product!");
