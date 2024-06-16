@@ -5,8 +5,8 @@ import EmblaCarousel from "@/components/Carousel/EmblaCarousel";
 import { EmblaOptionsType } from "embla-carousel";
 import { BsChevronExpand } from "react-icons/bs";
 import { IoIosArrowForward } from "react-icons/io";
-
-
+import { auth, signIn } from "../../auth"
+import { signOut } from "../../auth"
 interface IUser {
   name: string;
   email: string;
@@ -18,10 +18,6 @@ interface reponseprops {
 }
 
 export default async function Home() {
-  // if (!user) {
-  //   throw new AuthError();
-  // }
-
 
 
   const OPTIONS: EmblaOptionsType = { loop: true };
@@ -30,29 +26,44 @@ export default async function Home() {
 
   return (
     <main className="w-full pt-14 h-fit min-h-screen max-w-screen bg-black text-white overflow-x-hidden gap-2">
-      {/* <div className="relative bg-yellow-300/90 w-full sm:h-[50%] sm:mx-2 h-[25%]  sm:rounded-2xl  overflow-hidden">
-        <Image
-          src="/intro_banner.png"
-          fill={true}
-          alt={"Intro Banner"}
-          className="sm:rounded-xl  "
-          style={{ objectFit: "contain" }}
-        />
-      </div> */}
-      <div className="flex gap-3 px-3 overflow-x-scroll overflow-hidden w-full h-16">
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-[1.5rem] border-2" />
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-[1.5rem] border-2" />
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-[1.5rem] border-2" />
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-[1.5rem] border-2" />
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-[1.5rem] border-2" />
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-[1.5rem] border-2" />
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-[1.5rem] border-2" />
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-[1.5rem] border-2" />
+      
+      <div className="flex gap-3 px-3  w-full h-16">
+        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
+        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
+        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
+        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
+        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
+        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
+        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
+        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
       </div>
 
       <div className="w-full flex sm:w-[45%] sm:mx-auto max-h-fit h-fit sm:aspect-square bg-black rounded-2xl overflow-hidden">
         <EmblaCarousel slides={SLIDES} options={OPTIONS} />
       </div>
+      
+ 
+
+    <form
+      action={async () => {
+        "use server"
+        await signIn()
+      }}
+    >
+      <button type="submit">Sign in</button>
+    </form>
+    
+ 
+
+     <form
+       action={async () => {
+         "use server"
+         await signOut()
+       }}
+     >
+       <button type="submit">Sign Out</button>
+     </form>
+
       <div className="text-[2rem] font-serif px-2 mt-6">CATEGORY</div>
       <div className="grid grid-cols-3 gap-1 w-full sm:w-[80%] sm:mx-auto h-fit p-2 rounded-3xl overflow-hidden mb-10">
         <Product url="/one.jpeg" />

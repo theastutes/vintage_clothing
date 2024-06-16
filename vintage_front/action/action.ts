@@ -1,5 +1,13 @@
 "use strict";
 
+interface Iusersession extends Document {
+  id:string,
+  name:string,
+  email:string,
+  image:string,
+}
+
+
 import axios from "axios";
 import { auth, signIn } from "../auth";
 import { IUser, IProduct, returnprops, IItem } from "../types/types";
@@ -14,6 +22,16 @@ export const getUsers = async <returnprops>() => {
     console.log("error while getting users :", error);
   }
 };
+//{id,name, email,image}:{id:string|undefined; name:string|undefined; email:string|undefined;image:string|undefined}
+export const checkUser = async (id:string|undefined,name:string|undefined|null,email:string|undefined|null,image:string|undefined|null) =>{
+  try{
+    const data = {id, name, email, image }
+    const res = await axios.post("http://localhost:4000/api/users", data );
+  }
+  catch(error){
+    console.log("error while saving the user");
+  }
+}
 
 export const login = async <IUser>({
   email,
@@ -89,6 +107,8 @@ export const getProduct = async ({
     return;
   }
 };
+
+
 
 export const addToCart = async ({
   productId,

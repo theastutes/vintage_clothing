@@ -36,7 +36,7 @@ const addressSchema = new Schema<IAddress>({
   adres: { type: String, required: true },
 });
 
-interface IItem extends Document {
+export interface IItem extends Document {
   productId: mongoose.Types.ObjectId;
   quantity: number;
   size: string;
@@ -92,5 +92,6 @@ const userSchema = new Schema<IUser>({
   orders: { type: [orderSchema], default: [] },
 });
 
+export const Item = mongoose.model<IItem>('Item',itemSchema)
 export const User = mongoose.model<IUser>('User', userSchema);
 export const Order = mongoose.model<IOrder>('Order', orderSchema);

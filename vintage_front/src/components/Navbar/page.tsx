@@ -13,7 +13,7 @@ function NavBar() {
         className={`${
           usePathname() === "/cart" ||
           (usePathname().includes("/productDetail") && "max-w-0 max-h-0")
-        } fixed sm:-z-50 sm:opacity-0 bottom-4 left-[10%] right-[10%] mx-auto p-[1px] h-24 min-w-fit sm:h-[25%] bg-white/15 backdrop-blur-3xl z-40 flex flex-row justify-between items-center rounded-full overflow-hidden`}
+        } fixed  sm:opacity-1 bottom-4 left-[10%] right-[10%] mx-auto p-[1px] h-24 min-w-fit sm:h-[25%] bg-white/15 backdrop-blur-3xl z-40 flex flex-row justify-between items-center rounded-full overflow-hidden`}
       >
         <Link
           className={`${

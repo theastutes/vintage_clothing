@@ -1,14 +1,20 @@
+
 import Image from "next/image";
 import React from "react";
 import { IProduct } from "../../../../types/types";
-import { getProducts } from "../../../../action/action";
+import {  getProducts } from "../../../../action/action";
 import Link from "next/link";
+import axios from "axios";
 
 const ItemView = async () => {
   const data: IProduct[] | undefined = await getProducts();
+ 
   if (!data) {
     throw new Error("Error while connecting, Check your connection");
+   
   }
+
+
   return (
     <div className="w-full max-w-full h-full items-center justify-center  overflow-x-hidden  grid sm:grid-cols-4 sm:w-[60%] grid-cols-2 gap-1 px-1">
       {data &&
