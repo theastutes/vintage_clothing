@@ -11,15 +11,19 @@ import Link from "next/link";
 import Loading from "@/components/Loading";
 import { access } from "fs";
 import { signIn, signOut  } from "../../../../auth";
+import { getSession } from "next-auth/react";
 
 const page = async () => {
 
-  try{
-    const user = await axios.get("http://localhost:4000/account",{withCredentials:true});
-    console.log(user.data)}
-    catch(err){
-      console.log("Caught an error : ", err)
-    }
+  // try{
+  //   const user = await axios.get("http://localhost:4000/account",{withCredentials:true});
+  //   console.log(user.data)}
+  //   catch(err){
+  //     console.log("Caught an error : ", err)
+  //   }
+
+  const session = await auth();
+  console.log(session?.user);
 
   return (
     <>
@@ -137,24 +141,26 @@ const page = async () => {
         </div>
         {/* <Link href={"http://localhost:4000/auth/google"} className="absolute bottom-32">Login</Link>
         <Link href = {"http://localhost:4000/logout"} className="absolute bottom-26">Logout</Link> */}
-        <form
-          className="absolute bottom-32"
-          action={async () => {
-            "use server";
-            await signIn();
-          }}
-        >
-          <button type="submit"> Login</button>
-        </form>
-        <form
-          className="absolute bottom-26"
-          action={async () => {
-            "use server";
-            await signOut();
-          }}
-        >
-          <button type="submit"> Logout</button>
-        </form>
+        
+    <form
+      action={async () => {
+        "use server"
+        await signIn()
+      }}
+    >
+      <button type="submit">Sign in</button>
+    </form>
+    
+ 
+
+     <form
+       action={async () => {
+         "use server"
+         await signOut({redirectTo:"/"});
+       }}
+     >
+       <button type="submit">Sign Out</button>
+     </form>
       </div>
     </>
   );

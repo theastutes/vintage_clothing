@@ -8,7 +8,7 @@ import Image from "next/image";
 import { auth } from "../../auth";
 import {SessionProvider} from "next-auth/react" 
 import { checkUser } from "../../action/action";
-
+import {NextUIProvider} from "@nextui-org/system";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,9 +24,8 @@ export default async function RootLayout({
 
   const session = await auth()
   if (session?.user) {
-    const res = await checkUser(session?.user.id,session?.user.name,session?.user.email,session?.user.image);
+    await checkUser(session?.user.id,session?.user.name,session?.user.email,session?.user.image);
     
-    console.log(session.user);
   }
 
   return (
@@ -36,6 +35,7 @@ export default async function RootLayout({
       </head>
       <body className={`${inter.className} bg-white`}>
       <SessionProvider basePath={"/auth"} session={session}>
+      
         <div className="fixed left-0 right-0 top-0 bottom-0 -z-10">
           <Image
             src={
@@ -53,10 +53,12 @@ export default async function RootLayout({
           <TopBar />
         </header>
         <NavBar />
+        <NextUIProvider>
         <main className=" flex flex-col">
           <div>{children}</div>
           {/* <Footer /> */}
         </main>
+        </NextUIProvider>
         </SessionProvider>
       </body>
     </html>

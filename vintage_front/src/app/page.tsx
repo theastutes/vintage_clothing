@@ -20,14 +20,16 @@ interface reponseprops {
 export default async function Home() {
 
 
+  
+
   const OPTIONS: EmblaOptionsType = { loop: true };
   const SLIDE_COUNT = 5;
   const SLIDES = ["/one.jpeg", "/two.jpeg", "/three.png"];
 
   return (
-    <main className="w-full pt-14 h-fit min-h-screen max-w-screen bg-black text-white overflow-x-hidden gap-2">
+    <main className="w-full  h-fit min-h-screen max-w-screen pt-8 bg-sky-100 text-black overflow-x-hidden gap-2">
       
-      <div className="flex gap-3 px-3  w-full h-16">
+      {/* <div className="flex gap-3 px-3  w-full h-16">
         <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
         <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
         <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
@@ -36,7 +38,7 @@ export default async function Home() {
         <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
         <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
         <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
-      </div>
+      </div> */}
 
       <div className="w-full flex sm:w-[45%] sm:mx-auto max-h-fit h-fit sm:aspect-square bg-black rounded-2xl overflow-hidden">
         <EmblaCarousel slides={SLIDES} options={OPTIONS} />
@@ -44,25 +46,6 @@ export default async function Home() {
       
  
 
-    <form
-      action={async () => {
-        "use server"
-        await signIn()
-      }}
-    >
-      <button type="submit">Sign in</button>
-    </form>
-    
- 
-
-     <form
-       action={async () => {
-         "use server"
-         await signOut()
-       }}
-     >
-       <button type="submit">Sign Out</button>
-     </form>
 
       <div className="text-[2rem] font-serif px-2 mt-6">CATEGORY</div>
       <div className="grid grid-cols-3 gap-1 w-full sm:w-[80%] sm:mx-auto h-fit p-2 rounded-3xl overflow-hidden mb-10">

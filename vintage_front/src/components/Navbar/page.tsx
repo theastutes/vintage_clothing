@@ -1,12 +1,15 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { RiHome5Fill } from "react-icons/ri";
 import { HiViewGrid } from "react-icons/hi";
 import { CiUser } from "react-icons/ci";
 import { usePathname } from "next/navigation";
+import { auth } from "../../../auth";
 
-function NavBar() {
+
+ function NavBar() {
+
   return (
     <>
       <div
@@ -33,14 +36,14 @@ function NavBar() {
           <RiHome5Fill size={28} />
         </Link>
 
-        <Link
+        { <Link
           className={`${
             usePathname() === "/account" ? "bg-black" : ""
           } z-50 flex items-center aspect-square justify-center transition-all duration-500 h-full rounded-full `}
           href={"/account"}
         >
           <CiUser size={30} />
-        </Link>
+        </Link>}
       </div>
     </>
   );

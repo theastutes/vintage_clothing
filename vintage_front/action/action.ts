@@ -26,7 +26,7 @@ export const getUsers = async <returnprops>() => {
 export const checkUser = async (id:string|undefined,name:string|undefined|null,email:string|undefined|null,image:string|undefined|null) =>{
   try{
     const data = {id, name, email, image }
-    const res = await axios.post("http://localhost:4000/api/users", data );
+    await axios.post("http://localhost:4000/api/users", data );
   }
   catch(error){
     console.log("error while saving the user");

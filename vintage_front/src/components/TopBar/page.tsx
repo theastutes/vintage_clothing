@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 const TopBar = () => {
   const router = useRouter();
   return (
-    <div className="shadow-sm fixed bg-white backdrop-blur-3xl  top-0 z-50 h-10 sm:h-8 w-full flex flex-row items-center justify-between px-2 p-1 mb-2">
+    <div className="shadow-sm fixed  backdrop-blur-sm  top-0 z-50 h-12 sm:h-8 w-full flex flex-row items-center justify-between px-2 p-1 mb-2">
       <div className="h-8 w-full flex items-center justify-between w-15">
         {usePathname() !== "/" ? (
           <IoIosArrowBack
