@@ -102,7 +102,7 @@ function SizeColor() {
 
                     <input type='text' value={col.colorName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCol({ ...col, colorName: e.target.value })} placeholder='Colorname' ></input>
 
-                    <input type='number'  value={col.quantity}
+                    <input type='number' name='quantity'  value={col.quantity}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCol({ ...col, quantity: parseInt(e.target.value) })} placeholder='Quantity' ></input>
                 </div>
 

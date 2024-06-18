@@ -14,14 +14,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   
   secret: "secret",
   ...authConfig ,
-  callbacks: {
-    session({ session, user }) {
+  // callbacks: {
+  //   session({ session, user }) {
       
-      session.user.id = user.id
+  //     session.user.id = user.id
      
-      return session
-    },
-  }
+  //     return session
+  //   },
+  // }
   
   // pages: {
   //   error: "/",

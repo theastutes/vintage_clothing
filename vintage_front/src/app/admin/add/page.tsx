@@ -1,39 +1,25 @@
 "use client";
-
 import { z } from "zod";
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IProduct } from "../../../../types/types";
-import { IoIosAdd } from "react-icons/io";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-
-import { Button } from "@/components/ui/button";
-import { AwaitedReactNode, JSXElementConstructor, Key, ReactElement, ReactNode, useState } from "react";
-import {CheckboxGroup, Checkbox} from "@nextui-org/checkbox";
+import InputColor from 'react-input-color'
+import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
+import axios from "axios";
 const colorSchema = z.object({
-  color: z.string().min(1, "Color is required"),
+  color: z.string().min(1, "Color is required").default('#000000'),
   colorName: z.string().min(1, "Color name is required"),
   quantity: z.string().min(1, "Quantity is required"),
 });
 
 const sizeSchema = z.object({
-  size: z.string().min(1, "Size is required"),
+  //size: z.enum(["S", "M", "L", "XL", "XXL", "XXXL"]),
+  size: z.string(),
   colors: z.array(colorSchema),
 });
 
 const productSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  details: z.string().min(1, "Details are required"),
+  title: z.string().min(3, "Title is required"),
+  details: z.string().min(3, "Details are required"),
   images: z
     .array(z.string().url("Invalid URL"))
     .min(1, "At least one image is required"),
@@ -43,59 +29,56 @@ const productSchema = z.object({
   sizes: z.array(sizeSchema),
 });
 
-interface SelectedSizes {
-  [size: string]: boolean;
-}
+
+type IProduct = z.infer<typeof productSchema>;
+
 
 const Form: React.FC = () => {
-  const {
-    register, control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IProduct>({
-    resolver: zodResolver(productSchema),
-  });
+  const { register, control, getValues, setValue, watch, handleSubmit, formState: { errors, isSubmitting } } = useForm<IProduct>({ resolver: zodResolver(productSchema) });
 
-  const { fields: sizeFields, append: appendSize } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
-    name: "sizes", // This should match the top-level field name for sizes
+    name: "sizes",
   });
-  
-  // For colors inside each size
-  // const { fields: colorFields, append: appendColor } = useFieldArray({
-  //   control,
-  //   name: `sizes.${index}.colors`, // Use the index of the size for which you want to manage colors
-  // });
 
-  const onSubmit: SubmitHandler<IProduct> = (data: any) => {
-    console.log("Form Data :", data);
+  const checksizes = () => {
+    const size = getValues('sizes');
+    console.log(size);
+  }
+
+  const onSubmit: SubmitHandler<IProduct> = async (data: any) => {
+    console.log(process.env.PATH);
+    await axios.post(`http://localhost:4000/api/products/`,data).then(response => {console.log('Data sent successfully ',response.data);}).catch(error => {console.error('Error while sending data in admin/add : ',error)});
+
+    //console.log("Form Data :", res);
   };
 
-  // Assuming you have a state or props that provide the available sizes and colors
-  const availableSizes = ['S', 'M', 'L', 'XL', 'XXL','XXXL' ]; // Add more sizes as needed
-  const availableColors = [
-    { color: 'red', colorName: 'Red' },
-    { color: 'blue', colorName: 'Blue' },
-    { color: 'green', colorName: 'Green' },
-    // Add more colors as needed
-  ];
 
-  const [selectedSizes, setSelectedSizes] = useState({});
-
-  const handleSizeChange = (size: string, isChecked: boolean): void => {
-    setSelectedSizes(prev => ({
-      ...prev,
-      [size]: isChecked,
-    }));
+  const toggleSizeSelection = (size: string, isChecked: boolean) => {
+    const currentSizes = getValues('sizes');
+    const sizeIndex = currentSizes.findIndex((s) => s.size === size);
+    if (isChecked) {
+      if (sizeIndex < 0) {
+        append({ size: size, colors: [{ color: '', colorName: '', quantity: '' }] }); // Add size with default details if it doesn't exist
+      }
+    } else {
+      if (sizeIndex >= 0) {
+        remove(sizeIndex); // Remove size if it exists
+      }
+    }
   };
+
+
+
+  const showerors = () => {
+    console.log(errors);
+  }
 
   return (
-    <div
-      onSubmit={handleSubmit(onSubmit)}
-      className="p-8 max-w-screen mx-auto pt-10 pb-28 "
-    >
+    <form onSubmit={handleSubmit(onSubmit)}>
+
       {/* Title */}
-      <div className="mb-4 flex flex-row gap-10 justify-between items-center">
+      <div className="my-4 flex flex-row gap-10 justify-between items-center">
         <label className="block text-gray-700">Title</label>
         <input
           type="text"
@@ -134,7 +117,7 @@ const Form: React.FC = () => {
       <div className="mb-4 flex flex-row gap-10 justify-center items-center">
         <label className="block text-gray-700 line-clamp-1 truncate">MRP ₹</label>
         <input
-          type="number" 
+          type="number"
           {...register("mrp")}
           className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
         />
@@ -152,54 +135,84 @@ const Form: React.FC = () => {
         {errors.sp && <p className="text-red-500">{errors.sp.message}</p>}
       </div>
 
-      {/* Category */}
-      
-      <div className="">
-      <CheckboxGroup
-      label="Select sizes "
-      orientation="horizontal"
-      color="secondary"
-      defaultValue={["s"]}
-    >
-      <Checkbox value="s">S</Checkbox>
-      <Checkbox value="m">M</Checkbox>
-      <Checkbox value="l">L</Checkbox>
-      <Checkbox value="xl">XL</Checkbox>
-      <Checkbox value="xxl">XXL</Checkbox>
-      <Checkbox value="xxxl">XXXL</Checkbox>
-    </CheckboxGroup>
-    </div>     
-    
+      <div className="mb-4 flex flex-row gap-10 justify-center items-center">
+        <label className="block text-gray-700">SP</label>
+        <input
+          type="text"
+          {...register("category")}
+          className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+        />
+        {errors.category && <p className="text-red-500">{errors.category.message}</p>}
+      </div>
+
+      {['S', 'M', 'L', 'XL', 'XXL', 'XXXL'].map((size, index) => (
+
+        <div key={index}>
+          <Checkbox checked={fields.some((field) => field.size === size)}
+            onChange={(e) => toggleSizeSelection(size, e.target.checked)}>{size}</Checkbox>
+
+        </div>
+
+
+      ))}
+
 
 
       {/* Sizes */}
       <div className="">
-      <IoIosAdd/>
+        {fields.map((sizeField, index) => (
+          <div>
+            <strong>{sizeField.size}</strong>
+            <div>
+              {sizeField.colors.map((color, colorIndex) => (
+                <div key={index}>
+                  <Controller control={control} name={`sizes.${index}.colors.${colorIndex}.color` as const} render={({ field }) => (
+                    <input {...field} placeholder="ColorName" />
+
+                  )} />
+                  {errors.sizes?.[index]?.colors?.[colorIndex]?.color && <p>{errors.sizes?.[index]?.colors?.[colorIndex]?.color?.message}</p>}
+
+                  <Controller
+                    control={control}
+                    name={`sizes.${index}.colors.${colorIndex}.colorName` as const}
+                    render={({ field }) => (
+                      <InputColor
+                        initialValue={field.value} // Use the field's value as the initial color
+                        onChange={(color) => field.onChange(color.hex)} // Update form value when color changes
+                        placement="right"
+                      />
+                    )}
+                  />
+                  {errors.sizes?.[index]?.colors?.[colorIndex]?.colorName && <p>{errors.sizes?.[index]?.colors?.[colorIndex]?.colorName?.message}</p>}
+
+                  <Controller
+                    control={control}
+                    name={`sizes.${index}.colors.${colorIndex}.quantity` as const}
+                    render={({ field }) => (
+                      <input {...field} type="number" placeholder="Quantity" />
+                    )}
+                  />
+                  {errors.sizes?.[index]?.colors?.[colorIndex]?.quantity && <p>{errors.sizes?.[index]?.colors?.[colorIndex]?.quantity?.message}</p>}
+
+                </div>
+              ))}
+
+            </div>
+            {errors.sizes && <p>{errors.sizes.message}</p>}
+          </div>
+        ))}
       </div>
 
-
-      {/* Quantity */}
-      <div className="mb-4 flex flex-row gap-10 justify-center items-center">
-        <label className="block text-gray-700">Quantity</label>
-        <input
-          type="text"
-          {...register("sizes.0.colors.0.quantity")}
-          className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-        />
-        {errors.sizes?.[0]?.colors?.[0]?.quantity && (
-          <p className="text-red-500">
-            {errors.sizes[0].colors[0].quantity.message}
-          </p>
-        )}
-      </div>
-
-      <button
-        type="submit"
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
-      >
-        Submit
-      </button>
-    </div>
+      <button type="button" onClick={checksizes}>Check sizes</button>
+      <button type="button" name="show error" onClick={showerors} >show errors</button>
+      {/* <button
+        type="button"
+        name="submit"
+        onClick={handleSubmit(onSubmit)}
+        className="mt-4 h-8 w-40 px-2 py-1 bg-blue-500 text-white rounded-md">
+      </button> */}
+      <input type="submit" />
+    </form>
   );
 };
 

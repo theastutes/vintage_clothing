@@ -12,7 +12,7 @@ import { auth } from "../../../auth";
 
   return (
     <>
-      <div
+      <div 
         className={`${
           usePathname() === "/cart" ||
           (usePathname().includes("/productDetail") && "max-w-0 max-h-0")

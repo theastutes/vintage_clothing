@@ -3,7 +3,7 @@ import {User} from '../../../../../../models/User'; // Replace with the actual p
 
 // ... rest of your imports
 
-export default async function updateCart(
+export default async function POST(
   req: NextApiRequest,
   res: NextApiResponse
 ) {

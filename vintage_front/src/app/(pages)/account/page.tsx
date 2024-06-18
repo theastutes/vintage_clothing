@@ -11,7 +11,7 @@ import Link from "next/link";
 import Loading from "@/components/Loading";
 import { access } from "fs";
 import { signIn, signOut  } from "../../../../auth";
-import { getSession } from "next-auth/react";
+
 
 const page = async () => {
 

@@ -4,9 +4,9 @@ import Product from '../../../../../models/Product'; // Adjust the import path a
 export default async function GET(req: NextApiRequest, res: NextApiResponse) {
     try {
         const { id } = req.body;
-        console.log(`ID      : ${id}`);
+        //console.log(`ID      : ${id}`);
         const product = await Product.findById(id);
-        console.log("product : ", product);
+        //console.log("product : ", product);
 
         if (!product) {
             return res.status(404).json({ error: "Product doesn't exist" });

@@ -22,7 +22,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const session = await auth()
+  const session = await auth();
   if (session?.user) {
     await checkUser(session?.user.id,session?.user.name,session?.user.email,session?.user.image);
     
@@ -52,7 +52,7 @@ export default async function RootLayout({
         <header>
           <TopBar />
         </header>
-        <NavBar />
+        {/* <NavBar /> */}
         <NextUIProvider>
         <main className=" flex flex-col">
           <div>{children}</div>

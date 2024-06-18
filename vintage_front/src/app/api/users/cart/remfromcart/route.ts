@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import {User} from '../../../../../../models/User';
 
-export default async function removeFromCart(
+export default async function POST(
     req: NextApiRequest,
     res: NextApiResponse
   ) {

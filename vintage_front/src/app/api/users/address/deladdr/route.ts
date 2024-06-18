@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import {User} from '../../../../../../models/User'; 
 
-export default async function delAddr(req: NextApiRequest, res: NextApiResponse) {
+export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     const { userId, addressId } = req.body;
 
     try {

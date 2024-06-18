@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import {User} from '../../../../../../models/User'; 
 
-export default async function getUserById(req: NextApiRequest, res: NextApiResponse) {
+export default async function GET(req: NextApiRequest, res: NextApiResponse) {
     try {
         const userId = req.query.id as string; 
         const user = await User.findOne({ _id: userId });

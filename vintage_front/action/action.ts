@@ -97,7 +97,7 @@ export const getProduct = async ({
   try {
     const id = productId.toString();
     const response = await axios.post(
-      "http://localhost:4000/api/products/getProduct",
+      'http://localhost:4000/api/products/getProduct',
       { id }
     );
     //console.log("status code :", response.status, "Data:- :", response.data);

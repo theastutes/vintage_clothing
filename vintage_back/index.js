@@ -20,7 +20,7 @@ const PORT = 4000;
 
 
 const corsOptions = {
-  origin: 'https://localhost:4000', // Replace with your frontend's origin
+  origin: 'http://localhost:3000', // Replace with your frontend's origin
   credentials: true, // Allow cookies and authentication headers
 };
 

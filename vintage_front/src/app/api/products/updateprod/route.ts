@@ -3,7 +3,7 @@ import Product from '../../../../../models/Product'; // Adjust the import path a
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     const prod = req.body;
-    console.log(prod);
+    //console.log(prod);
 
     if (!prod.title || !prod.details || !prod.images || !prod.mrp || !prod.sp || !prod.category || !prod.sizes) {
         return res.status(400).json({ message: "All fields are required!" });

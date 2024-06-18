@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import {User} from '../../../../../../models/User'; // Adjust the import path as needed
 
-export default async function getUsers(req: NextApiRequest, res: NextApiResponse) {
+export default async function GET(req: NextApiRequest, res: NextApiResponse) {
     try {
         const users = await User.find({});
         return res.status(200).json(users);
