@@ -6,7 +6,7 @@ export interface IUser {
 }
 
 export interface IItem {
-  productId: string;
+  productId: string|undefined;
   quantity: number;
   size: string;
   color: string;

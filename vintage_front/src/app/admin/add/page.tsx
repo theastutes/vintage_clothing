@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { Controller, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import InputColor from 'react-input-color'
+//import InputColor from 'react-input-color'
 import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
 import axios from "axios";
 const colorSchema = z.object({
@@ -176,11 +176,12 @@ const Form: React.FC = () => {
                     control={control}
                     name={`sizes.${index}.colors.${colorIndex}.colorName` as const}
                     render={({ field }) => (
-                      <InputColor
-                        initialValue={field.value} // Use the field's value as the initial color
-                        onChange={(color) => field.onChange(color.hex)} // Update form value when color changes
-                        placement="right"
-                      />
+                      <div>hi</div>
+                      // <InputColor
+                      //   initialValue={field.value} // Use the field's value as the initial color
+                      //   onChange={(color) => field.onChange(color.hex)} // Update form value when color changes
+                      //   placement="right"
+                      // />
                     )}
                   />
                   {errors.sizes?.[index]?.colors?.[colorIndex]?.colorName && <p>{errors.sizes?.[index]?.colors?.[colorIndex]?.colorName?.message}</p>}

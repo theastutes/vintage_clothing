@@ -77,9 +77,11 @@ export const login = async <IUser>({
 };
 
 export const getProducts = async (): Promise<IProduct[] | undefined> => {
+  
   try {
     const response = await axios.get(
-      "http://localhost:4000/api/products/getProducts"
+      `${process.env.MY_PATH}/api/products/getProducts`
+     // getallProducts
     );
     // console.log("status code :", response.status, "Data:- :", response.data);
     return response.data;
@@ -89,15 +91,11 @@ export const getProducts = async (): Promise<IProduct[] | undefined> => {
   }
 };
 
-export const getProduct = async ({
-  productId,
-}: {
-  productId: string;
-}): Promise<IProduct | undefined> => {
+export const getProduct = async ({productId}: {productId: string;}): Promise<IProduct | undefined> => {
   try {
     const id = productId.toString();
     const response = await axios.post(
-      'http://localhost:4000/api/products/getProduct',
+      `${process.env.MY_PATH}/api/products/getProduct`,
       { id }
     );
     //console.log("status code :", response.status, "Data:- :", response.data);
@@ -117,7 +115,7 @@ export const addToCart = async ({
 }): Promise<string> => {
   try {
     const id = productId.toString();
-    const response = await axios.post("http://localhost:4000/api/cart/", {
+    const response = await axios.post(`${process.env.MY_PATH}/api/cart/`, {
       productId: id,
       size: "xl",
       color: "white",
@@ -135,11 +133,11 @@ export const addToCart = async ({
 export const getCart = async ({
   email,
 }: {
-  email: string;
+  email: string|undefined|null;
 }): Promise<IItem[] | undefined> => {
   try {
     const response = await axios.post(
-      "http://localhost:4000/api/cart/getCart",
+      `${process.env.MY_PATH}/api/cart/getCart`,
       {
         email,
       }

@@ -1,30 +1,20 @@
 "use server";
 import Image from "next/image";
 import { one } from "../../assets";
-import EmblaCarousel from "@/components/Carousel/EmblaCarousel";
-import { EmblaOptionsType } from "embla-carousel";
+
+
 import { BsChevronExpand } from "react-icons/bs";
 import { IoIosArrowForward } from "react-icons/io";
 import { auth, signIn } from "../../auth"
 import { signOut } from "../../auth"
-interface IUser {
-  name: string;
-  email: string;
-  image: string;
-  id: string;
-}
+import { IUser } from "../../types/types";
+
 interface reponseprops {
   data: [IUser];
 }
 
 export default async function Home() {
 
-
-  
-
-  const OPTIONS: EmblaOptionsType = { loop: true };
-  const SLIDE_COUNT = 5;
-  const SLIDES = ["/one.jpeg", "/two.jpeg", "/three.png"];
 
   return (
     <main className="w-full  h-fit min-h-screen max-w-screen pt-8 bg-sky-100 text-black overflow-x-hidden gap-2">
@@ -41,7 +31,7 @@ export default async function Home() {
       </div> */}
 
       <div className="w-full flex sm:w-[45%] sm:mx-auto max-h-fit h-fit sm:aspect-square bg-black rounded-2xl overflow-hidden">
-        <EmblaCarousel slides={SLIDES} options={OPTIONS} />
+        
       </div>
       
  

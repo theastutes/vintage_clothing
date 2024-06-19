@@ -5,10 +5,19 @@ import { IoMdRemove } from "react-icons/io";
 import { RiAddFill } from "react-icons/ri";
 import { IItem, IProduct } from "../../../../types/types";
 import { getCart, getProduct } from "../../../../action/action";
+import { auth } from "../../../../auth";
 
 const ItemView = async () => {
-  const email = "yashbishnoidelu@gmail.com";
-  const cart: IItem[] | undefined = await getCart({ email });
+
+  const session = await auth();
+  if(!session){
+    throw new Error("Login to check your cart");
+  }
+  const email = session.user?.email;
+
+
+
+  const cart: IItem[] | undefined = await getCart({ email  });
   if (!cart) {
     throw new Error("Check your connection");
   }
