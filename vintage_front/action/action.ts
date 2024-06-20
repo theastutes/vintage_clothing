@@ -91,9 +91,9 @@ export const getProducts = async (): Promise<IProduct[] | undefined> => {
   }
 };
 
-export const getProduct = async ({productId}: {productId: string;}): Promise<IProduct | undefined> => {
+export const getProduct = async ({productId}: {productId: string|undefined}): Promise<IProduct | undefined> => {
   try {
-    const id = productId.toString();
+    const id = productId?.toString();
     const response = await axios.post(
       `${process.env.MY_PATH}/api/products/getProduct`,
       { id }
@@ -108,25 +108,15 @@ export const getProduct = async ({productId}: {productId: string;}): Promise<IPr
 
 
 
-export const addToCart = async ({
-  productId,
-}: {
-  productId: string;
-}): Promise<string> => {
+export const addToCart = async (myproduct:IItem) => {
+  console.log("In addToCart :  ",myproduct);
   try {
-    const id = productId.toString();
-    const response = await axios.post(`${process.env.MY_PATH}/api/cart/`, {
-      productId: id,
-      size: "xl",
-      color: "white",
-      colorName: "white",
-      email: "yashbishnoidelu@gmail.com",
-    });
+    
+    const response = await axios.post(`http://localhost:4000/api/cart/add`,myproduct).then(response => {console.log('Product added to cart successfully ');}).catch(error => {console.error('Error while sending data in api/cart : ',error)});
     //console.log("Data:- :", response.data);
-    return response.data;
+    console.log(response);
   } catch (error) {
     console.log("error getting product!");
-    return "";
   }
 };
 

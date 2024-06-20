@@ -39,9 +39,7 @@ export default ItemView;
 
 const Item = async ({ item }: { item: IItem }) => {
   const id = item.productId;
-  const product: IProduct | undefined = await getProduct({
-    productId: id,
-  });
+  const product: IProduct | undefined = await getProduct({productId: id });
   return (
     <>
       <div className="relative flex items-center justify-between w-full h-24 rounded-md overflow-hidden py-2">
@@ -57,7 +55,7 @@ const Item = async ({ item }: { item: IItem }) => {
 
         <div className="grid grid-cols-4 gap-2 py-3 rounded-md w-full overflow-hidden">
           <div className=" flex flex-col p-1 items-center justify-between gap-2 h-full col-span-3 overflow-hidden ">
-            <div className=" flex flex-col  items-center justify-between w-full h-full p-1 text-black">
+            <div className=" flex flex-col  items-center justify-between w-full h-full p-1 text-white">
               <div className="w-full h-full pl-4 font-semibold text-sm">
                 {product?.title}
               </div>
@@ -66,13 +64,13 @@ const Item = async ({ item }: { item: IItem }) => {
               </div>
             </div>
             <div className=" flex items-center justify-around text-xs w-full h-full px-4">
-              <div className="bg-black aspect-square size-4 shadow-sm shadow-gray-700 active:shadow-gray-200 transition-all duration-200 overflow-hidden flex items-center justify-center rounded-sm cursor-pointer">
+              <div className="bg-white aspect-square size-4 shadow-sm shadow-gray-700 active:shadow-gray-200 transition-all duration-200 overflow-hidden flex items-center justify-center rounded-sm cursor-pointer">
                 <IoMdRemove />
               </div>
-              <span className="bg-black aspect-square size-4 shadow-sm shadow-gray-700 overflow-hidden flex items-center justify-center rounded-sm">
+              <span className="bg-white aspect-square size-4 shadow-sm shadow-gray-700 overflow-hidden flex items-center justify-center rounded-sm">
                 {item.quantity}
               </span>
-              <div className="bg-black aspect-square size-4 shadow-sm shadow-gray-700 active:shadow-gray-200 transition-all duration-200 overflow-hidden flex items-center justify-center rounded-sm cursor-pointer">
+              <div className="bg-white aspect-square size-4 shadow-sm shadow-gray-700 active:shadow-gray-200 transition-all duration-200 overflow-hidden flex items-center justify-center rounded-sm cursor-pointer">
                 <RiAddFill />
               </div>
             </div>
@@ -82,7 +80,7 @@ const Item = async ({ item }: { item: IItem }) => {
               ₹{product?.sp! * item.quantity}
             </div>
             <div className=" flex items-center justify-center w-full h-full">
-              <div className="bg-black aspect-square size-6 shadow-sm shadow-gray-700 active:shadow-gray-200 transition-all duration-200 overflow-hidden flex items-center justify-center rounded-sm">
+              <div className="bg-white aspect-square size-6 shadow-sm shadow-gray-700 active:shadow-gray-200 transition-all duration-200 overflow-hidden flex items-center justify-center rounded-sm">
                 <BsTrash3 size={12} />
               </div>
             </div>

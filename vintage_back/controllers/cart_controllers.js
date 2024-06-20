@@ -3,9 +3,14 @@ import User from "../models/User.js";
 
 // Add Product to cart
 export const addToCart = async (req, res) => {
+    console.log(req.body);
     try {
-        const { productId, email, size, color, colorName } = req.body;
-        const quantity = 1;
+        console.log(req.body);
+        const { productId, size, color, colorName,quantity, email } = req.body;
+
+        if (!productId || !size|| !color || !colorName || !quantity || !email) {
+            return res.status(500).json("field should not be empty!");
+        }
 
         // Find the user
         const user = await User.findOne({ email });
@@ -21,8 +26,8 @@ export const addToCart = async (req, res) => {
         console.log("user cart : ", cart)
 
         // Check if the product already exists in the cart
-        const existingItem = cart.find(item => item.productId.toString() === productId.toString());
-        console.log("user cart : ", cart)
+        const existingItem = cart.find(item => item.productId.toString() === productId);
+        console.log("existing item : ", existingItem)
         if (existingItem) {
             existingItem.quantity += quantity;
         } else {
@@ -33,10 +38,10 @@ export const addToCart = async (req, res) => {
         user.cart = cart;
         await user.save();
         console.log(user.cart);
-        res.status(201).json("done!");
+        return res.status(201);
     } catch (error) {
         console.log(error);
-        res.status(500).json({ error: 'Internal server error' });
+        return res.status(500).json({ error: 'Internal server error' });
     }
 };
 

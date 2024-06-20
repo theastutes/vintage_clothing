@@ -47,8 +47,8 @@ const Form: React.FC = () => {
   }
 
   const onSubmit: SubmitHandler<IProduct> = async (data: any) => {
-    console.log(process.env.PATH);
-    await axios.post(`http://localhost:4000/api/products/`,data).then(response => {console.log('Data sent successfully ',response.data);}).catch(error => {console.error('Error while sending data in admin/add : ',error)});
+   
+    await axios.post(`${process.env.MY_PATH}/api/products/`,data).then(response => {console.log('Data sent successfully ',response.status);}).catch(error => {console.error('Error while sending data in admin/add : ',error)});
 
     //console.log("Form Data :", res);
   };

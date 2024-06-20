@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import { addToCart, getProduct } from "../../../../../action/action";
 import { IProduct } from "../../../../../types/types";
@@ -14,12 +15,19 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
+import CreateItem from "@/components/CreateItem";
+import { auth } from "../../../../../auth";
+
 
 const Page = async ({ params }: { params: { slug: string } }) => {
   const productId = params.slug;
   const item: IProduct | undefined = await getProduct({
     productId,
-  });
+  })
+
+  const session = await auth();
+
+
   return (
     <div className="flex flex-col h-screen max-h-screen w-full overflow-hidden">
       <div className="flex w-full mt-10 sm:mt-8 px-4 py-2 items-center justify-start gap-2 line-clamp-1 truncate sm:text-xs text-sm text-black bg-white">
@@ -43,10 +51,13 @@ const Page = async ({ params }: { params: { slug: string } }) => {
             <Price price={item?.sp ?? 0} />
           </div>
 
+         <CreateItem productId={item?._id} sizes={item?.sizes} email={session?.user?.email!} />
+
+
           <div className="flex w-full h-full">
             <div className="w-full gap-1 flex items-center justify-between h-20 mt-auto">
-              <AddToCart productId={productId} />
-              <Checkout />
+              {/* <AddToCart productId={productId} />
+              <Checkout /> */}
             </div>
           </div>
         </div>
@@ -56,48 +67,41 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 };
 export default Page;
 
-const AddToCart = ({ productId }: { productId: string }) => {
-  return (
-    <Drawer>
-      <form
-        className="w-full h-full"
-        action={async () => {
-          "use server";
-          await addToCart({ productId });
-        }}
-      >
-        <DrawerTrigger
-          type="submit"
-          className="bg-yellow-400 h-full w-full text-black text-lg rounded-tr-md"
-        >
-          <div className="">Add to cart</div>
-        </DrawerTrigger>
-      </form>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-          <DrawerDescription>This action cannot be undone.</DrawerDescription>
-        </DrawerHeader>
-        <DrawerFooter>
-          <button className="text-black">Submit</button>
-          <DrawerClose>
-            <Button variant="outline" className="text-black">
-              Cancel
-            </Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  );
-};
+// const AddToCart = ({ productId }: { productId: string }) => {
+//   return (
+//     <Drawer>
+//       <form
+//         className="w-full h-full"
+//         action={async () => {
+//           "use server";
+//           await addToCart({ productId });
+//         }}
+//       >
+//         <DrawerTrigger
+//           type="submit"
+//           className="bg-yellow-400 h-full w-full text-black text-lg rounded-tr-md"
+//         >
+//           <div className="">Add to cart</div>
+//         </DrawerTrigger>
+//       </form>
+//       <DrawerContent>
+//         <DrawerHeader>
+//           <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+//           <DrawerDescription>This action cannot be undone.</DrawerDescription>
+//         </DrawerHeader>
+//         <DrawerFooter>
+//           <button className="text-black">Submit</button>
+//           <DrawerClose>
+//             <Button variant="outline" className="text-black">
+//               Cancel
+//             </Button>
+//           </DrawerClose>
+//         </DrawerFooter>
+//       </DrawerContent>
+//     </Drawer>
+//   );
+// };
 
-const Checkout = () => {
-  return (
-    <button className="bg-yellow-400 h-full w-full text-black text-lg rounded-tl-sm">
-      Checkout
-    </button>
-  );
-};
 
 const Price = ({ price }: { price: number }) => {
   return (

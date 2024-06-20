@@ -4,8 +4,8 @@ import {User, Item} from '../../../../../../models/User'; // Update with the cor
 
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const { productId, email, size, color, colorName } = req.body;
-        const quantity = 1;
+        const { productId, email, size, color, colorName,quantity } = req.body;
+        
 
         // Find the user
         const user = await User.findOne({ email });
