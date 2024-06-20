@@ -52,7 +52,7 @@ export default async function RootLayout({
         <header>
           <TopBar />
         </header>
-        {/* <NavBar /> */}
+        <NavBar />
         <NextUIProvider>
         <main className=" flex flex-col">
           <div>{children}</div>

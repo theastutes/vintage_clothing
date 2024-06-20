@@ -1,6 +1,10 @@
 import { Suspense } from "react";
-import ItemView from "./ItemView";
+//import ItemView from "./ItemView";
 import Loading from "@/components/Loading";
+import dynamic from 'next/dynamic'
+ 
+
+const ItemComponent = dynamic(() => import('./ItemView'));
 
 const page = async () => {
   return (
@@ -11,7 +15,7 @@ const page = async () => {
       </div>
       <div className="h-full w-full flex items-center justify-center">
         <Suspense fallback={<Loading />}>
-          <ItemView />
+          <ItemComponent/>
         </Suspense>
       </div>
     </div>

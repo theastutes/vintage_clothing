@@ -3,7 +3,7 @@ import { useState } from "react"
 import { z } from "zod"
 import React from 'react'
 import { Controller, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-import { ISize } from "../../types/types";
+import { IItem, ISize } from "../../types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RadioGroup, Radio } from "@nextui-org/radio";
 import { addToCart } from "../../action/action";
@@ -26,18 +26,9 @@ function CreateItem({ productId, sizes, email }: { productId: string | undefined
 
     const [selectedSize, setSelectedSize] = useState(0);
     const [selectedColor, setSelectedColor] = useState(0);
+    const [toggle, setToggle] = useState(true);
 
     const onSubmit: SubmitHandler<PItem> = async (data: any) => {
-       //handleColor();
-       setValue('productId', productId?.toString())
-        if (sizes) {
-            setValue('size', sizes[selectedSize].size);
-            setValue('color', sizes[selectedSize].colors[selectedColor].color);
-            setValue('colorName', sizes[selectedSize].colors[selectedColor].colorName);
-            setValue('quantity', 1);
-            setValue('email',email);
-        }
-        // await axios.post(`${process.env.MY_PATH}/api/cart/`,data).then(response => {console.log('Product added to cart successfully ');}).catch(error => {console.error('Error while sending data in api/cart : ',error)});
         addToCart(data);
         console.log(data);
     }
@@ -51,15 +42,29 @@ function CreateItem({ productId, sizes, email }: { productId: string | undefined
             setValue('quantity', 1);
             setValue('email',email);
         }
+        
     }
+
+    const handleSizeChange = (index: React.SetStateAction<number>) => {
+        setSelectedSize(index);
+        handleColor();
+        setToggle(false);
+    }
+
+    const handleColorChange = (index: React.SetStateAction<number>) => {
+        setSelectedColor(index);
+        handleColor();
+        setToggle(false);
+    }
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             {sizes?.map((currentSize, index) => (
-                <div onClick={() => setSelectedSize(index)}>{currentSize.size}</div>
+                <div key={currentSize.size} onClick={() => handleSizeChange(index)}>{currentSize.size}</div>
             ))}
             {sizes?.[selectedSize]?.colors?.map((colorDetail, index) => (
-                <div onClick={() => setSelectedColor(index)} >
+                <div key = {index*2} onClick={() => handleColorChange(index)} >
                     <div className="w-8 h-8 " style={{ backgroundColor: colorDetail.color }}></div>
                     <div >{colorDetail.colorName}</div>
                 </div>
@@ -82,7 +87,7 @@ function CreateItem({ productId, sizes, email }: { productId: string | undefined
 
             <div >Buy Now</div>
 
-            <button type="submit" title="addtocart">Add To Cart</button>
+            <button type="submit" disabled={toggle} title="addtocart">Add To Cart</button>
         </form>
     )
 }

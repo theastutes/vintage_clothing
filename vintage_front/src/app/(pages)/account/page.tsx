@@ -28,7 +28,8 @@ const page = async () => {
   return (
     <>
       <div className="px-3 pt-10 w-full flex items-center text-3xl text-black font-serif justify-start">
-        Account
+      {session?.user?.name}
+      
       </div>
       <hr />
       <div className="h-screen select-none relative overflow-hidden overflow-y-scroll w-full flex flex-col gap-2 sm:flex-row items-center text-2xl">
@@ -67,6 +68,8 @@ const page = async () => {
         </div>
 
         <div className="sm:h-full sm:w-1/2  w-full h-full min-h-fit flex items-start justify-center">
+          
+        
           <div className="grid grid-flow-col grid-cols-2 grid-rows-2 gap-2 p-2  sm:h-[80%] h-[59%] w-full text-xs">
             <div className="relative shadow-md shadow-gray-500 bg-black/80 rounded-2xl  overflow-hidden">
               <div className="opacity-0 hover:opacity-100 rounded-2xl transition-all duration-700 absolute flex items-center justify-center text-2xl font-extralight bg-white/5 backdrop-blur-sm left-0 right-0 top-0 bottom-0">
@@ -105,7 +108,7 @@ const page = async () => {
 
             <div className="relative shadow-md shadow-gray-500 bg-black/80 rounded-2xl  overflow-hidden">
               <div className="opacity-0 text-white hover:opacity-100 rounded-2xl transition-all duration-700 absolute flex items-center justify-center text-2xl font-extralight bg-white/5 backdrop-blur-sm left-0 right-0 top-0 bottom-0">
-                Orders
+              {session?.user?.email}
               </div>
               <Suspense fallback={<Loading />}>
                 <Image

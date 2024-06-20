@@ -6,6 +6,7 @@ import { RiAddFill } from "react-icons/ri";
 import { IItem, IProduct } from "../../../../types/types";
 import { getCart, getProduct } from "../../../../action/action";
 import { auth } from "../../../../auth";
+import { updateCart } from "../../../../action/action";
 
 const ItemView = async () => {
 
@@ -14,9 +15,7 @@ const ItemView = async () => {
     throw new Error("Login to check your cart");
   }
   const email = session.user?.email;
-
-
-
+  
   const cart: IItem[] | undefined = await getCart({ email  });
   if (!cart) {
     throw new Error("Check your connection");
@@ -40,6 +39,13 @@ export default ItemView;
 const Item = async ({ item }: { item: IItem }) => {
   const id = item.productId;
   const product: IProduct | undefined = await getProduct({productId: id });
+  const session = await auth();
+  const email = session?.user?.email;
+  const handleUpdate = async () => {
+    console.log(item);
+   //await updateCart(item.quantity, item.productId, email)
+  }
+
   return (
     <>
       <div className="relative flex items-center justify-between w-full h-24 rounded-md overflow-hidden py-2">
@@ -53,7 +59,7 @@ const Item = async ({ item }: { item: IItem }) => {
           />
         </div>
 
-        <div className="grid grid-cols-4 gap-2 py-3 rounded-md w-full overflow-hidden">
+        <form className="grid grid-cols-4 gap-2 py-3 rounded-md w-full overflow-hidden">
           <div className=" flex flex-col p-1 items-center justify-between gap-2 h-full col-span-3 overflow-hidden ">
             <div className=" flex flex-col  items-center justify-between w-full h-full p-1 text-white">
               <div className="w-full h-full pl-4 font-semibold text-sm">
@@ -85,7 +91,7 @@ const Item = async ({ item }: { item: IItem }) => {
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </>
   );

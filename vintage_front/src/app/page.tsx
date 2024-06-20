@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { one } from "../../assets";
 
-
+import Carousel from '@/components/Carousel/Carousel'
 import { BsChevronExpand } from "react-icons/bs";
 import { IoIosArrowForward } from "react-icons/io";
 import { auth, signIn } from "../../auth"
@@ -12,6 +12,8 @@ import { IUser } from "../../types/types";
 interface reponseprops {
   data: [IUser];
 }
+
+const images = ['one.jpeg','two.jpeg','three.png']
 
 export default async function Home() {
 
@@ -30,11 +32,11 @@ export default async function Home() {
         <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
       </div> */}
 
-      <div className="w-full flex sm:w-[45%] sm:mx-auto max-h-fit h-fit sm:aspect-square bg-black rounded-2xl overflow-hidden">
+      {/* <div className="w-full flex sm:w-[45%] sm:mx-auto max-h-fit h-fit sm:aspect-square bg-black rounded-2xl overflow-hidden">
         
-      </div>
+      </div> */}
       
- 
+        <Carousel images={images} />
 
 
       <div className="text-[2rem] font-serif px-2 mt-6">CATEGORY</div>

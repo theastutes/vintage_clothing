@@ -107,9 +107,29 @@ export const getProduct = async ({productId}: {productId: string|undefined}): Pr
 };
 
 
+export const updateCart = async (productId:string, quantity:number, email:string) => {
+  try {
+    const res = await axios.post("http://localhost:4000/api/cart/updateCart",{productId,quantity,email});
+    console.log(res.status);
+  } catch (error) {
+    console.log("Error while updating cart");
+  }
+}
+
+export const removeFromCart = async (productId:string, email:string) => {
+  try {
+    const res = await axios.post("http://localhost:4000/api/cart/updateCart",{productId,email});
+    console.log(res.status);
+  } catch (error) {
+    console.log("Error while updating cart");
+  }
+}
+
+
+
 
 export const addToCart = async (myproduct:IItem) => {
-  console.log("In addToCart :  ",myproduct);
+  console.log("In addToCart action.ts :  ",myproduct);
   try {
     
     const response = await axios.post(`http://localhost:4000/api/cart/add`,myproduct).then(response => {console.log('Product added to cart successfully ');}).catch(error => {console.error('Error while sending data in api/cart : ',error)});
