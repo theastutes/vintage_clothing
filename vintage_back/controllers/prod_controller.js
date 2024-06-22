@@ -68,9 +68,22 @@ export const getProdById = async (req, res) => {
 export const getProd = async (req, res) => {
     try {
         const products = await Product.find();
-        res.status(201).json(products);
+        return res.status(201).json(products);
     } catch (error) {
-        res.status(500).json({ error: "Internal Server Error" });
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
+export const searchProd = async (req, res) => {
+    try {
+        
+        const prod = req.body;
+        const compData = prod.data;
+        const products = await Product.find({title:{$regex:compData,$options:'i'}});
+        console.log(products);
+        return res.status(201).json(products);
+    } catch (error) {
+        return res.status(500).json({ error: "Internal Server Error" });
     }
 }
 

@@ -1,15 +1,18 @@
 "use client";
 import React from "react";
-import { PiShoppingCartSimpleBold } from "react-icons/pi";
+import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
+import { CgSearch } from "react-icons/cg";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
+import { josefin } from "../ui/fonts";
+import Search from "../Search";
 
 const TopBar = () => {
   const router = useRouter();
   return (
-    <div className="shadow-sm fixed  backdrop-blur-sm  top-0 z-50 h-12 sm:h-8 w-full flex flex-row items-center justify-between px-2 p-1 mb-2">
+    <div className={`${josefin.className} shadow-sm fixed text-myblack  bg-mywhite  top-0 z-50 h-14 sm:h-14 w-full flex flex-row items-center justify-between px-4 `}>
       <div className="h-8 w-full flex items-center justify-between w-15">
         {usePathname() !== "/" ? (
           <IoIosArrowBack
@@ -19,17 +22,19 @@ const TopBar = () => {
             }}
             color="black"
             size={22}
-          />
+          />        
         ) : (
-          <div className="font-bold mx-auto text-lg text-black">VINTAGE</div>
+          <div className="font-bold  text-brown text-xl ">VINTAGE</div>
         )}
       </div>
-      <Link href={"/cart"}>
-        <PiShoppingCartSimpleBold color="black" size={20} />
+      <div className="flex flex-row  w-[30%] justify-end gap-6">
+      <Link className={`${usePathname()==="/search"?"hidden":"" }`} href={"/search"}>
+      <CgSearch size={28} color="myblack"/>
       </Link>
-      {/* <div className="h-12 flex items-center justify-between w-15 text-white">
-        <GiHamburgerMenu size={25} />
-      </div> */}
+      <Link href={"/cart"} className="sm:hidden">
+        <AiOutlineShoppingCart color="myblack" size={28} />
+      </Link>
+      </div>
     </div>
   );
 };

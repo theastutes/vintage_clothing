@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { Controller, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-//import InputColor from 'react-input-color'
+import InputColor from 'react-input-color'
 import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
 import axios from "axios";
 const colorSchema = z.object({
@@ -44,13 +44,14 @@ const Form: React.FC = () => {
   const checksizes = () => {
     const size = getValues('sizes');
     console.log(size);
+    
   }
 
   const onSubmit: SubmitHandler<IProduct> = async (data: any) => {
-   
-    await axios.post(`${process.env.MY_PATH}/api/products/`,data).then(response => {console.log('Data sent successfully ',response.status);}).catch(error => {console.error('Error while sending data in admin/add : ',error)});
 
-    //console.log("Form Data :", res);
+    await axios.post(`http://localhost:4000/api/products`, data).then(response => { console.log('Data sent successfully ', response.status); }).catch(error => { console.error('Error while sending data in admin/add : ', error) });
+
+    // console.log("Form Data :", data);
   };
 
 
@@ -78,7 +79,7 @@ const Form: React.FC = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
 
       {/* Title */}
-      <div className="my-4 flex flex-row gap-10 justify-between items-center">
+      <div className="my-4 mt-12 flex flex-row gap-10 justify-between items-center">
         <label className="block text-gray-700">Title</label>
         <input
           type="text"
@@ -137,11 +138,16 @@ const Form: React.FC = () => {
 
       <div className="mb-4 flex flex-row gap-10 justify-center items-center">
         <label className="block text-gray-700">SP</label>
-        <input
-          type="text"
-          {...register("category")}
+        <select
+           id="categories"
+          title="categories" {...register("category")}
           className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-        />
+        >
+          <option value="BTMLWR" >Lower</option>
+          <option  value="UPRSRT">Shirt</option>
+          <option value="UPRTSR"> Tshirt</option>
+          <option value="BTMJNS">Jeans</option>
+        </select>
         {errors.category && <p className="text-red-500">{errors.category.message}</p>}
       </div>
 
@@ -176,12 +182,12 @@ const Form: React.FC = () => {
                     control={control}
                     name={`sizes.${index}.colors.${colorIndex}.colorName` as const}
                     render={({ field }) => (
-                      <div>hi</div>
-                      // <InputColor
-                      //   initialValue={field.value} // Use the field's value as the initial color
-                      //   onChange={(color) => field.onChange(color.hex)} // Update form value when color changes
-                      //   placement="right"
-                      // />
+                      
+                      <InputColor
+                        initialValue={field.value} // Use the field's value as the initial color
+                        onChange={(color) => field.onChange(color.hex)} // Update form value when color changes
+                        placement="right"
+                      />
                     )}
                   />
                   {errors.sizes?.[index]?.colors?.[colorIndex]?.colorName && <p>{errors.sizes?.[index]?.colors?.[colorIndex]?.colorName?.message}</p>}

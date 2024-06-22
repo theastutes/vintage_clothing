@@ -84,6 +84,7 @@ export const getProducts = async (): Promise<IProduct[] | undefined> => {
      // getallProducts
     );
     // console.log("status code :", response.status, "Data:- :", response.data);
+    
     return response.data;
   } catch (error) {
     console.log("error getting product!");
@@ -125,9 +126,6 @@ export const removeFromCart = async (productId:string, email:string) => {
   }
 }
 
-
-
-
 export const addToCart = async (myproduct:IItem) => {
   console.log("In addToCart action.ts :  ",myproduct);
   try {
@@ -139,6 +137,8 @@ export const addToCart = async (myproduct:IItem) => {
     console.log("error getting product!");
   }
 };
+
+
 
 export const getCart = async ({
   email,
@@ -169,3 +169,18 @@ export const loginUser = async () => {
     console.log("error while loggin in");
   }
 };
+
+type sdata = {
+  data:string
+}
+
+export async function searchMyData(data:string){
+  try {
+    
+    const res = await axios.post('http://localhost:4000/api/products/search',{data});
+    return res.data;
+  } catch (error) {
+     console.log("Error while Searching data in searchMyData", error);
+  }
+  
+}

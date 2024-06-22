@@ -16,11 +16,11 @@ import { auth } from "../../../auth";
         className={`${
           usePathname() === "/cart" ||
           (usePathname().includes("/productDetail") && "max-w-0 max-h-0")
-        } fixed  sm:opacity-1 bottom-4 left-[10%] right-[10%] mx-auto p-[1px] h-24 min-w-fit sm:h-[10%] bg-white/15 backdrop-blur-3xl z-40 flex flex-row justify-between items-center rounded-full overflow-hidden`}
+        } fixed  sm:opacity-1 bottom-4 left-[10%] right-[10%] mx-auto p-[1px] h-24 min-w-fit sm:h-[10%]  backdrop-blur-2xl z-40 flex flex-row justify-between items-center rounded-full overflow-hidden text-myblack`}
       >
         <Link
           className={`${
-            usePathname() === "/store" ? "bg-black" : ""
+            usePathname() === "/store" ? "bg-brown-secondary text-mywhite" : ""
           } z-50 flex items-center aspect-square justify-center transition-all duration-500 h-full rounded-full `}
           href={"/store"}
         >
@@ -29,7 +29,7 @@ import { auth } from "../../../auth";
 
         <Link
           className={`${
-            usePathname() === "/" ? "bg-black" : ""
+            usePathname() === "/" ? "bg-brown-secondary text-mywhite" : ""
           } z-50 flex items-center aspect-square justify-center transition-all duration-500 h-full rounded-full `}
           href={"/"}
         >
@@ -38,7 +38,7 @@ import { auth } from "../../../auth";
 
         { <Link
           className={`${
-            usePathname() === "/account" ? "bg-black" : ""
+            usePathname() === "/account" ? "bg-brown-secondary text-mywhite" : ""
           } z-50 flex items-center aspect-square justify-center transition-all duration-500 h-full rounded-full `}
           href={"/account"}
         >

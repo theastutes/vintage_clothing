@@ -22,6 +22,12 @@ const config = {
     },
     extend: {
       colors: {
+        brown:{
+          DEFAULT:"#876445",
+          secondary:"#CA965C"
+        },
+        mywhite:"#faf9f6",
+        myblack:"#0c0c0c",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

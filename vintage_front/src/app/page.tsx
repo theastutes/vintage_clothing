@@ -8,36 +8,33 @@ import { IoIosArrowForward } from "react-icons/io";
 import { auth, signIn } from "../../auth"
 import { signOut } from "../../auth"
 import { IUser } from "../../types/types";
+import { josefin } from "@/components/ui/fonts";
+import Search from "@/components/Search";
 
 interface reponseprops {
   data: [IUser];
 }
 
-const images = ['one.jpeg','two.jpeg','three.png']
+const images = ['one.jpeg', 'two.jpeg', 'three.png']
 
 export default async function Home() {
 
 
   return (
-    <main className="w-full  h-fit min-h-screen max-w-screen pt-8 bg-sky-100 text-black overflow-x-hidden gap-2">
-      
-      {/* <div className="flex gap-3 px-3  w-full h-16">
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
-        <div className="h-full aspect-square backdrop-blur-2xl rounded-full border-2" />
-      </div> */}
+    <main className="w-full h-fit min-h-screen max-w-screen  sm:pl-14 max-sm:pt-14  overflow-x-hidden ">
 
-      {/* <div className="w-full flex sm:w-[45%] sm:mx-auto max-h-fit h-fit sm:aspect-square bg-black rounded-2xl overflow-hidden">
+      <div className=" relative w-full object-cover ">
+        <div className={`${josefin.className} absolute w-full h-full text-mywhite text-5xl bg-black/50 backdrop-blur-sm flex flex-col py-14 justify-center  items-center z-20 gap-20
+
         
-      </div> */}
-      
-        <Carousel images={images} />
-
+          sm:text-7xl sm:justify-evenly
+        `}>
+          <div className="px-60  flex justify-center items-center">Vintage Clothing</div>
+          <div className="text-brown  max-sm:hidden ">
+          <Search width={96} height={10} /></div>
+        </div>
+        <Image src={"/2304.png"} width={0} height={0} sizes="100vw" style={{ width: '100%', height: 'auto' }} alt="bg" />
+      </div>
 
       <div className="text-[2rem] font-serif px-2 mt-6">CATEGORY</div>
       <div className="grid grid-cols-3 gap-1 w-full sm:w-[80%] sm:mx-auto h-fit p-2 rounded-3xl overflow-hidden mb-10">

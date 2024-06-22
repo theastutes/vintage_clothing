@@ -2,21 +2,33 @@ import { Suspense } from "react";
 //import ItemView from "./ItemView";
 import Loading from "@/components/Loading";
 import dynamic from 'next/dynamic'
- 
+import Search from "@/components/Search";
+import { josefin } from "@/components/ui/fonts";
+import { IProduct } from "../../../../types/types";
+import { getProducts } from "../../../../action/action";
+import FilterView from "./FilterView";
+import { AiOutlineSearch } from "react-icons/ai";
 
-const ItemComponent = dynamic(() => import('./ItemView'));
+const FilterComponent = dynamic(() => import('./FilterView'));
 
 const page = async () => {
+
+  const data: IProduct[] | undefined = await getProducts();
+  if (!data) {
+    throw new Error("Error while connecting, Check your connection");  }
+
+  
+
+  
+    
+    //const Searched = categorize(data);
+
   return (
-    <div className="w-full relative h-fit min-h-screen pt-10 flex flex-col items-center justify-start">
-      <div className="w-full h-fit pb-2">
-        <Title />
-        <Search />
-      </div>
-      <div className="h-full w-full flex items-center justify-center">
-        <Suspense fallback={<Loading />}>
-          <ItemComponent/>
-        </Suspense>
+    <div className="w-full relative h-fit min-h-screen mt-14 flex flex-col items-center justify-start">
+      <div className={`${josefin.className} text-3xl p-8 `}>Explore</div>
+      
+      <div>
+        <FilterComponent products={data}/>
       </div>
     </div>
   );
@@ -24,21 +36,6 @@ const page = async () => {
 
 export default page;
 
-const Title = () => {
-  return (
-    <div className="leading-tight w-full -space-y-5">
-      <div className="text-black text-[3rem] px-2 leading-tight">EXPLORE</div>
-      <div className="text-black text-[3rem] px-2 leading-tight">YOUR TYPE</div>
-    </div>
-  );
-};
-const Search = () => {
-  return (
-    <div className="relative h-14 sm:h-12 w-full bg-red-900 mx-auto sm:w-[90%] py-2 px-4 bg-transparent">
-      <input
-        placeholder="🔍"
-        className="w-full h-full px-4 bg-black/25 border-0 text-black rounded-2xl"
-      />
-    </div>
-  );
-};
+
+
+
