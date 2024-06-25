@@ -5,6 +5,15 @@ export interface IUser {
   id: string;
 }
 
+export interface IAddress extends Document {
+  fullname: string;
+  phoneno: number;
+  pincode: number;
+  town: string;
+  state: string;
+  adres: string;
+}
+
 export interface IItem {
   productId: string|undefined;
   quantity: number;

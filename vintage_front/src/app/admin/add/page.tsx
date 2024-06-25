@@ -167,7 +167,7 @@ const Form: React.FC = () => {
       {/* Sizes */}
       <div className="">
         {fields.map((sizeField, index) => (
-          <div>
+          <div key={sizeField.id}>
             <strong>{sizeField.size}</strong>
             <div>
               {sizeField.colors.map((color, colorIndex) => (

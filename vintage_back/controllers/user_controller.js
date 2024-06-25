@@ -72,7 +72,7 @@ export const delAddr = async (req, res) => {
 
 export const addAddr = async (req, res) => {
     const { userId, address } = req.body;
-
+    console.log("Add Address :  ",userId,address);
     try {
         const user = await User.findById(userId);
         if (!user) {
@@ -87,4 +87,20 @@ export const addAddr = async (req, res) => {
         console.error('Error adding address:', error);
         res.status(500).send('Internal Server Error');
     }
+}
+
+
+export const getAddr = async (req, res) => {
+    try {
+        const userId = req.id;
+        const address = await User.findOne({ id: userId },{address:1,_id:0});
+        if (!address) {
+            res.status(404).json({ error: "User doesn't exist" });
+        }
+        return res.json(address);
+    }
+    catch {
+        res.status(500).json({ error: 'Error in getting Address at function getAddr' });
+    }
+
 }

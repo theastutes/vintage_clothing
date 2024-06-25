@@ -10,7 +10,7 @@ interface Iusersession extends Document {
 
 import axios from "axios";
 import { auth, signIn } from "../auth";
-import { IUser, IProduct, returnprops, IItem } from "../types/types";
+import { IUser, IProduct, returnprops, IItem, IAddress } from "../types/types";
 import { redirect } from "next/dist/server/api-utils";
 
 export const getUsers = async <returnprops>() => {
@@ -80,7 +80,7 @@ export const getProducts = async (): Promise<IProduct[] | undefined> => {
   
   try {
     const response = await axios.get(
-      `${process.env.MY_PATH}/api/products/getProducts`
+      `http://localhost:4000/api/products/getProducts`
      // getallProducts
     );
     // console.log("status code :", response.status, "Data:- :", response.data);
@@ -184,3 +184,25 @@ export async function searchMyData(data:string){
   }
   
 }
+
+export async function getAddress(id:string){
+  try{
+    const res = await axios.post('http://localhost:4000/api/users/getAddr',{id});
+    return res.data;
+  }
+  catch(error){
+    console.log("Error while sending id for getting address");
+  }
+}
+
+export const addNewAddress = async (userId:string,address:IAddress) => {
+  console.log("In newAddress action.ts :  ", address);
+  try {
+    const data = {id,newAddress}
+    const response = await axios.post(`http://localhost:4000/api/users/adadres`,{userId,address}).then(response => {console.log('Address added to successfully ');}).catch(error => {console.error('Error while sending data in api/users/adadres : ',error)});
+    //console.log("Data:- :", response.data);
+    console.log(response);
+  } catch (error) {
+    console.log("error getting product!");
+  }
+};

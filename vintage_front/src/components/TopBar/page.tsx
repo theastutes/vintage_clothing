@@ -29,7 +29,7 @@ const TopBar = () => {
       </div>
       <div className="flex flex-row  w-[30%] justify-end gap-6">
       <Link className={`${usePathname()==="/search"?"hidden":"" }`} href={"/search"}>
-      <CgSearch size={28} color="myblack"/>
+      <CgSearch size={25} color="myblack"/>
       </Link>
       <Link href={"/cart"} className="sm:hidden">
         <AiOutlineShoppingCart color="myblack" size={28} />

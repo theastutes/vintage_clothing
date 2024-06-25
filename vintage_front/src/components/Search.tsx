@@ -1,10 +1,11 @@
 "use client"
-import { AiOutlineSearch } from "react-icons/ai";
+
 import { dosis } from "./ui/fonts";
 import { KeyboardEvent, useState } from "react";
 import Link from "next/link";
 
 import {  useRouter } from "next/navigation";
+import { CgSearch } from "react-icons/cg";
 const Search = ({width,height}:{width:number,height:number}) => {
 
   const router = useRouter();
@@ -28,7 +29,7 @@ const Search = ({width,height}:{width:number,height:number}) => {
         className= {`rounded-3xl px-3 w-${width} h-${height} text-base outline-none`}
       />
       <Link className="cursor-pointer" href={`/search/${searchQ}`}>
-        <AiOutlineSearch size={25} />
+        <CgSearch size={25} />
       </Link>
     </div>);
 };

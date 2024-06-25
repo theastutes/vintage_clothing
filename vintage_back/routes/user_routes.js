@@ -8,6 +8,7 @@ router.get('/', userController.getUsers);
 router.post('/', userController.createUser);
 router.get('/:id', userController.getUserById);
 router.post('/updateuser', userController.updateUser)
+router.post('/getaddr', userController.getAddr);
 router.post('/adadres', userController.addAddr);
 router.post('/deladres', userController.delAddr);
 
