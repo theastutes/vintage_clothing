@@ -6,14 +6,10 @@ import TopBar from "@/components/TopBar/page";
 import Footer from "@/components/Footer/page";
 import Image from "next/image";
 import { auth } from "../../auth";
-import { SessionProvider } from "next-auth/react"
+import { SessionProvider } from "next-auth/react";
 import { checkUser } from "../../action/action";
 import { NextUIProvider } from "@nextui-org/system";
 import SideBar from "@/components/Sidebar";
-
-
-
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,11 +21,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const session = await auth();
   if (session?.user) {
-    await checkUser(session?.user.id, session?.user.name, session?.user.email, session?.user.image);
-
+    await checkUser(
+      session?.user.id,
+      session?.user.name,
+      session?.user.email,
+      session?.user.image
+    );
   }
 
   return (
@@ -37,28 +36,28 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className={`${dosis.className} antialiased bg-mywhite text-myblack`}>
+      <body
+        className={`${dosis.className} antialiased bg-mywhite text-myblack`}
+      >
         <SessionProvider basePath={"/auth"} session={session}>
-
           <header className="sm:hidden">
             <TopBar />
           </header>
           <div className="flex flex-row ">
-            <div className=" sm:hidden visible " >
+            <div className=" sm:hidden visible mx-auto">
               <NavBar />
             </div>
             <div className="z-50 max-sm:hidden">
               <SideBar />
             </div>
           </div>
-          
+
           <NextUIProvider>
             <main className="">
               <div>{children}</div>
               {/* <Footer /> */}
             </main>
           </NextUIProvider>
-
         </SessionProvider>
       </body>
     </html>
