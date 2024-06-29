@@ -5,17 +5,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import InputColor from 'react-input-color'
 import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
 import axios from "axios";
+import { colors } from "@nextui-org/theme";
+
 const colorSchema = z.object({
-  color: z.string().min(1, "Color is required").default('#000000'),
+  size:z.string(),
+  color: z.string().min(1, "Color is required"),
   colorName: z.string().min(1, "Color name is required"),
   quantity: z.string().min(1, "Quantity is required"),
 });
 
 const sizeSchema = z.object({
-  //size: z.enum(["S", "M", "L", "XL", "XXL", "XXXL"]),
-  size: z.string(),
-  colors: z.array(colorSchema),
-});
+  size:z.string()
+})
 
 const productSchema = z.object({
   title: z.string().min(3, "Title is required"),
@@ -27,6 +28,7 @@ const productSchema = z.object({
   sp: z.string(),
   category: z.string().min(1, "Category is required"),
   sizes: z.array(sizeSchema),
+  colors:z.array(colorSchema),
 });
 
 
@@ -34,40 +36,50 @@ type IProduct = z.infer<typeof productSchema>;
 
 
 const Form: React.FC = () => {
-  const { register, control, getValues, setValue, watch, handleSubmit, formState: { errors, isSubmitting } } = useForm<IProduct>({ resolver: zodResolver(productSchema) });
+  const { register, control, getValues, setValue , watch , handleSubmit , formState: { errors , isSubmitting } } = useForm<IProduct>({ resolver: zodResolver(productSchema) });
 
-  const { fields, append, remove } = useFieldArray({
+  const {fields:sizeField, append:sizeAppend, remove:sizeRemove} = useFieldArray({ control, name:"sizes"});
+
+  const { fields:colField, append:colAppend, remove:colRemove, replace:colReplace } = useFieldArray({
     control,
-    name: "sizes",
+    name: "colors",
   });
+
+  
 
   const checksizes = () => {
     const size = getValues('sizes');
-    console.log(size);
-    
+    const colr = getValues('colors');
+    console.log("Size : ",size,"/nColors : ", colr);
   }
 
   const onSubmit: SubmitHandler<IProduct> = async (data: any) => {
-
-    await axios.post(`http://localhost:4000/api/products`, data).then(response => { console.log('Data sent successfully ', response.status); }).catch(error => { console.error('Error while sending data in admin/add : ', error) });
-
-    // console.log("Form Data :", data);
+    //await axios.post(`http://localhost:4000/api/products`, data).then(response => { console.log('Data sent successfully ', response.status); }).catch(error => { console.error('Error while sending data in admin/add : ', error) });
+    console.log("Form Data :", data);
   };
-
 
   const toggleSizeSelection = (size: string, isChecked: boolean) => {
     const currentSizes = getValues('sizes');
+    const currentColors = getValues('colors');
+    let colArray;
     const sizeIndex = currentSizes.findIndex((s) => s.size === size);
     if (isChecked) {
       if (sizeIndex < 0) {
-        append({ size: size, colors: [{ color: '', colorName: '', quantity: '' }] }); // Add size with default details if it doesn't exist
+        sizeAppend({size:size});
+        if(sizeIndex==0)
+          colAppend({size:size, color: '', colorName: '', quantity: '' }); // Add size with default details if it doesn't exist
       }
     } else {
       if (sizeIndex >= 0) {
-        remove(sizeIndex); // Remove size if it exists
+        sizeRemove(sizeIndex); // Remove size if it exists
+        const filteredFields = colField.filter((field) => field.size !== size);
+        colReplace(filteredFields);
       }
+
+      }
+      console.log("Current colors : ",currentColors );
+      console.log("Current Size : ",currentSizes,"/n sizeIndex", sizeIndex );
     }
-  };
 
 
 
@@ -75,11 +87,16 @@ const Form: React.FC = () => {
     console.log(errors);
   }
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+  function appendColor(size:string) {
+    colAppend({size:size,color:'', colorName:'', quantity:''})
+  }
 
+  return (
+    <div className="pt-14 sm:pl-14" >
+    <form onSubmit={handleSubmit(onSubmit)  }>
+     
       {/* Title */}
-      <div className="my-4 mt-12 flex flex-row gap-10 justify-between items-center">
+      <div className="my-4  flex flex-row gap-10 justify-between items-center">
         <label className="block text-gray-700">Title</label>
         <input
           type="text"
@@ -154,7 +171,7 @@ const Form: React.FC = () => {
       {['S', 'M', 'L', 'XL', 'XXL', 'XXXL'].map((size, index) => (
 
         <div key={index}>
-          <Checkbox checked={fields.some((field) => field.size === size)}
+          <Checkbox checked={sizeField.some((field) => field.size === size)}
             onChange={(e) => toggleSizeSelection(size, e.target.checked)}>{size}</Checkbox>
 
         </div>
@@ -166,45 +183,46 @@ const Form: React.FC = () => {
 
       {/* Sizes */}
       <div className="">
-        {fields.map((sizeField, index) => (
-          <div key={sizeField.id}>
-            <strong>{sizeField.size}</strong>
-            <div>
-              {sizeField.colors.map((color, colorIndex) => (
-                <div key={index}>
-                  <Controller control={control} name={`sizes.${index}.colors.${colorIndex}.color` as const} render={({ field }) => (
-                    <input {...field} placeholder="ColorName" />
+        {sizeField.map((sizefield, index) => (
+          <div key={index}>
+            <strong>{sizefield.size}</strong>
+            <div key={sizefield.id}>
+              {colField.map((col, colorIndex) => (
+                <div key={col.id}>{ sizefield.size=== col.size?<div>
+                  <Controller control={control} name={`colors.${colorIndex}.color` as const} render={({ field }) => (
+                  <input {...field}  placeholder="ColorName" /> )} />
+                {errors.colors?.[colorIndex]?.color && <p>{errors.colors?.[colorIndex]?.color?.message}</p>}
 
-                  )} />
-                  {errors.sizes?.[index]?.colors?.[colorIndex]?.color && <p>{errors.sizes?.[index]?.colors?.[colorIndex]?.color?.message}</p>}
+                <Controller
+                  control={control}
+                  name={`colors.${colorIndex}.colorName` as const}
+                  render={({ field }) => (
+                    
+                    <InputColor
+                      initialValue={field.value} // Use the field's value as the initial color
+                      onChange={(color) => field.onChange(color.hex)} // Update form value when color changes
+                      placement="right"
+                    />
+                  )}
+                />
+                {errors.colors?.[colorIndex]?.colorName && <p>{errors.colors?.[colorIndex]?.colorName?.message}</p>}
 
-                  <Controller
-                    control={control}
-                    name={`sizes.${index}.colors.${colorIndex}.colorName` as const}
-                    render={({ field }) => (
-                      
-                      <InputColor
-                        initialValue={field.value} // Use the field's value as the initial color
-                        onChange={(color) => field.onChange(color.hex)} // Update form value when color changes
-                        placement="right"
-                      />
-                    )}
-                  />
-                  {errors.sizes?.[index]?.colors?.[colorIndex]?.colorName && <p>{errors.sizes?.[index]?.colors?.[colorIndex]?.colorName?.message}</p>}
-
-                  <Controller
-                    control={control}
-                    name={`sizes.${index}.colors.${colorIndex}.quantity` as const}
-                    render={({ field }) => (
-                      <input {...field} type="number" placeholder="Quantity" />
-                    )}
-                  />
-                  {errors.sizes?.[index]?.colors?.[colorIndex]?.quantity && <p>{errors.sizes?.[index]?.colors?.[colorIndex]?.quantity?.message}</p>}
-
+                <Controller
+                  control={control}
+                  name={`colors.${colorIndex}.quantity` as const}
+                  render={({ field }) => (
+                    <input {...field}  type="number" placeholder="Quantity" />
+                  )}
+                />
+                {errors.colors?.[colorIndex]?.quantity && <p>{errors.colors?.[colorIndex]?.quantity?.message}</p>}
+                  </div> :<div></div>}
+                  
+                    
                 </div>
               ))}
 
             </div>
+            <button type="button" onClick={() => appendColor(sizefield.size) } >Add Color </ button>
             {errors.sizes && <p>{errors.sizes.message}</p>}
           </div>
         ))}
@@ -219,7 +237,9 @@ const Form: React.FC = () => {
         className="mt-4 h-8 w-40 px-2 py-1 bg-blue-500 text-white rounded-md">
       </button> */}
       <input type="submit" />
+
     </form>
+    </div>
   );
 };
 
