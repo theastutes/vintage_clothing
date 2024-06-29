@@ -10,6 +10,7 @@ import { SessionProvider } from "next-auth/react";
 import { checkUser } from "../../action/action";
 import { NextUIProvider } from "@nextui-org/system";
 import SideBar from "@/components/Sidebar";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -44,21 +45,20 @@ export default async function RootLayout({
             <TopBar />
           </header>
           <div className="flex flex-row ">
-            <div className=" sm:hidden visible mx-auto">
+            <div className=" sm:hidden lg:hidden visible mx-auto">
               <NavBar />
-            </div>
-            <div className="z-50 max-sm:hidden">
-              <SideBar />
             </div>
           </div>
 
           <NextUIProvider>
-            <main className="">
-              <div>{children}</div>
+            <main className="relative w-full">
+              <SideBar />
+              <div className="relative w-full sm:pl-24">{children}</div>
               {/* <Footer /> */}
             </main>
           </NextUIProvider>
         </SessionProvider>
+        <Toaster />
       </body>
     </html>
   );

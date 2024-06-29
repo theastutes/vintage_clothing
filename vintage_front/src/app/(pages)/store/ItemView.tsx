@@ -1,30 +1,31 @@
-"use client"
-import Image from "next/image";
-import React, { useState } from "react";
+"use client";
+import React from "react";
 import { IProduct } from "../../../../types/types";
-import { getProducts } from "../../../../action/action";
-import Link from "next/link";
-import InfiniteScroll from 'react-infinite-scroll-component';
-import axios from "axios";
-import { GetServerSideProps } from "next";
 import ProductCard from "@/components/ProductCard";
 
-const ItemView = async ({ products,category }: { products: IProduct[] | undefined, category:string }) => {
-
-  const categorize = (data:IProduct[]|undefined)=>{
-    return data?.filter((product: { category: string | string[]; })=>product.category.includes(category));
-  } 
+const ItemView = async ({
+  products,
+  category,
+}: {
+  products: IProduct[] | undefined;
+  category: string;
+}) => {
+  const categorize = (data: IProduct[] | undefined) => {
+    return data?.filter((product: { category: string | string[] }) =>
+      product.category.includes(category)
+    );
+  };
 
   const categorized = categorize(products);
 
   return (
-    <div className="w-full max-w-full h-full items-center sm:justify-evenly justify-center overflow-x-hidden sm:flex sm:flex-row sm:gap-y-14 sm:gap-x-12 sm:flex-wrap sm:w-[85%] sm:mx-8 sm:ml-20
+    <div
+      className="w-full max-w-full h-full items-center sm:justify-evenly justify-center overflow-x-hidden sm:flex sm:flex-row sm:gap-y-14 sm:gap-x-12 sm:flex-wrap sm:w-[85%] sm:mx-8
     
-    grid-cols-2 grid  gap-1 p-1 ">
-
+    grid-cols-2 grid  gap-1 p-1 "
+    >
       {categorized &&
         categorized.map((item: IProduct, index: number) => (
-
           // <Link
           //   href={`/productDetail/${item._id}`}
           //   key={index}
@@ -43,11 +44,11 @@ const ItemView = async ({ products,category }: { products: IProduct[] | undefine
           //       <div>{item.sp}</div>
           //     </div>
           //     <div className="px-1">{item.details}</div>
-              
+
           //   </div>
           //   <div className="absolute h-[15%] z-30 w-full bg-gradient-to-t from-mywhite to-transparent bottom-0"></div>
           // </Link>
-          <ProductCard item={item}/>
+          <ProductCard item={item} />
         ))}
 
       {/* <InfiniteScroll
@@ -63,13 +64,13 @@ const ItemView = async ({ products,category }: { products: IProduct[] | undefine
           </div>
         ))}
       </InfiniteScroll> */}
-
     </div>
   );
 };
 export default ItemView;
 
-{/* {data &&
+{
+  /* {data &&
         data.map((item: IProduct, index: number) => (
           <Link
             href={`/productDetail/${item._id}`}
@@ -88,4 +89,5 @@ export default ItemView;
               {item.title}
             </div>
           </Link>
-        ))} */}
+        ))} */
+}

@@ -1,18 +1,11 @@
 import React, { Suspense } from "react";
-import Image from "next/image";
 import ItemView from "./ItemView";
 import Loading from "@/components/Loading";
-import axios from "axios";
-
-
 
 const page = async () => {
-
- 
-
   return (
     <>
-      <div className="w-screen h-screen overflow-y-scroll overflow-hidden pt-10 pb-36 sm:pb-0 text-2xl">
+      <div className="w-full h-screen overflow-y-scroll overflow-hidden pt-10 pb-36 sm:pb-0 text-2xl">
         <div className="w-full text-xl px-3 font-bold h-fit text-black z-10">
           Cart
         </div>

@@ -7,29 +7,46 @@ import { IItem, IProduct } from "../../../../types/types";
 import { getCart, getProduct } from "../../../../action/action";
 import { auth } from "../../../../auth";
 import { updateCart } from "../../../../action/action";
+import { toast } from "sonner";
+import ToastNotification from "@/comp/ToastNotification";
 
 const ItemView = async () => {
-
   const session = await auth();
-  if(!session){
-    throw new Error("Login to check your cart");
+  if (!session) {
+    return (
+      <ToastNotification
+        message="Event has been created"
+        description="Sunday, December 03, 2023 at 9:00 AM"
+      />
+    );
   }
-  const email = session.user?.email;
-  
-  const cart: IItem[] | undefined = await getCart({ email  });
-  if (!cart) {
-    throw new Error("Check your connection");
-  }
+  const email = session!.user!.email!;
+
+  const cart: IItem[] | undefined = await getCart({ email });
+  // if (!cart) {
+  //   async () => {
+  //     <ToastNotification
+  //       message="Event has been created"
+  //       description="Sunday, December 03, 2023 at 9:00 AM"
+  //     />;
+  //   };
+  // }
 
   return (
-    <div className="w-screen sm:w-[70%] flex flex-col items-center justify-between h-fit p-2 ">
-      {cart &&
-        cart.map((item, index) => (
+    <div className="w-full sm:w-[70%] flex flex-col items-center justify-between h-fit p-2 ">
+      {cart ? (
+        cart?.map((item, index) => (
           <>
             <Item item={item} />
             <hr className=" border-gray-500/50 border-1 w-full" />
           </>
-        ))}
+        ))
+      ) : (
+        <ToastNotification
+          message="Network Error"
+          description="Error getting Cart, Check your connection and retry"
+        />
+      )}
     </div>
   );
 };
@@ -38,13 +55,13 @@ export default ItemView;
 
 const Item = async ({ item }: { item: IItem }) => {
   const id = item.productId;
-  const product: IProduct | undefined = await getProduct({productId: id });
+  const product: IProduct | undefined = await getProduct({ productId: id });
   const session = await auth();
   const email = session?.user?.email;
   const handleUpdate = async () => {
     console.log(item);
-   //await updateCart(item.quantity, item.productId, email)
-  }
+    //await updateCart(item.quantity, item.productId, email)
+  };
 
   return (
     <>
