@@ -38,7 +38,7 @@ function FilterView({ products }: { products: IProduct[] | undefined }) {
           </div>
         </div>
       </div>
-      <div className="flex flex-row h-12 w-full justify-center items-center gap-10 ">
+      <div className="flex flex-row h-12 w-full justify-around items-center ">
         <div
           className={`${
             selectedCat === "" ? "bg-blue-700 text-white border-blue-700" : ""
