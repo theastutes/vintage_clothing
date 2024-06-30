@@ -12,7 +12,7 @@ const ToastNotification = ({
   const router = useRouter();
   toast.warning(message, {
     description,
-    position: "bottom-right",
+    position: "top-center",
     action: {
       label: "Retry",
       onClick: () => router.refresh(),

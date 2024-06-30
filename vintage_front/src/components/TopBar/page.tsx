@@ -1,18 +1,19 @@
 "use client";
 import React from "react";
-import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CgSearch } from "react-icons/cg";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { josefin } from "../ui/fonts";
-import Search from "../Search";
 
 const TopBar = () => {
   const router = useRouter();
   return (
-    <div className={`${josefin.className} shadow-sm fixed text-myblack  bg-mywhite  top-0 z-50 h-14 sm:h-14 w-full flex flex-row items-center justify-between px-4 `}>
+    <div
+      className={`${josefin.className} shadow-sm fixed text-myblack  bg-white top-0 z-50 h-14 sm:h-14 w-full flex flex-row items-center justify-between px-4 `}
+    >
       <div className="h-8 w-full flex items-center justify-between w-15">
         {usePathname() !== "/" ? (
           <IoIosArrowBack
@@ -22,18 +23,21 @@ const TopBar = () => {
             }}
             color="black"
             size={22}
-          />        
+          />
         ) : (
           <div className="font-bold  text-brown text-xl ">VINTAGE</div>
         )}
       </div>
       <div className="flex flex-row  w-[30%] justify-end gap-6">
-      <Link className={`${usePathname()==="/search"?"hidden":"" }`} href={"/search"}>
-      <CgSearch size={25} color="myblack"/>
-      </Link>
-      <Link href={"/cart"} className="sm:hidden">
-        <AiOutlineShoppingCart color="myblack" size={28} />
-      </Link>
+        <Link
+          className={`${usePathname() === "/search" ? "hidden" : ""}`}
+          href={"/search"}
+        >
+          <CgSearch size={25} color="myblack" />
+        </Link>
+        <Link href={"/cart"} className="sm:hidden">
+          <AiOutlineShoppingCart color="myblack" size={28} />
+        </Link>
       </div>
     </div>
   );

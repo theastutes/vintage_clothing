@@ -6,8 +6,6 @@ import { RiAddFill } from "react-icons/ri";
 import { IItem, IProduct } from "../../../../types/types";
 import { getCart, getProduct } from "../../../../action/action";
 import { auth } from "../../../../auth";
-import { updateCart } from "../../../../action/action";
-import { toast } from "sonner";
 import ToastNotification from "@/comp/ToastNotification";
 
 const ItemView = async () => {

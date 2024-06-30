@@ -19,8 +19,6 @@ const page = async () => {
 
   return (
     <div className="w-full h-full min-h-screen flex flex-col items-center justify-start">
-      <div className={`${josefin.className} text-3xl p-8 `}>Explore</div>
-
       <div>
         <FilterComponent products={data} />
       </div>

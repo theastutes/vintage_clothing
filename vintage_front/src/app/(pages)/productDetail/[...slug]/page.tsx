@@ -1,7 +1,10 @@
-
 import Image from "next/image";
-import { addToCart, getProduct } from "../../../../../action/action";
-import { IProduct } from "../../../../../types/types";
+import {
+  addToCart,
+  getAddress,
+  getProduct,
+} from "../../../../../action/action";
+import { IAddress, IProduct } from "../../../../../types/types";
 import { IoIosArrowDown } from "react-icons/io";
 import { CiMapPin } from "react-icons/ci";
 import {
@@ -18,21 +21,30 @@ import { Button } from "@/components/ui/button";
 import CreateItem from "@/components/CreateItem";
 import { auth } from "../../../../../auth";
 
-
 const Page = async ({ params }: { params: { slug: string } }) => {
   const productId = params.slug;
   const item: IProduct | undefined = await getProduct({
     productId,
-  })
-
+  });
   const session = await auth();
-
-
+  const address: [IAddress] | null = await getAddress(
+    session?.user?.email ?? ""
+  );
   return (
     <div className="flex flex-col h-screen max-h-screen w-full overflow-hidden">
-      <div className="flex w-full mt-10 sm:mt-8 px-4 py-2 items-center justify-start gap-2 line-clamp-1 truncate sm:text-xs text-sm text-black bg-white">
-        <CiMapPin /> <div> Delivering to Abohar 152116 -Update location</div>
-        <IoIosArrowDown />
+      <div className="flex w-full px-4 py-2 items-center justify-start gap-2 line-clamp-1 truncate sm:text-xs text-sm text-black bg-white">
+        <CiMapPin />{" "}
+        <div>
+          {" "}
+          Delivering to{" "}
+          <span className="font-bold">{address && address[0].town}</span>
+          {"  "}
+          <span className="text-blue-600">
+            {address && address[0].pincode}
+          </span>{" "}
+          - <span className="cursor-pointer">Update location</span>
+        </div>
+        <IoIosArrowDown className="cursor-pointer" />
       </div>
       <div className="relative w-full h-full flex items-start justify-between flex-col sm:flex-row">
         <div className="w-full h-[65%] sm:w-[40%] sm:h-[84%] bg-white/20 rounded-md">
@@ -40,8 +52,9 @@ const Page = async ({ params }: { params: { slug: string } }) => {
             className="w-full h-full bg-white/20"
             src={item?.images[0]!}
             alt=""
-            height={500}
-            width={500}
+            height={2000}
+            width={2000}
+            quality={100}
           />
         </div>
 
@@ -51,8 +64,11 @@ const Page = async ({ params }: { params: { slug: string } }) => {
             <Price price={item?.sp ?? 0} />
           </div>
 
-         <CreateItem productId={item?._id} sizes={item?.sizes} email={session?.user?.email!} />
-
+          <CreateItem
+            productId={item?._id}
+            sizes={item?.sizes}
+            email={session?.user?.email!}
+          />
 
           <div className="flex w-full h-full">
             <div className="w-full gap-1 flex items-center justify-between h-20 mt-auto">
@@ -101,7 +117,6 @@ export default Page;
 //     </Drawer>
 //   );
 // };
-
 
 const Price = ({ price }: { price: number }) => {
   return (

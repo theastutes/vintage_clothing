@@ -1,17 +1,13 @@
 "use strict";
+import axios from "axios";
+import { IProduct, IItem, IAddress } from "../types/types";
 
 interface Iusersession extends Document {
-  id:string,
-  name:string,
-  email:string,
-  image:string,
+  id: string;
+  name: string;
+  email: string;
+  image: string;
 }
-
-
-import axios from "axios";
-import { auth, signIn } from "../auth";
-import { IUser, IProduct, returnprops, IItem, IAddress } from "../types/types";
-import { redirect } from "next/dist/server/api-utils";
 
 export const getUsers = async <returnprops>() => {
   try {
@@ -22,16 +18,20 @@ export const getUsers = async <returnprops>() => {
     console.log("error while getting users :", error);
   }
 };
-//{id,name, email,image}:{id:string|undefined; name:string|undefined; email:string|undefined;image:string|undefined}
-export const checkUser = async (id:string|undefined,name:string|undefined|null,email:string|undefined|null,image:string|undefined|null) =>{
-  try{
-    const data = {id, name, email, image }
-    await axios.post("http://localhost:4000/api/users", data );
-  }
-  catch(error){
+
+export const checkUser = async (
+  id: string | undefined,
+  name: string | undefined | null,
+  email: string | undefined | null,
+  image: string | undefined | null
+) => {
+  try {
+    const data = { id, name, email, image };
+    await axios.post("http://localhost:4000/api/users", data);
+  } catch (error) {
     console.log("error while saving the user");
   }
-}
+};
 
 export const login = async <IUser>({
   email,
@@ -77,14 +77,13 @@ export const login = async <IUser>({
 };
 
 export const getProducts = async (): Promise<IProduct[] | undefined> => {
-  
   try {
     const response = await axios.get(
       `http://localhost:4000/api/products/getProducts`
-     // getallProducts
+      // getallProducts
     );
     // console.log("status code :", response.status, "Data:- :", response.data);
-    
+
     return response.data;
   } catch (error) {
     console.log("error getting product!");
@@ -92,11 +91,15 @@ export const getProducts = async (): Promise<IProduct[] | undefined> => {
   }
 };
 
-export const getProduct = async ({productId}: {productId: string|undefined}): Promise<IProduct | undefined> => {
+export const getProduct = async ({
+  productId,
+}: {
+  productId: string | undefined;
+}): Promise<IProduct | undefined> => {
   try {
     const id = productId?.toString();
     const response = await axios.post(
-      `${process.env.MY_PATH}/api/products/getProduct`,
+      `http://localhost:4000/api/products/getProduct`,
       { id }
     );
     //console.log("status code :", response.status, "Data:- :", response.data);
@@ -107,30 +110,46 @@ export const getProduct = async ({productId}: {productId: string|undefined}): Pr
   }
 };
 
-
-export const updateCart = async (productId:string, quantity:number, email:string) => {
+export const updateCart = async (
+  productId: string,
+  quantity: number,
+  email: string
+) => {
   try {
-    const res = await axios.post("http://localhost:4000/api/cart/updateCart",{productId,quantity,email});
+    const res = await axios.post("http://localhost:4000/api/cart/updateCart", {
+      productId,
+      quantity,
+      email,
+    });
     console.log(res.status);
   } catch (error) {
     console.log("Error while updating cart");
   }
-}
+};
 
-export const removeFromCart = async (productId:string, email:string) => {
+export const removeFromCart = async (productId: string, email: string) => {
   try {
-    const res = await axios.post("http://localhost:4000/api/cart/updateCart",{productId,email});
+    const res = await axios.post("http://localhost:4000/api/cart/updateCart", {
+      productId,
+      email,
+    });
     console.log(res.status);
   } catch (error) {
     console.log("Error while updating cart");
   }
-}
+};
 
-export const addToCart = async (myproduct:IItem) => {
-  console.log("In addToCart action.ts :  ",myproduct);
+export const addToCart = async (myproduct: IItem) => {
+  console.log("In addToCart action.ts :  ", myproduct);
   try {
-    
-    const response = await axios.post(`http://localhost:4000/api/cart/add`,myproduct).then(response => {console.log('Product added to cart successfully ');}).catch(error => {console.error('Error while sending data in api/cart : ',error)});
+    const response = await axios
+      .post(`http://localhost:4000/api/cart/add`, myproduct)
+      .then((response) => {
+        console.log("Product added to cart successfully ");
+      })
+      .catch((error) => {
+        console.error("Error while sending data in api/cart : ", error);
+      });
     //console.log("Data:- :", response.data);
     console.log(response);
   } catch (error) {
@@ -138,16 +157,14 @@ export const addToCart = async (myproduct:IItem) => {
   }
 };
 
-
-
 export const getCart = async ({
   email,
 }: {
-  email: string|undefined|null;
+  email: string | undefined | null;
 }): Promise<IItem[] | undefined> => {
   try {
     const response = await axios.post(
-      `${process.env.MY_PATH}/api/cart/getCart`,
+      `http://localhost:4000/api/cart/getCart`,
       {
         email,
       }
@@ -171,35 +188,51 @@ export const loginUser = async () => {
 };
 
 type sdata = {
-  data:string
-}
+  data: string;
+};
 
-export async function searchMyData(data:string){
+export async function searchMyData(data: string) {
   try {
-    
-    const res = await axios.post('http://localhost:4000/api/products/search',{data});
+    const res = await axios.post<IAddress>(
+      "http://localhost:4000/api/products/search",
+      {
+        data,
+      }
+    );
     return res.data;
   } catch (error) {
-     console.log("Error while Searching data in searchMyData", error);
+    console.log("Error while Searching data in searchMyData", error);
   }
-  
 }
 
-export async function getAddress(id:string){
-  try{
-    const res = await axios.post('http://localhost:4000/api/users/getAddr',{id});
+export async function getAddress(email: string): Promise<[IAddress] | null> {
+  try {
+    const res = await axios.post("http://localhost:4000/api/users/getAddr", {
+      email: "projectyjka@gmail.com",
+    });
+    console.log(res.data);
     return res.data;
-  }
-  catch(error){
-    console.log("Error while sending id for getting address");
+  } catch (error) {
+    console.log("error getting address");
+    return null;
   }
 }
 
-export const addNewAddress = async (userId:string,address:IAddress) => {
+export const addNewAddress = async (userId: string, address: IAddress) => {
   console.log("In newAddress action.ts :  ", address);
   try {
-    const data = {id,newAddress}
-    const response = await axios.post(`http://localhost:4000/api/users/adadres`,{userId,address}).then(response => {console.log('Address added to successfully ');}).catch(error => {console.error('Error while sending data in api/users/adadres : ',error)});
+    const data = { userId, address };
+    const response = await axios
+      .post(`http://localhost:4000/api/users/adadres`, { userId, address })
+      .then((response) => {
+        console.log("Address added to successfully ");
+      })
+      .catch((error) => {
+        console.error(
+          "Error while sending data in api/users/adadres : ",
+          error
+        );
+      });
     //console.log("Data:- :", response.data);
     console.log(response);
   } catch (error) {

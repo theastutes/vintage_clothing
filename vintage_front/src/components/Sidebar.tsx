@@ -54,17 +54,17 @@ export const Tab = ({
   return (
     <Link
       className={`${
-        usePathname() === path ? "bg-mywhite text-myblack" : "text-white"
+        usePathname() === path ? "text-black bg-mywhite " : "text-white"
       } ${buttonVariants({
         variant: "ghost",
-      })} hover:bg-white/90 text-white hover:text-black flex flex-col gap-2 w-full h-auto aspect-square`}
+      })} hover:bg-white/90 hover:text-black text-black flex flex-col gap-2 w-full h-auto aspect-square`}
       href={path}
     >
       {Icon}
       <div
         className={`${
-          usePathname() === path ? "" : ""
-        }  ring-amber-200  text-[10px] font-extrabold`}
+          usePathname() === path ? "text-black" : ""
+        } text-[10px] font-extrabold`}
       >
         {label}
       </div>

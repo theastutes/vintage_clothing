@@ -41,7 +41,7 @@ export default async function RootLayout({
         className={`${dosis.className} antialiased bg-mywhite text-myblack`}
       >
         <SessionProvider basePath={"/auth"} session={session}>
-          <header className="sm:hidden">
+          <header className="">
             <TopBar />
           </header>
           <div className="flex flex-row ">
@@ -53,7 +53,9 @@ export default async function RootLayout({
           <NextUIProvider>
             <main className="relative w-full">
               <SideBar />
-              <div className="relative w-full sm:pl-24">{children}</div>
+              <div className="relative w-full sm:pl-24 pb-16 pt-14">
+                {children}
+              </div>
               {/* <Footer /> */}
             </main>
           </NextUIProvider>

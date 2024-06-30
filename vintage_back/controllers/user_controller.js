@@ -57,10 +57,10 @@ export const updateUser = async (req, res) => {
 }
 
 export const delAddr = async (req, res) => {
-    const {userId,addressId} = req.body;
+    const { userId, addressId } = req.body;
     try {
         const user = await User.findById(userId);
-        user.address.$pop({_id:addressId})
+        user.address.$pop({ _id: addressId })
         await user.save();
         res.status(201).json(user);
 
@@ -71,36 +71,42 @@ export const delAddr = async (req, res) => {
 }
 
 export const addAddr = async (req, res) => {
-    const { userId, address } = req.body;
-    console.log("Add Address :  ",userId,address);
+    const { email, address } = req.body;
+    console.log("Add Address: ", email, address);
     try {
-        const user = await User.findById(userId);
+        const user = await User.findOne({ email });
+        console.log("User :", user)
         if (!user) {
+            console.log("User not found")
             return res.status(404).send('User not found');
         }
+        console.log("User found:", user);
 
+        // Add the address to the user's address array
         user.address.push(address);
         await user.save();
-
-        res.status(200).send('Address added successfully');
+        return res.status(200).json('Address added successfully');
     } catch (error) {
         console.error('Error adding address:', error);
         res.status(500).send('Internal Server Error');
     }
-}
+};
+
 
 
 export const getAddr = async (req, res) => {
     try {
-        const userId = req.id;
-        const address = await User.findOne({ id: userId },{address:1,_id:0});
-        if (!address) {
-            res.status(404).json({ error: "User doesn't exist" });
+        const { email } = req.body;
+        console.log("Line number: 96");
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ error: "User doesn't exist" });
         }
-        return res.json(address);
+        console.log("Line number: 102");
+        console.log("Address data: ", user.address);
+        return res.status(200).json(user.address);
+    } catch (error) {
+        return res.status(500).json({ error: 'Error in getting address at function getAddr' });
     }
-    catch {
-        res.status(500).json({ error: 'Error in getting Address at function getAddr' });
-    }
+};
 
-}
