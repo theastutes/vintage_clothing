@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const ToastNotification = ({
@@ -9,17 +8,12 @@ const ToastNotification = ({
   message: string;
   description: string;
 }) => {
-  const router = useRouter();
   toast.warning(message, {
     description,
     position: "top-center",
-    action: {
-      label: "Retry",
-      onClick: () => router.refresh(),
-    },
   });
 
-  return null; // This component doesn't render anything visible
+  return null;
 };
 
 export default ToastNotification;

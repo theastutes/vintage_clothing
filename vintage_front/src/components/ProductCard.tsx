@@ -2,12 +2,11 @@ import Link from "next/link";
 import { IProduct } from "../../types/types";
 import Image from "next/image";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
-import { redirect, useRouter } from "next/navigation";
 
 function ProductCard({ item }: { item: IProduct }) {
-  const router = useRouter();
+  // const router = useRouter();
   return (
-    <Card key={item._id} shadow="sm" isPressable onPress={() => redirect("")}>
+    <Card key={item._id} shadow="sm" isPressable>
       <Link className="h-full w-full" href={`/productDetail/${item._id}`}>
         <CardBody className="overflow-visible p-0">
           <Image

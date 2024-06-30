@@ -32,6 +32,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
   );
   return (
     <div className="flex flex-col h-screen max-h-screen w-full overflow-hidden">
+      {/* selected location */}
       <div className="flex w-full px-4 py-2 items-center justify-start gap-2 line-clamp-1 truncate sm:text-xs text-sm text-black bg-white">
         <CiMapPin />{" "}
         <div>
@@ -46,6 +47,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
         </div>
         <IoIosArrowDown className="cursor-pointer" />
       </div>
+
       <div className="relative w-full h-full flex items-start justify-between flex-col sm:flex-row">
         <div className="w-full h-[65%] sm:w-[40%] sm:h-[84%] bg-white/20 rounded-md">
           <Image

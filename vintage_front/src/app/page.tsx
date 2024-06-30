@@ -19,7 +19,7 @@ export default async function Home() {
     });
   };
   return (
-    <main className="w-full h-full min-h-fit max-w-screen max-sm:pt-14  overflow-x-hidden ">
+    <main className="w-full h-full min-h-fit max-w-screen  overflow-x-hidden ">
       <div className=" relative w-full object-cover ">
         <div
           className={`${josefin.className} absolute w-full h-full text-mywhite text-5xl bg-black/50 backdrop-blur-sm flex flex-col py-14 justify-center  items-center z-20 gap-20      sm:text-7xl sm:justify-evenly

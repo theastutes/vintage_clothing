@@ -20,8 +20,6 @@ import {
 } from "@/components/ui/dialog";
 import AddressForm from "./AddressForm";
 import { IAddress } from "../../../../../types/types";
-import { DialogClose } from "@radix-ui/react-dialog";
-
 const page = async () => {
   const session = await auth();
   const address: [IAddress] | null = await getAddress(
@@ -83,10 +81,13 @@ const page = async () => {
               </CardFooter>
             </Card>
           ))}
-        <div className="flex items-center justify-center bg-white w-full rounded-sm">
-          <AddAddress />
-        </div>
-        {/* <AddressForm /> */}
+        <Card>
+          <CardBody>
+            <div className="w-full h-full flex items-center justify-center">
+              <AddAddress />
+            </div>
+          </CardBody>
+        </Card>
       </div>
     </div>
   );

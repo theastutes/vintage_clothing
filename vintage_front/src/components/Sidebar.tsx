@@ -23,8 +23,8 @@ function SideBar() {
     { path: "/account", icon: <AiOutlineUser size={26} />, label: "Account" },
   ];
   return (
-    <div className="fixed z-50 max-sm:hidden bg-myblack  p-1 w-24 h-full text-center">
-      <div className="h-auto aspect-square w-full flex justify-center items-center font-extrabold select-none text-white">
+    <div className="fixed z-50 max-sm:hidden bg-myblack p-1 w-24 h-full text-center">
+      <div className="aspect-square w-full flex justify-center items-start font-extrabold select-none text-white pt-3">
         Vintage
       </div>
       <div

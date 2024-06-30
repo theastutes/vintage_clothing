@@ -63,7 +63,7 @@ const Item = async ({ item }: { item: IItem }) => {
 
   return (
     <>
-      <div className="relative flex items-center justify-between w-full h-24 rounded-md overflow-hidden py-2">
+      <div className="relative flex items-center justify-between w-full h-24 rounded-md overflow-hidden py-2 text-black">
         <div className="h-full aspect-square">
           <Image
             className=" bg-white/10 rounded-md h-full w-full aspect-square shadow-md shadow-gray-400"
@@ -76,7 +76,7 @@ const Item = async ({ item }: { item: IItem }) => {
 
         <form className="grid grid-cols-4 gap-2 py-3 rounded-md w-full overflow-hidden">
           <div className=" flex flex-col p-1 items-center justify-between gap-2 h-full col-span-3 overflow-hidden ">
-            <div className=" flex flex-col  items-center justify-between w-full h-full p-1 text-white">
+            <div className=" flex flex-col  items-center justify-between w-full h-full p-1">
               <div className="w-full h-full pl-4 font-semibold text-sm">
                 {product?.title}
               </div>

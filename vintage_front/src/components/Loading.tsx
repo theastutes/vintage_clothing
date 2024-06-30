@@ -1,7 +1,11 @@
-import React from "react";
+import { CircularProgress } from "@nextui-org/progress";
 
 const Loading = () => {
-  return <div className="p-2 bg-red-900">Loading...</div>;
+  return (
+    <div className="h-full w-full text-4xl flex items-center justify-center">
+      <CircularProgress size="lg" aria-label="Loading..." />
+    </div>
+  );
 };
 
 export default Loading;

@@ -10,6 +10,8 @@ import Link from "next/link";
 import Loading from "@/components/Loading";
 import { access } from "fs";
 import { signIn, signOut } from "../../../../auth";
+import { Button } from "@/components/ui/button";
+import { Card, CardFooter, CardHeader } from "@nextui-org/card";
 
 const page = async () => {
   // try{
@@ -45,7 +47,7 @@ const page = async () => {
   return (
     <div className="h-screen w-full max-sm:pt-14 flex sm:flex-row flex-col overflow-hidden justify-center items-center  gap-4">
       <div className="h-screen select-none relative overflow-hidden overflow-y-scroll w-full flex flex-col gap-2 sm:flex-row items-center text-2x p-2">
-        <div className="sm:w-1/3 sm:h-full h-[25%] flex items-center justify-center w-full p-2">
+        {/* <div className="sm:w-1/3 sm:h-full h-[25%] flex items-center justify-center w-full p-2">
           <div className=" flex flex-col gap-2 w-full h-full  sm:h-[80%] p-2 shadow-lg shadow-gray-300 rounded-3xl">
             <div className="flex  justify-center items-center aspect-square rounded-t-2xl bg-brown-secondary overflow-hidden ">
               <Image
@@ -71,7 +73,39 @@ const page = async () => {
             </div>
             <div className="text-sm">{session?.user?.email}</div>
           </div>
-        </div>
+        </div> */}
+        <Card
+          isFooterBlurred
+          className="w-full h-[300px] col-span-12 sm:col-span-5"
+        >
+          <CardHeader className="absolute z-10 top-1 flex-col items-start">
+            <p className="text-tiny text-white/60 uppercase font-bold">New</p>
+            <h4 className="text-black font-medium text-2xl">Acme camera</h4>
+          </CardHeader>
+          <Image
+            alt="Card example background"
+            className="z-0 w-full h-full scale-125 -translate-y-6 object-cover"
+            width={200}
+            height={200}
+            src="https://nextui.org/images/card-example-6.jpeg"
+          />
+          <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
+            <div>
+              <p className="text-black text-tiny">{session.user.name}</p>
+              <p className="text-black text-tiny">{session.user.email}</p>
+            </div>
+            <form
+              action={async () => {
+                "use server";
+                await signOut({ redirectTo: "/" });
+              }}
+            >
+              <Button type="submit" className="text-tiny text-white">
+                Sign Out
+              </Button>
+            </form>
+          </CardFooter>
+        </Card>
         <div className="sm:h-full sm:w-2/3  w-full h-full min-h-fit flex items-center justify-center">
           <div className="grid grid-flow-col grid-cols-2 grid-rows-2 gap-2 sm:gap-4 p-2  sm:h-[80%] h-[59%] w-full text-xs">
             <div className="relative shadow-md shadow-gray-500 bg-black/80 rounded-2xl  overflow-hidden">
