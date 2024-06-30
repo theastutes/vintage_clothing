@@ -92,26 +92,26 @@ const Form: React.FC = () => {
   }
 
   return (
-    <div className="pt-14 sm:pl-14" >
-    <form onSubmit={handleSubmit(onSubmit)  }>
-     
+    <div className="w-[80%] mx-auto">
+    <form onSubmit={handleSubmit(onSubmit) }>
+     <div className="pt-14  overflow-hidden flex flex-row  flex-wrap justify-between items-start gap-y-10">
       {/* Title */}
-      <div className="my-4  flex flex-row gap-10 justify-between items-center">
+      <div className="flex flex-row w-[32rem]  justify-between items-center">
         <label className="block text-gray-700">Title</label>
         <input
           type="text"
           {...register("title")}
-          className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          className=" p-2  w-[26rem] border border-gray-300 rounded-md"
         />
         {errors.title && <p className="text-red-500">{errors.title.message}</p>}
       </div>
 
       {/* Details */}
-      <div className="mb-4 flex flex-row gap-10 justify-center items-center">
+      <div className=" flex flex-row w-[32rem]   justify-between items-start">
         <label className="block text-gray-700">Details</label>
         <textarea
           {...register("details")}
-          className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          className=" p-2  w-[26rem] border border-gray-300 rounded-md"
         />
         {errors.details && (
           <p className="text-red-500">{errors.details.message}</p>
@@ -119,12 +119,12 @@ const Form: React.FC = () => {
       </div>
 
       {/* Images */}
-      <div className="mb-4 flex flex-row gap-10 justify-center items-center">
+      <div className=" flex flex-row w-[32rem]   justify-between items-center">
         <label className="block text-gray-700">Images</label>
         <input
           type="text"
           {...register("images.0")}
-          className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          className=" p-2  w-[26rem] border border-gray-300 rounded-md"
         />
         {errors.images?.[0] && (
           <p className="text-red-500">{errors.images[0].message}</p>
@@ -132,33 +132,33 @@ const Form: React.FC = () => {
       </div>
 
       {/* MRP */}
-      <div className="mb-4 flex flex-row gap-10 justify-center items-center">
+      <div className=" flex flex-row w-[32rem]   justify-between items-center">
         <label className="block text-gray-700 line-clamp-1 truncate">MRP ₹</label>
         <input
           type="number"
           {...register("mrp")}
-          className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          className=" p-2  w-[26rem] border border-gray-300 rounded-md"
         />
         {errors.mrp && <p className="text-red-500">{errors.mrp.message}</p>}
       </div>
 
       {/* SP */}
-      <div className="mb-4 flex flex-row gap-10 justify-center items-center">
+      <div className=" flex flex-row w-[32rem]   justify-between items-center">
         <label className="block text-gray-700">SP</label>
         <input
           type="number"
           {...register("sp")}
-          className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          className=" p-2  w-[26rem] border border-gray-300 rounded-md"
         />
         {errors.sp && <p className="text-red-500">{errors.sp.message}</p>}
       </div>
 
-      <div className="mb-4 flex flex-row gap-10 justify-center items-center">
+      <div className=" flex flex-row w-[32rem]   justify-between items-center">
         <label className="block text-gray-700">SP</label>
         <select
            id="categories"
           title="categories" {...register("category")}
-          className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+          className=" p-2  w-[26rem] border border-gray-300 rounded-md"
         >
           <option value="BTMLWR" >Lower</option>
           <option  value="UPRSRT">Shirt</option>
@@ -167,26 +167,28 @@ const Form: React.FC = () => {
         </select>
         {errors.category && <p className="text-red-500">{errors.category.message}</p>}
       </div>
+      </div>
 
+      <div className="flex flex-row my-14 gap-x-14 items-center">
       {['S', 'M', 'L', 'XL', 'XXL', 'XXXL'].map((size, index) => (
 
-        <div key={index}>
+        <div key={index} className="">
           <Checkbox checked={sizeField.some((field) => field.size === size)}
-            onChange={(e) => toggleSizeSelection(size, e.target.checked)}>{size}</Checkbox>
+            onChange={(e) => toggleSizeSelection(size, e.target.checked)} className=""  >{size}</Checkbox>
 
         </div>
 
 
       ))}
-
+</div>
 
 
       {/* Sizes */}
       <div className="">
         {sizeField.map((sizefield, index) => (
-          <div key={index}>
+          <div key={index} className="flex flex-row justify-between items-center h-10 border-2 px-3 border-gray-200 rounded-xl bg-mywhite">
             <strong>{sizefield.size}</strong>
-            <div key={sizefield.id}>
+            <div key={sizefield.id} className="">
               {colField.map((col, colorIndex) => (
                 <div key={col.id}>{ sizefield.size=== col.size?<div>
                   <Controller control={control} name={`colors.${colorIndex}.color` as const} render={({ field }) => (
