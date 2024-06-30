@@ -5,7 +5,7 @@ export interface IUser {
   id: string;
 }
 
-export interface IAddress extends Document {
+export interface IAddress {
   fullname: string;
   phoneno: number;
   pincode: number;
@@ -15,7 +15,7 @@ export interface IAddress extends Document {
 }
 
 export interface IItem {
-  productId: string|undefined;
+  productId: string | undefined;
   quantity: number;
   size: string;
   color: string;

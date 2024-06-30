@@ -15,7 +15,7 @@ export default function Error({ error, reset }: ErrorProps) {
   const router = useRouter();
 
   return (
-    <div className="h-full w-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black py-12 px-4 sm:px-6 lg:px-8">
+    <div className="h-full w-full flex items-center justify-center bg-black py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full bg-white/5 backdrop-blur-3xl shadow-md rounded-lg p-8">
         <h2 className="text-lg font-extrabold text-white mb-4">
           Make sure to check your connection

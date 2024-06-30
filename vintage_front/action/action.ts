@@ -1,6 +1,7 @@
 "use strict";
 import axios from "axios";
 import { IProduct, IItem, IAddress } from "../types/types";
+import { revalidatePath } from "next/cache";
 
 interface Iusersession extends Document {
   id: string;
@@ -208,9 +209,8 @@ export async function searchMyData(data: string) {
 export async function getAddress(email: string): Promise<[IAddress] | null> {
   try {
     const res = await axios.post("http://localhost:4000/api/users/getAddr", {
-      email: "projectyjka@gmail.com",
+      email,
     });
-    console.log(res.data);
     return res.data;
   } catch (error) {
     console.log("error getting address");
@@ -218,24 +218,23 @@ export async function getAddress(email: string): Promise<[IAddress] | null> {
   }
 }
 
-export const addNewAddress = async (userId: string, address: IAddress) => {
+export const addNewAddress = async ({
+  email,
+  address,
+}: {
+  email: string;
+  address: IAddress;
+}): Promise<boolean> => {
   console.log("In newAddress action.ts :  ", address);
   try {
-    const data = { userId, address };
-    const response = await axios
-      .post(`http://localhost:4000/api/users/adadres`, { userId, address })
-      .then((response) => {
-        console.log("Address added to successfully ");
-      })
-      .catch((error) => {
-        console.error(
-          "Error while sending data in api/users/adadres : ",
-          error
-        );
-      });
-    //console.log("Data:- :", response.data);
-    console.log(response);
+    const data = { email, address };
+    const response = await axios.post(
+      `http://localhost:4000/api/users/adadres`,
+      { email, address }
+    );
+    return true;
   } catch (error) {
-    console.log("error getting product!");
+    console.log("error adding address!");
+    return false;
   }
 };

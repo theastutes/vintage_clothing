@@ -1,7 +1,6 @@
 import React from "react";
 import { getAddress } from "../../../../../action/action";
 import { auth } from "../../../../../auth";
-import { IAddress } from "../../../../../types/types";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import { BsFillPinMapFill } from "react-icons/bs";
@@ -19,8 +18,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import AddressForm from "./AddressForm";
+import { IAddress } from "../../../../../types/types";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 const page = async () => {
   const session = await auth();
@@ -35,8 +35,8 @@ const page = async () => {
       </div>
       <div className="w-full h-full grid grid-cols-1 sm:grid-cols-3 gap-4 p-4">
         {address &&
-          address.map(() => (
-            <Card className="w-full">
+          address.map((adres, index) => (
+            <Card key={index} className="w-full">
               <CardHeader className="flex gap-3">
                 <Image
                   alt="nextui logo"
@@ -46,7 +46,7 @@ const page = async () => {
                   width={40}
                 />
                 <div className="flex flex-col">
-                  <p className="text-md">{address[0].fullname}</p>
+                  <p className="text-md">{adres.fullname}</p>
                   <p className="text-small text-default-500">
                     {address[0].phoneno}
                   </p>
@@ -58,28 +58,19 @@ const page = async () => {
                 <ul>
                   <li className="font-bold">
                     <Label>State :</Label>{" "}
-                    <span className="font-bold text-sm">
-                      {address[0].state}
-                    </span>
-                    ,
+                    <span className="font-bold text-sm">{adres.state}</span>,
                   </li>
                   <li className="font-bold">
                     <Label>City :</Label>{" "}
-                    <span className="font-bold text-sm">{address[0].town}</span>
-                    ,
+                    <span className="font-bold text-sm">{adres.town}</span>,
                   </li>
                   <li className="font-bold">
                     <Label>Pincode :</Label>{" "}
-                    <span className="font-bold text-sm">
-                      {address[0].pincode}
-                    </span>
-                    ,
+                    <span className="font-bold text-sm">{adres.pincode}</span>,
                   </li>
                   <li className="font-bold">
                     <Label>Address :</Label>{" "}
-                    <span className="font-bold text-sm">
-                      {address[0].adres}
-                    </span>
+                    <span className="font-bold text-sm">{adres.adres}</span>
                   </li>
                 </ul>
                 {/* </p> */}
@@ -93,8 +84,9 @@ const page = async () => {
             </Card>
           ))}
         <div className="flex items-center justify-center bg-white w-full rounded-sm">
-          {/* <AddAddress /> */}
+          <AddAddress />
         </div>
+        {/* <AddressForm /> */}
       </div>
     </div>
   );
@@ -102,7 +94,8 @@ const page = async () => {
 
 export default page;
 
-export function AddAddress() {
+export async function AddAddress() {
+  const session = await auth();
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -117,10 +110,7 @@ export function AddAddress() {
             Make changes to your profile here. Click save when you're done.
           </DialogDescription>
         </DialogHeader>
-        <AddressForm />
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
+        <AddressForm email={session?.user?.email ?? ""} />
       </DialogContent>
     </Dialog>
   );
