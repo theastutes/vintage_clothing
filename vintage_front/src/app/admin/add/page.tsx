@@ -1,18 +1,18 @@
-// "use client";
-// import { z } from "zod";
-// import { Controller, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import InputColor from 'react-input-color'
-// import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
-// import axios from "axios";
-// import { colors } from "@nextui-org/theme";
+"use client";
+import { z } from "zod";
+import { Controller, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import InputColor from 'react-input-color'
+import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
+import axios from "axios";
+import { colors } from "@nextui-org/theme";
 
-// const colorSchema = z.object({
-//   size:z.string(),
-//   color: z.string().min(1, "Color is required"),
-//   colorName: z.string().min(1, "Color name is required"),
-//   quantity: z.string().min(1, "Quantity is required"),
-// });
+const colorSchema = z.object({
+  size:z.string(),
+  color: z.string().min(1, "Color is required"),
+  colorName: z.string().min(1, "Color name is required"),
+  quantity: z.string().min(1, "Quantity is required"),
+});
 
 // const sizeSchema = z.object({
 //   size:z.string()
@@ -31,10 +31,12 @@
 //   colors:z.array(colorSchema),
 // });
 
-// type IProduct = z.infer<typeof productSchema>;
 
-// const Form: React.FC = () => {
-//   const { register, control, getValues, setValue , watch , handleSubmit , formState: { errors , isSubmitting } } = useForm<IProduct>({ resolver: zodResolver(productSchema) });
+type IProduct = z.infer<typeof productSchema>;
+
+
+const Form: React.FC = () => {
+  const { register, control, getValues, setValue , watch , handleSubmit , formState: { errors , isSubmitting } } = useForm<IProduct>({ resolver: zodResolver(productSchema) });
 
 //   const {fields:sizeField, append:sizeAppend, remove:sizeRemove} = useFieldArray({ control, name:"sizes"});
 
@@ -81,9 +83,11 @@
 //     console.log(errors);
 //   }
 
-//   function appendColor(size:string) {
-//     colAppend({size:size,color:'', colorName:'', quantity:''})
-//   }
+
+
+  const showerors = () => {
+    console.log(errors);
+  }
 
 //   return (
 //     <div className="w-[80%] mx-auto">
@@ -221,19 +225,25 @@
 //         ))}
 //       </div>
 
-//       <button type="button" onClick={checksizes}>Check sizes</button>
-//       <button type="button" name="show error" onClick={showerors} >show errors</button>
-//       {/* <button
-//         type="button"
-//         name="submit"
-//         onClick={handleSubmit(onSubmit)}
-//         className="mt-4 h-8 w-40 px-2 py-1 bg-blue-500 text-white rounded-md">
-//       </button> */}
-//       <input type="submit" />
+            </div>
+            <button type="button" onClick={() => appendColor(sizefield.size) } >Add Color </ button>
+            {errors.sizes && <p>{errors.sizes.message}</p>}
+          </div>
+        ))}
+      </div>
 
-//     </form>
-//     </div>
-//   );
-// };
+      <><button type="button" onClick={checksizes}>Check sizes</button><button type="button" name="show error" onClick={showerors}>show errors</button></>
+      {/* <button
+        type="button"
+        name="submit"
+        onClick={handleSubmit(onSubmit)}
+        className="mt-4 h-8 w-40 px-2 py-1 bg-blue-500 text-white rounded-md">
+      </button> */}
+      <input type="submit" />
 
-// export default Form;
+    </form>
+    </div>
+  );
+};
+
+export default Form;

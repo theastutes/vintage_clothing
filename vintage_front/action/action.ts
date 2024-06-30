@@ -194,7 +194,7 @@ type sdata = {
 
 export async function searchMyData(data: string) {
   try {
-    const res = await axios.post<IAddress>(
+    const res = await axios.post(
       "http://localhost:4000/api/products/search",
       {
         data,
