@@ -13,7 +13,7 @@ interface itemprops {
 function NavBar() {
   const items: itemprops[] = [
     {
-      path: "/store",
+      path: `/store?query=${""}&category=${""}`,
       icon: <HiViewGrid size={32} />,
     },
     {

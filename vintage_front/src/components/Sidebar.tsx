@@ -18,7 +18,11 @@ interface TabItem {
 function SideBar() {
   const tabs: TabItem[] = [
     { path: "/", icon: <AiOutlineHome size={26} />, label: "Home" },
-    { path: "/store", icon: <RxDashboard size={26} />, label: "Store" },
+    {
+      path: `/store?query=${""}&category=${""}`,
+      icon: <RxDashboard size={26} />,
+      label: "Store",
+    },
     { path: "/cart", icon: <AiOutlineShoppingCart size={26} />, label: "Cart" },
     { path: "/account", icon: <AiOutlineUser size={26} />, label: "Account" },
   ];

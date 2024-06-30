@@ -1,25 +1,22 @@
 import Link from "next/link";
 import { IProduct } from "../../types/types";
 import Image from "next/image";
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
+import { Card, CardBody, CardFooter } from "@nextui-org/card";
 
 function ProductCard({ item }: { item: IProduct }) {
-  // const router = useRouter();
   return (
-    <Card key={item._id} shadow="sm" isPressable>
+    <Card className="min-w-44" key={item._id} shadow="sm" isPressable>
       <Link className="h-full w-full" href={`/productDetail/${item._id}`}>
         <CardBody className="overflow-visible p-0">
           <Image
-            // shadow="sm"
-            // radius="lg"
             width={250}
             height={250}
             alt={item.title}
-            className="w-full object-cover h-[140px] rounded-lg"
+            className="w-full shadow-lg shadow-gray-400 object-cover h-[140px] rounded-lg"
             src={item.images[0]}
           />
         </CardBody>
-        <CardFooter className="text-small justify-between">
+        <CardFooter className="text-small bg-transparent justify-between">
           <b>{item.title}</b>
           <p className="text-default-500">{item.sp}</p>
         </CardFooter>
