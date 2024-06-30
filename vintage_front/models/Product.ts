@@ -3,14 +3,10 @@ import mongoose, { Document, Schema } from "mongoose";
 
 // Define the interface for Size
 interface IColor {
+  size:string;
   color: string;
   colorName: string;
   quantity: string;
-}
-
-interface ISize {
-  size: string;
-  colors: IColor[];
 }
 
 // Define the interface for Product
@@ -21,17 +17,18 @@ interface IProduct extends Document {
   mrp: number;
   sp: number;
   category: string;
-  sizes: ISize[];
+  sizes: string[];
+  colors: IColor[]
 }
 
-// Define the Size schema
-const SizeSchema: Schema = new Schema({
-  size: {
-    type: String,
-    required: true,
-  },
+// Define the Color schema
+const colorSchema: Schema = new Schema({
   colors: [
     {
+      size:{
+        type:String,
+        required: true,
+      },
       color: {
         type: String,
         required: true,
@@ -77,9 +74,13 @@ const ProductSchema: Schema = new Schema({
     required: true,
   },
   sizes: {
-    type: [SizeSchema],
+    type: [String],
     required: true,
   },
+  colors:{
+    type:[colorSchema],
+    required:true,
+  }
 });
 
 // Create and export the Product model
