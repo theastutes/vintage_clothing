@@ -38,7 +38,7 @@ export default async function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body
-        className={`${dosis.className} antialiased bg-mywhite text-myblack`}
+        className={`${dosis.className} antialiased bg-mywhite text-myblack h-full min-h-full relative`}
       >
         <SessionProvider basePath={"/auth"} session={session}>
           <header className="">
@@ -51,12 +51,11 @@ export default async function RootLayout({
           </div>
 
           <NextUIProvider>
-            <main className="relative w-full">
+            <main className="relative w-full h-full min-h-full">
               <SideBar />
-              <div className="relative w-full sm:pl-24 pb-16 pt-14">
+              <div className="relative w-full h-full min-h-full sm:pl-24 pb-16 pt-16">
                 {children}
               </div>
-              {/* <Footer /> */}
             </main>
           </NextUIProvider>
         </SessionProvider>

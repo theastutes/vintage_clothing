@@ -140,11 +140,11 @@ export const removeFromCart = async (productId: string, email: string) => {
   }
 };
 
-export const addToCart = async (myproduct: IItem) => {
-  console.log("In addToCart action.ts :  ", myproduct);
+export const addToCart = async (id: string) => {
+  console.log("In addToCart action.ts :  ", id);
   try {
     const response = await axios
-      .post(`http://localhost:4000/api/cart/add`, myproduct)
+      .post(`http://localhost:4000/api/cart/add`, id)
       .then((response) => {
         console.log("Product added to cart successfully ");
       })
@@ -194,12 +194,9 @@ type sdata = {
 
 export async function searchMyData(data: string) {
   try {
-    const res = await axios.post(
-      "http://localhost:4000/api/products/search",
-      {
-        data,
-      }
-    );
+    const res = await axios.post("http://localhost:4000/api/products/search", {
+      data,
+    });
     return res.data;
   } catch (error) {
     console.log("Error while Searching data in searchMyData", error);

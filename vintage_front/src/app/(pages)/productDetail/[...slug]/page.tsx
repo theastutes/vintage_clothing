@@ -5,7 +5,7 @@ import {
   getProduct,
 } from "../../../../../action/action";
 import { IAddress, IProduct } from "../../../../../types/types";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { CiMapPin } from "react-icons/ci";
 import {
   Drawer,
@@ -17,8 +17,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Button } from "@/components/ui/button";
-import CreateItem from "@/components/CreateItem";
 import { auth } from "../../../../../auth";
 
 const Page = async ({ params }: { params: { slug: string } }) => {
@@ -27,104 +25,117 @@ const Page = async ({ params }: { params: { slug: string } }) => {
     productId,
   });
   const session = await auth();
-  const address: [IAddress] | null = await getAddress(
-    session?.user?.email ?? ""
-  );
+  // const address: [IAddress] | null = await getAddress(
+  //   session?.user?.email ?? ""
+  // );
   return (
-    <div className="flex flex-col h-screen max-h-screen w-full overflow-hidden">
-      {/* selected location */}
-      <div className="flex w-full px-4 py-2 items-center justify-start gap-2 line-clamp-1 truncate sm:text-xs text-sm text-black bg-white">
-        <CiMapPin />{" "}
-        <div>
-          {" "}
-          Delivering to{" "}
-          <span className="font-bold">{address && address[0].town}</span>
-          {"  "}
-          <span className="text-blue-600">
-            {address && address[0].pincode}
-          </span>{" "}
-          - <span className="cursor-pointer">Update location</span>
-        </div>
-        <IoIosArrowDown className="cursor-pointer" />
-      </div>
+    <FixedHeightContainer className="">
+      <div className="relative w-full h-full flex items-start justify-between flex-col sm:flex-row  overflow-hidden">
+        {/* <div className="w-full flex items-center justify-center p-4 bg-red-900"> */}
 
-      <div className="relative w-full h-full flex items-start justify-between flex-col sm:flex-row">
-        <div className="w-full h-[65%] sm:w-[40%] sm:h-[84%] bg-white/20 rounded-md">
-          <Image
-            className="w-full h-full bg-white/20"
-            src={item?.images[0]!}
+        {/* </div> */}
+
+        <div className="w-full min-w-full h-[65%] min-h-[65%] sm:w-[40%] sm:min-w-[40%] sm:h-[84%] sm:min-h-[84%] rounded-b-3xl overflow-hidden bg-white/15 relative text-center">
+          <Images images={item?.images ?? [""]} />
+          {/* <Image
+            className="my-auto mx-auto"
+            src={item?.images[0] ?? ""}
             alt=""
-            height={2000}
-            width={2000}
+            height={1000}
+            width={1000}
             quality={100}
-          />
+            style={{ objectFit: "fill" }}
+          /> */}
         </div>
-
+        {/* <Location address={address && address[0]} /> */}
         <div className="relative flex flex-col items-start justify-start bg-white w-full h-[35%] sm:w-[60%] sm:h-[84%] rounded-md">
-          <div className="flex items-center justify-between w-full text-black font-extralight px-3 p-2 text-3xl">
-            <div>{item?.title}</div>
-            <Price price={item?.sp ?? 0} />
-          </div>
+          <section className="flex flex-col  items-center justify-center w-full text-black px-3 p-2 text-3xl">
+            <h1 className="font-extrabold">{item?.title}</h1>
+            <p className="px-8 leading-tight line-clamp-6 text-medium text-gray-600 text-center">
+              {item?.details}
+            </p>
+            {/* <Price price={item?.sp ?? 0} /> */}
+          </section>
 
-          <CreateItem
+          {/* <CreateItem
             productId={item?._id}
             sizes={item?.sizes}
             email={session?.user?.email!}
-          />
+          /> */}
 
           <div className="flex w-full h-full">
             <div className="w-full gap-1 flex items-center justify-between h-20 mt-auto">
-              {/* <AddToCart productId={productId} />
-              <Checkout /> */}
+              <AddToCart id={productId} />
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </FixedHeightContainer>
   );
 };
 export default Page;
 
-// const AddToCart = ({ productId }: { productId: string }) => {
-//   return (
-//     <Drawer>
-//       <form
-//         className="w-full h-full"
-//         action={async () => {
-//           "use server";
-//           await addToCart({ productId });
-//         }}
-//       >
-//         <DrawerTrigger
-//           type="submit"
-//           className="bg-yellow-400 h-full w-full text-black text-lg rounded-tr-md"
-//         >
-//           <div className="">Add to cart</div>
-//         </DrawerTrigger>
-//       </form>
-//       <DrawerContent>
-//         <DrawerHeader>
-//           <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-//           <DrawerDescription>This action cannot be undone.</DrawerDescription>
-//         </DrawerHeader>
-//         <DrawerFooter>
-//           <button className="text-black">Submit</button>
-//           <DrawerClose>
-//             <Button variant="outline" className="text-black">
-//               Cancel
-//             </Button>
-//           </DrawerClose>
-//         </DrawerFooter>
-//       </DrawerContent>
-//     </Drawer>
-//   );
-// };
+import { CiShoppingCart } from "react-icons/ci";
+import FixedHeightContainer from "../FixedHeightContainer";
+import { Card } from "@nextui-org/card";
+import Images from "./Images";
+const AddToCart = ({ id }: { id: string }) => {
+  return (
+    <Drawer>
+      <Card
+        isBlurred
+        isPressable
+        shadow="lg"
+        className="w-[calc(100%_-_32px)] absolute bottom-4 mx-4 rounded-full flex items-center flex-row justify-between overflow-hidden border-1 border-gray-400"
+      >
+        <Price price={99} />
+        <DrawerTrigger
+          type="submit"
+          className="bg-black h-28 w-auto aspect-square text-white font-extrabold flex items-center justify-center overflow-hidden rounded-full text-2xl"
+        >
+          <IoIosArrowForward size={40} className="text-2xl" />
+          {/* <span>Add to cart</span> */}
+        </DrawerTrigger>
+      </Card>
+
+      <DrawerContent className="border-0">
+        <DrawerHeader className="bg-transparent">
+          <DrawerTitle className="flex items-center justify-center gap-2">
+            <CiShoppingCart size={26} /> <span>Added To Cart</span>
+          </DrawerTitle>
+          <DrawerDescription className="bg-transparent">
+            Check Products in Cart to Proceede
+          </DrawerDescription>
+        </DrawerHeader>
+
+        <DrawerFooter className="bg-transparent">
+          <form
+            className="w-full h-full"
+            action={async () => {
+              "use server";
+              await addToCart(id);
+            }}
+          >
+            <button className="mx-auto w-full px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-300 active:bg-blue-400 text-black">
+              Add to Cart
+            </button>
+          </form>
+          <DrawerClose>
+            <button className="px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-300 active:bg-blue-400 text-black">
+              Cancel
+            </button>
+          </DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
+  );
+};
 
 const Price = ({ price }: { price: number }) => {
   return (
-    <div className="w-full flex items-center justify-end gap-4">
-      <div className="text-3xl font-extralight text-red-600">-31%</div>
-      <div className="relative text-black flex text-3xl">
+    <div className="flex flex-col items-center justify-center h-28 w-40">
+      <div className="text-gray-500 text-tiny leading-tight">Total Price</div>
+      <div className="relative font-extrabold text-black flex text-3xl">
         <span className="text-xs flex justify-start items-start">₹</span>
         {price * 20}
       </div>
@@ -132,6 +143,20 @@ const Price = ({ price }: { price: number }) => {
   );
 };
 
-/* <div className="w-full px-4">
-  <hr className="w-full" />
-</div>; */
+export const Location = ({ address }: { address: IAddress | null }) => {
+  return (
+    <div className="flex w-full px-4 py-2 items-center justify-start gap-2 line-clamp-1 truncate sm:text-xs text-sm text-black bg-white">
+      <CiMapPin />{" "}
+      <div>
+        {" "}
+        Delivering to{" "}
+        <span className="font-bold">{address && address.town}</span>
+        {"  "}
+        <span className="text-blue-600">
+          {address && address.pincode}
+        </span> - <span className="cursor-pointer">Update location</span>
+      </div>
+      <IoIosArrowDown className="cursor-pointer" />
+    </div>
+  );
+};

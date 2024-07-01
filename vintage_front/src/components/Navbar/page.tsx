@@ -4,6 +4,7 @@ import { RiHome5Fill } from "react-icons/ri";
 import { HiViewGrid } from "react-icons/hi";
 import { CiUser } from "react-icons/ci";
 import { usePathname } from "next/navigation";
+import { Card } from "@nextui-org/card";
 
 interface itemprops {
   path: string;
@@ -27,16 +28,19 @@ function NavBar() {
   ];
   return (
     <>
-      <div
+      <Card
+        isBlurred
+        isPressable
+        radius="none"
         className={`${
           usePathname() === "/cart" ||
           (usePathname().includes("/productDetail") && "max-w-0 max-h-0")
-        } fixed  sm:opacity-1 bottom-0 left-0 right-0 mx-auto p-[1px] h-14 min-w-fit sm:h-[10%]  bg-white border-t z-50 flex flex-row justify-around items-center overflow-hidden text-myblack`}
+        } fixed  sm:opacity-1 bottom-0 rounded-t-sm left-0 right-0 mx-auto p-[1px] h-14 min-w-fit sm:h-[10%]  bg-white/15 border-t z-50 flex flex-row justify-around items-center overflow-hidden text-myblack`}
       >
         {items.map(({ path, icon }, index) => (
           <Item key={index} path={path} icon={icon} />
         ))}
-      </div>
+      </Card>
     </>
   );
 }

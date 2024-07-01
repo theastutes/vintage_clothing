@@ -3,14 +3,16 @@ import User from "../models/User.js";
 
 // Add Product to cart
 export const addToCart = async (req, res) => {
+    const { email, id, size, color, colorName } = req.body;
+    const quantity = 1;
     console.log(req.body);
     try {
-        console.log(req.body);
-        const { productId, size, color, colorName,quantity, email } = req.body;
+        // console.log(req.body);
+        // const { productId, size, color, colorName,quantity, email } = req.body;
 
-        if (!productId || !size|| !color || !colorName || !quantity || !email) {
-            return res.status(500).json("field should not be empty!");
-        }
+        // if (!productId || !size|| !color || !colorName || !quantity || !email) {
+        //     return res.status(500).json("field should not be empty!");
+        // }
 
         // Find the user
         const user = await User.findOne({ email });
@@ -26,12 +28,12 @@ export const addToCart = async (req, res) => {
         console.log("user cart : ", cart)
 
         // Check if the product already exists in the cart
-        const existingItem = cart.find(item => item.productId.toString() === productId);
+        const existingItem = cart.find(item => item.productId.toString() === id);
         console.log("existing item : ", existingItem)
         if (existingItem) {
             existingItem.quantity += quantity;
         } else {
-            cart.push({ productId, quantity, size, color, colorName });
+            cart.push({ productId: id, quantity, size, color, colorName });
         }
 
         // Save the changes to the user

@@ -7,12 +7,15 @@ import { usePathname } from "next/navigation";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { josefin } from "../ui/fonts";
+import { Card } from "@nextui-org/card";
 
 const TopBar = () => {
   const router = useRouter();
   return (
-    <div
-      className={`${josefin.className} shadow-sm fixed text-myblack  bg-white top-0 z-50 h-14 sm:h-14 w-full flex flex-row items-center justify-between px-4 `}
+    <Card
+      isBlurred
+      isPressable
+      className={`${josefin.className} shadow-sm shadow-neutral-500 bg-white/5 fixed text-myblack  border-0 border-gray-200 top-2 right-2 left-2 rounded-full z-50 h-12 flex flex-row items-center justify-between px-4 `}
     >
       <div className="h-8 w-full flex items-center justify-between w-15">
         {usePathname() !== "/" ? (
@@ -25,21 +28,21 @@ const TopBar = () => {
             size={22}
           />
         ) : (
-          <div className="font-bold  text-brown text-xl ">VINTAGE</div>
+          <div className="font-bold text-[1.4rem] ">VINTAGE</div>
         )}
       </div>
       <div className="flex flex-row  w-[30%] justify-end gap-6">
-        <Link
+        {/* <Link
           className={`${usePathname() === "/search" ? "hidden" : ""}`}
           href={"/search"}
         >
           <CgSearch size={25} color="myblack" />
-        </Link>
+        </Link> */}
         <Link href={"/cart"} className="sm:hidden">
           <AiOutlineShoppingCart color="myblack" size={28} />
         </Link>
       </div>
-    </div>
+    </Card>
   );
 };
 

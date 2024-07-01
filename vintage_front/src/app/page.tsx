@@ -5,6 +5,9 @@ import { IUser } from "../../types/types";
 import { josefin } from "@/components/ui/fonts";
 import Search from "@/components/Search";
 import { toast } from "sonner";
+import { Card, CardFooter, CardHeader } from "@nextui-org/card";
+import { Button } from "@/components/ui/button";
+import Footer from "@/components/Footer/page";
 
 interface reponseprops {
   data: [IUser];
@@ -42,35 +45,52 @@ export default async function Home() {
         />
       </div>
 
-      <div className="text-[2rem] font-serif px-2 mt-6">CATEGORY</div>
-      <div className="grid grid-cols-3 gap-1 w-full sm:w-[80%] sm:mx-auto h-fit p-2 rounded-3xl overflow-hidden mb-10">
-        <Product url="/one.jpeg" />
-        <Product url="/two.jpeg" />
-        <Product url="/one.jpeg" />
-        <Product url="/two.jpeg" />
+      <div className="text-[1.6rem] px-2 mt-2 font-semibold">CATEGORY</div>
+      <div className="grid grid-cols-1 gap-1 w-full sm:w-[80%] sm:mx-auto h-fit p-2 rounded-3xl overflow-hidden mb-10">
         <Product url="/one.jpeg" />
         <Product url="/two.jpeg" />
         <Product url="/one.jpeg" />
         <Product url="/two.jpeg" />
       </div>
+      <Footer />
     </main>
   );
 }
 
 export const Product = ({ url }: { url: string }) => {
   return (
-    <div className="relative bg-white/30 transition-all cursor-pointer rounded-3xl aspect-square overflow-hidden">
+    <Card
+      isPressable
+      radius="lg"
+      className="border-none relative h-44 w-full overflow-hidden"
+    >
+      <CardHeader className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-2 absolute before:rounded-xl rounded-large w-[calc(100%_-_8px)] top-1 backdrop-blur-sm shadow-small ml-1 z-10">
+        <p className="text-tiny">Top Wear</p>
+      </CardHeader>
       <Image
-        src={url}
         alt="category_image"
-        width={200}
-        height={200}
         style={{ objectFit: "cover" }}
-        className="h-full aspect-square"
+        className="h-full w-full"
+        height={200}
+        src={
+          url ??
+          "https://th.bing.com/th/id/OIP.GPFEY6kfgxbsja6gmrW6rwAAAA?rs=1&pid=ImgDetMain"
+        }
+        width={200}
       />
-      <div className="absolute rotate-45 right-[8px] bottom-[8px]">
-        <BsChevronExpand size={16} />
-      </div>
-    </div>
+    </Card>
+    // <div className="relative bg-white/30 transition-all cursor-pointer rounded-3xl aspect-square overflow-hidden h-36 w-full">
+    //   <Image
+    //     src={url}
+    //     alt="category_image"
+    //     width={200}
+    //     height={200}
+    //     style={{ objectFit: "cover" }}
+    //     className="h-full w-full"
+    //   />
+    //   <div className="absolute rotate-45 right-[8px] bottom-[8px]">
+    //     <BsChevronExpand size={16} />
+    //   </div>
+    // </div>
   );
 };
