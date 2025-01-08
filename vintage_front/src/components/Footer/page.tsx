@@ -69,7 +69,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="w-full bg-black/5 p-4 text-center font-serif">
+      <div className="w-full text-white/70 bg-black/5 p-4 text-center font-serif">
         © 2024 Copyright :
         <a href="https://tw-elements.com/"> Vintage Ventures</a>
       </div>

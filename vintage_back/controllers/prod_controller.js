@@ -2,14 +2,14 @@ import Product from "../models/products.js"
 
 export const addProd = async (req, res) => {
     try {
-        const { title, details, images, mrp, sp, category, sizes } = req.body;
+        const { title, details, images, mrp, sp, category, variants } = req.body;
 
-        if (!title || !details || !images || !mrp || !sp || !category || !sizes) {
+        if (!title || !details || !images || !mrp || !sp || !category || !variants) {
             res.status(500).json("field should not be empty!");
         }
         else {
             const newProduct = new Product({
-                title, details, images, mrp, sp, category, sizes
+                title, details, images, mrp, sp, category, variants
             });
             await newProduct.save();
             res.status(201).json(newProduct);
@@ -28,7 +28,7 @@ export const updateprod = async (req, res) => {
 
     const prod = req.body;
     console.log(prod);
-    if (!prod.title || !prod.details || !prod.images || !prod.mrp || !prod.sp || !prod.category || !prod.sizes) {
+    if (!prod.title || !prod.details || !prod.images || !prod.mrp || !prod.sp || !prod.category || !prod.variants) {
         res.status(500).json("field should not be empty!");
     }
     const product = await Product.findOneAndUpdate({ _id: prod._id }, prod)
@@ -76,10 +76,10 @@ export const getProd = async (req, res) => {
 
 export const searchProd = async (req, res) => {
     try {
-        
+
         const prod = req.body;
         const compData = prod.data;
-        const products = await Product.find({title:{$regex:compData,$options:'i'}});
+        const products = await Product.find({ title: { $regex: compData, $options: 'i' } });
         console.log(products);
         return res.status(201).json(products);
     } catch (error) {

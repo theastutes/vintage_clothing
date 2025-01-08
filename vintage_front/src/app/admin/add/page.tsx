@@ -5,9 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import InputColor from 'react-input-color'
 import { CheckboxGroup, Checkbox } from "@nextui-org/checkbox";
 import axios from "axios";
-import { colors } from "@nextui-org/theme";
 
-const colorSchema = z.object({
+const variantSchema = z.object({
   size:z.string(),
   color: z.string().min(1, "Color is required"),
   colorName: z.string().min(1, "Color name is required"),
@@ -18,24 +17,23 @@ const colorSchema = z.object({
 //   size:z.string()
 // })
 
-// const productSchema = z.object({
-//   title: z.string().min(3, "Title is required"),
-//   details: z.string().min(3, "Details are required"),
-//   images: z
-//     .array(z.string().url("Invalid URL"))
-//     .min(1, "At least one image is required"),
-//   mrp: z.string(),
-//   sp: z.string(),
-//   category: z.string().min(1, "Category is required"),
-//   sizes: z.array(sizeSchema),
-//   colors:z.array(colorSchema),
-// });
+const productSchema = z.object({
+  title: z.string().min(3, "Title is required"),
+  details: z.string().min(3, "Details are required"),
+  images: z
+    .array(z.string().url("Invalid URL"))
+    .min(1, "At least one image is required"),
+  mrp: z.string(),
+  sp: z.string(),
+  category: z.string().min(1, "Category is required"),
+  colors:z.array(variantSchema),
+});
 
 
 type IProduct = z.infer<typeof productSchema>;
 
 
-const Form: React.FC = () => {
+const Form: React.FC<> = () => {
   const { register, control, getValues, setValue , watch , handleSubmit , formState: { errors , isSubmitting } } = useForm<IProduct>({ resolver: zodResolver(productSchema) });
 
 //   const {fields:sizeField, append:sizeAppend, remove:sizeRemove} = useFieldArray({ control, name:"sizes"});

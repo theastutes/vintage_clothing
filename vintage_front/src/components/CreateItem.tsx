@@ -78,7 +78,10 @@ function CreateItem({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="max-h-full w-full bg-red-900"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       {sizes?.map((currentSize, index) => (
         <div key={currentSize.size} onClick={() => handleSizeChange(index)}>
           {currentSize.size}
@@ -87,7 +90,7 @@ function CreateItem({
       {sizes?.[selectedSize]?.colors?.map((colorDetail, index) => (
         <div key={index * 2} onClick={() => handleColorChange(index)}>
           <div
-            className="w-8 h-8 "
+            className="w-8 h-8"
             style={{ backgroundColor: colorDetail.color }}
           ></div>
           <div>{colorDetail.colorName}</div>
@@ -105,11 +108,11 @@ function CreateItem({
         <p className="text-red-500">{errors.productId?.message}</p>
       )}
 
-      <div>Buy Now</div>
+      {/* <div>Buy Now</div>
 
       <button type="submit" disabled={toggle} title="addtocart">
         Add To Cart
-      </button>
+      </button> */}
     </form>
   );
 }

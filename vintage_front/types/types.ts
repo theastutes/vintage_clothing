@@ -37,6 +37,13 @@ export interface ISize {
   colors: IColor[];
 }
 
+export interface variant {
+  size: string;
+  color: string;
+  colorName: string;
+  quantity: number;
+}
+
 // Define the interface for Product
 export interface IProduct {
   _id: string;
@@ -47,4 +54,5 @@ export interface IProduct {
   sp: number;
   category: string;
   sizes: ISize[];
+  variants: variant[];
 }

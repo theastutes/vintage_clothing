@@ -14,7 +14,7 @@ const FixedHeightContainer: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        "fixed top-0 bottom-0 right-0 left-0 min-h-full h-full w-full overflow-hidden",
+        "fixed top-0 bottom-0 right-0 left-0 min-h-full h-full w-full overflow-hidden sm:pl-24 flex",
         className
       )}
       {...rest}

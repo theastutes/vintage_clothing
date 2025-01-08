@@ -8,43 +8,46 @@ import { getCart, getProduct } from "../../../../action/action";
 import { auth } from "../../../../auth";
 import ToastNotification from "@/comp/ToastNotification";
 
+interface props {
+  success?: IItem[];
+  error?: string;
+}
+
 const ItemView = async () => {
   const session = await auth();
-  if (!session) {
+  if (!session?.user) {
+    <ToastNotification message={"Sign in to access cart"} />;
+  }
+  const email = session?.user?.email;
+
+  const { success, error }: props = await getCart({ email });
+  if (error) {
     return (
       <ToastNotification
-        message="Event has been created"
-        description="Sunday, December 03, 2023 at 9:00 AM"
+        message={error}
+        description="There was an issue retrieving your cart."
       />
     );
   }
-  const email = session!.user!.email!;
-
-  const cart: IItem[] | undefined = await getCart({ email });
-  // if (!cart) {
-  //   async () => {
-  //     <ToastNotification
-  //       message="Event has been created"
-  //       description="Sunday, December 03, 2023 at 9:00 AM"
-  //     />;
-  //   };
-  // }
+  if (!success || success.length === 0) {
+    return (
+      <ToastNotification
+        message="Cart is empty"
+        description="Add items to your cart to see them here."
+      />
+    );
+  }
+  const cart = success;
 
   return (
     <div className="w-full sm:w-[70%] flex flex-col items-center justify-between h-fit p-2 ">
-      {cart ? (
+      {cart &&
         cart?.map((item, index) => (
           <>
-            <Item item={item} />
+            <Item key={index} item={item} />
             <hr className=" border-gray-500/50 border-1 w-full" />
           </>
-        ))
-      ) : (
-        <ToastNotification
-          message="Network Error"
-          description="Error getting Cart, Check your connection and retry"
-        />
-      )}
+        ))}
     </div>
   );
 };

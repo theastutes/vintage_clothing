@@ -2,6 +2,7 @@
 import axios from "axios";
 import { IProduct, IItem, IAddress } from "../types/types";
 import { revalidatePath } from "next/cache";
+import { toast } from "sonner";
 
 interface Iusersession extends Document {
   id: string;
@@ -143,18 +144,10 @@ export const removeFromCart = async (productId: string, email: string) => {
 export const addToCart = async (id: string) => {
   console.log("In addToCart action.ts :  ", id);
   try {
-    const response = await axios
-      .post(`http://localhost:4000/api/cart/add`, id)
-      .then((response) => {
-        console.log("Product added to cart successfully ");
-      })
-      .catch((error) => {
-        console.error("Error while sending data in api/cart : ", error);
-      });
-    //console.log("Data:- :", response.data);
-    console.log(response);
+    const response = await axios.post(`http://localhost:4000/api/cart/add`, id);
+    return { success: true };
   } catch (error) {
-    console.log("error getting product!");
+    return { error: "Error adding to cart!" };
   }
 };
 
@@ -162,7 +155,7 @@ export const getCart = async ({
   email,
 }: {
   email: string | undefined | null;
-}): Promise<IItem[] | undefined> => {
+}): Promise<{ success?: IItem[]; error?: string }> => {
   try {
     const response = await axios.post(
       `http://localhost:4000/api/cart/getCart`,
@@ -170,13 +163,12 @@ export const getCart = async ({
         email,
       }
     );
-    // console.log("Data:- :", response.data);
-    return response.data ?? "";
+    return { success: response.data ?? [] };
   } catch (error) {
-    console.log("error getting product!");
-    return;
+    return { error: "Sign in first or Check your connection!" };
   }
 };
+
 export const loginUser = async () => {
   try {
     console.log("135");

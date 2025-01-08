@@ -14,7 +14,7 @@ const Search = () => {
   return (
     <form
       onSubmit={submit}
-      className="relative flex flex-row items-center h-14 sm:h-11 w-full sm:w-96 mx-auto py-2 px-8 bg-transparent gap-2"
+      className="relative flex flex-row items-center h-14 sm:h-11 w-full sm:w-96 mx-auto py-2 px-8 bg-transparent gap-2 pt-8"
     >
       <Input
         endContent={<AiOutlineSearch size={28} />}

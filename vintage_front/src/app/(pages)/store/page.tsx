@@ -4,7 +4,6 @@ import { IProduct } from "../../../../types/types";
 import { getProducts } from "../../../../action/action";
 import ToastNotification from "@/comp/ToastNotification";
 import { GiSettingsKnobs } from "react-icons/gi";
-import Link from "next/link";
 import CategorySelector from "./CategorySelector";
 import Search from "./Search";
 
@@ -29,7 +28,7 @@ export default async function page({ searchParams }: Props) {
 
   return (
     <div className="w-full h-full min-h-screen flex flex-col items-center justify-start">
-      <div className="h-14 max-w-2xl mx-auto w-full flex items-center justify-between px-4">
+      <div className="h-14 max-w-2xl mx-auto w-full flex items-center justify-between px-4 pt-8">
         <div className={`${josefin.className} text-3xl`}>Explore</div>
         <CategorySelector>
           <GiSettingsKnobs />

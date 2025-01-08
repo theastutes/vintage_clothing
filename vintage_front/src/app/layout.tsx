@@ -11,6 +11,7 @@ import { checkUser } from "../../action/action";
 import { NextUIProvider } from "@nextui-org/system";
 import SideBar from "@/components/Sidebar";
 import { Toaster } from "@/components/ui/sonner";
+import Provider from "./Provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -37,30 +38,30 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body
-        className={`${dosis.className} antialiased bg-mywhite text-myblack h-full min-h-full relative`}
-      >
-        <SessionProvider basePath={"/auth"} session={session}>
-          <header className="">
-            <TopBar />
-          </header>
-          <div className="flex flex-row ">
-            <div className=" sm:hidden lg:hidden visible mx-auto">
-              <NavBar />
+      <Provider>
+        <body
+          className={`${dosis.className} antialiased bg-mywhite text-myblack h-full min-h-full relative`}
+        >
+          <SessionProvider basePath={"/auth"} session={session}>
+            <header className="">
+              <TopBar />
+            </header>
+            <div className="flex flex-row ">
+              <section className=" sm:hidden lg:hidden visible mx-auto">
+                <NavBar />
+              </section>
             </div>
-          </div>
 
-          <NextUIProvider>
             <main className="relative w-full h-full min-h-full">
               <SideBar />
-              <div className="relative w-full h-full min-h-full sm:pl-24 pb-16 pt-16">
+              <div className="relative w-full h-full min-h-full sm:pl-24 pb-16 sm:pb-0 pt-16 sm:pt-0">
                 {children}
               </div>
             </main>
-          </NextUIProvider>
-        </SessionProvider>
-        <Toaster />
-      </body>
+          </SessionProvider>
+          <Toaster />
+        </body>
+      </Provider>
     </html>
   );
 }

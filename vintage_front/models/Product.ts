@@ -1,9 +1,10 @@
 // src/models/Product.ts
 import mongoose, { Document, Schema } from "mongoose";
+import { number, string } from "zod";
 
 // Define the interface for Size
 interface IColor {
-  size:string;
+  size: string;
   color: string;
   colorName: string;
   quantity: string;
@@ -18,15 +19,34 @@ interface IProduct extends Document {
   sp: number;
   category: string;
   sizes: string[];
-  colors: IColor[]
+  colors: IColor[];
 }
+
+const variant: Schema = new Schema({
+  size: {
+    type: string,
+    required: true,
+  },
+  color: {
+    type: string,
+    required: true,
+  },
+  colorName: {
+    type: string,
+    required: true,
+  },
+  quantity: {
+    type: number,
+    required: true,
+  },
+});
 
 // Define the Color schema
 const colorSchema: Schema = new Schema({
   colors: [
     {
-      size:{
-        type:String,
+      size: {
+        type: String,
         required: true,
       },
       color: {
@@ -77,10 +97,10 @@ const ProductSchema: Schema = new Schema({
     type: [String],
     required: true,
   },
-  colors:{
-    type:[colorSchema],
-    required:true,
-  }
+  variants: {
+    type: [variant],
+    required: true,
+  },
 });
 
 // Create and export the Product model

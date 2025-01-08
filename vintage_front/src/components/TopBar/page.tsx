@@ -3,7 +3,7 @@ import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CgSearch } from "react-icons/cg";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname, useSearchParams } from "next/navigation";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { josefin } from "../ui/fonts";
@@ -11,18 +11,23 @@ import { Card } from "@nextui-org/card";
 
 const TopBar = () => {
   const router = useRouter();
+  const pathname = usePathname();
   return (
     <Card
-      isBlurred
       isPressable
-      className={`${josefin.className} shadow-sm shadow-neutral-500 bg-white/5 fixed text-myblack  border-0 border-gray-200 top-2 right-2 left-2 rounded-full z-50 h-12 flex flex-row items-center justify-between px-4 `}
+      isBlurred
+      className={`${josefin.className} shadow-sm sm:hidden shadow-neutral-500 bg-white/5 fixed text-myblack  border-0 border-gray-200 top-2 right-2 left-2 rounded-full z-50 h-12 flex flex-row items-center justify-between px-4 sm:left-[104px]`}
     >
       <div className="h-8 w-full flex items-center justify-between w-15">
         {usePathname() !== "/" ? (
           <IoIosArrowBack
             className="cursor-pointer"
             onClick={() => {
-              router.back();
+              if (pathname.includes("productDetail")) {
+                router.push("/store");
+              } else {
+                router.back();
+              }
             }}
             color="black"
             size={22}
@@ -38,7 +43,7 @@ const TopBar = () => {
         >
           <CgSearch size={25} color="myblack" />
         </Link> */}
-        <Link href={"/cart"} className="sm:hidden">
+        <Link href={"/cart"} className="">
           <AiOutlineShoppingCart color="myblack" size={28} />
         </Link>
       </div>

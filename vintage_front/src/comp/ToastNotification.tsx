@@ -6,7 +6,7 @@ const ToastNotification = ({
   description,
 }: {
   message: string;
-  description: string;
+  description?: string;
 }) => {
   toast.warning(message, {
     description,

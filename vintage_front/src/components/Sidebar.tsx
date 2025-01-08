@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { Button, buttonVariants } from "./ui/button";
 import { toast } from "sonner";
 import { IconType } from "react-icons/lib";
+import { Card } from "@nextui-org/card";
 
 interface TabItem {
   path: string;
@@ -27,7 +28,7 @@ function SideBar() {
     { path: "/account", icon: <AiOutlineUser size={26} />, label: "Account" },
   ];
   return (
-    <div className="fixed z-50 max-sm:hidden bg-myblack p-1 w-24 h-full text-center">
+    <div className="fixed z-50 max-sm:hidden bg-myblack p-1 w-24 h-full text-center rounded-none">
       <div className="aspect-square w-full flex justify-center items-start font-extrabold select-none text-white pt-3">
         Vintage
       </div>
