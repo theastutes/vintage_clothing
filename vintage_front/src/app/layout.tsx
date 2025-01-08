@@ -38,10 +38,11 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <Provider>
+      
         <body
           className={`${dosis.className} antialiased bg-mywhite text-myblack h-full min-h-full relative`}
         >
+          <Provider>
           <SessionProvider basePath={"/auth"} session={session}>
             <header className="">
               <TopBar />
@@ -60,8 +61,9 @@ export default async function RootLayout({
             </main>
           </SessionProvider>
           <Toaster />
+          </Provider>
         </body>
-      </Provider>
+      
     </html>
   );
 }

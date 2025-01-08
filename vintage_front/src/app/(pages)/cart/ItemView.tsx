@@ -8,41 +8,13 @@ import { getCart, getProduct } from "../../../../action/action";
 import { auth } from "../../../../auth";
 import ToastNotification from "@/comp/ToastNotification";
 
-interface props {
-  success?: IItem[];
-  error?: string;
-}
 
-const ItemView = async () => {
-  const session = await auth();
-  if (!session?.user) {
-    <ToastNotification message={"Sign in to access cart"} />;
-  }
-  const email = session?.user?.email;
-
-  const { success, error }: props = await getCart({ email });
-  if (error) {
-    return (
-      <ToastNotification
-        message={error}
-        description="There was an issue retrieving your cart."
-      />
-    );
-  }
-  if (!success || success.length === 0) {
-    return (
-      <ToastNotification
-        message="Cart is empty"
-        description="Add items to your cart to see them here."
-      />
-    );
-  }
-  const cart = success;
+const ItemView = async ({items}:{items:IItem[]}) => {
 
   return (
     <div className="w-full sm:w-[70%] flex flex-col items-center justify-between h-fit p-2 ">
-      {cart &&
-        cart?.map((item, index) => (
+      {items &&
+        items?.map((item, index) => (
           <>
             <Item key={index} item={item} />
             <hr className=" border-gray-500/50 border-1 w-full" />

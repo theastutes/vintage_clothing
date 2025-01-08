@@ -20,6 +20,7 @@ export interface IItem {
   size: string;
   color: string;
   colorName?: string;
+  _id:string | undefined;
 }
 
 export interface returnprops {

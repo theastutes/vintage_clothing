@@ -57,7 +57,7 @@ export const getCart = async (req, res) => {
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
-        console.log("returning user cart : ", user.cart);
+        //console.log("returning user cart : ", user.cart);
         res.status(200).json(user.cart);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });

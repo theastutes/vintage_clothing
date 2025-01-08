@@ -55,9 +55,11 @@ export const getProdById = async (req, res) => {
         const product = await Product.findById(id);
         //console.log("product : ", product);
         if (!product) {
+            console.log("GetProdById: Error occured here!");
             return res.status(404).json({ error: "Product don't exist" })
         }
         res.status(200).json(product);
+        console.log(product);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal Server Error" })

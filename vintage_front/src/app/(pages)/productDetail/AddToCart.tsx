@@ -17,13 +17,18 @@ import { addToCart } from "../../../../action/action";
 import { IProduct } from "../../../../types/types";
 import { buttonVariants } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
+import { auth } from "../../../../auth";
 
 interface Props {
   item: IProduct;
 }
 
-const AddToCart: React.FC<Props> = ({ item }) => {
+const AddToCart: React.FC<Props> = async ({ item }) => {
+
   const router = useSearchParams();
+  const session = await auth();
+  const email = session?.user?.email;
+
   return (
     <Drawer>
       <Card
@@ -67,7 +72,7 @@ const AddToCart: React.FC<Props> = ({ item }) => {
             // }}
           >
             <button
-              onClick={() => addToCart(item._id)}
+              onClick={() => addToCart(item._id,email)}
               type="submit"
               className={`bg-black w-full ${buttonVariants({
                 variant: "default",

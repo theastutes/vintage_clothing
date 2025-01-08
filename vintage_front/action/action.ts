@@ -94,7 +94,7 @@ export const getProducts = async (): Promise<IProduct[] | undefined> => {
 };
 
 export const getProduct = async ({
-  productId,
+  productId
 }: {
   productId: string | undefined;
 }): Promise<IProduct | undefined> => {
@@ -141,10 +141,10 @@ export const removeFromCart = async (productId: string, email: string) => {
   }
 };
 
-export const addToCart = async (id: string) => {
+export const addToCart = async (id: string, email:string|undefined|null) => {
   console.log("In addToCart action.ts :  ", id);
   try {
-    const response = await axios.post(`http://localhost:4000/api/cart/add`, id);
+    const response = await axios.post(`http://localhost:4000/api/cart/add`, {id,email});
     return { success: true };
   } catch (error) {
     return { error: "Error adding to cart!" };
